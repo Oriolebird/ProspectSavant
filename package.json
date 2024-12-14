@@ -3,13 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@mui/icons-material": "^5.16.0",
-    "@mui/material": "^5.16.0",
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@mui/icons-material": "^6.0.0",
+    "@mui/material": "^6.0.0",
+    "@mui/material-nextjs": "^6.0.0",
+    "@mui/styled-engine": "^6.0.0",
+    "@mui/styled-engine-sc": "^6.0.0",
+    "@mui/styles": "^6.2.0",
+    "@mui/system": "^6.0.0",
+    "@mui/utils": "^6.0.0",
+    "@mui/x-data-grid": "^7.22.3",
+    "@mui/x-data-grid-generator": "^7.22.3",
+    "@mui/x-data-grid-pro": "^7.22.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ag-grid-community": "^32.3.3",
+    "ag-grid-react": "^32.3.3",
     "chroma": "^0.0.1",
     "chroma-js": "^3.0.0",
     "react": "^18.3.1",
@@ -42,5 +53,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "@types/chroma-js": "^2.4.4"
+  }
 }

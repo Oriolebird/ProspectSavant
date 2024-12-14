@@ -1,10 +1,11 @@
 
 import datetime
 import io
+import json
 import pandas as pd
-from pybaseball import statcast_batter
-from pybaseball import playerid_lookup
+import pybaseball
 import requests
+
 
 def convert_row_to_player_json(tr: str):
     tr_lines = tr.split('\n')
@@ -92,8 +93,59 @@ def convert_chase_row_to_json(tr: str):
             'chaserate' : float(chaserate)
             }
 
+def convert_velo_row_to_json(tr: str):
+    tr_lines = tr.split('\n')
+    """for i, row in enumerate(tr_lines):
+        print(i, row)"""
+    id = tr_lines[4][(tr_lines[4].index('\"')+1):(tr_lines[4].index('\"')+7)]
+    velo = '-1' if '--' in tr_lines[36] else tr_lines[36][tr_lines[36].find(next(filter(str.isnumeric, tr_lines[36]))):tr_lines[31].index("</span>")]
+    #print(velo)
+    return {
+            'id' : id,
+            'velo' : float(velo)
+            }
+
 def add_chase_rate_to_df(df: pd.DataFrame):
     chase_url = 'https://baseballsavant.mlb.com/statcast-search-minors?hfPT=&hfAB=&hfGT=R%7C&hfPR=foul%7Cfoul%5C.%5C.bunt%7Cbunt%5C.%5C.foul%5C.%5C.tip%7Cfoul%5C.%5C.pitchout%7Chit%5C.%5C.into%5C.%5C.play%7Cmissed%5C.%5C.bunt%7Cfoul%5C.%5C.tip%7Cswinging%5C.%5C.pitchout%7Cswinging%5C.%5C.strike%7Cswinging%5C.%5C.strike%5C.%5C.blocked%7C&hfZ=&hfStadium=&hfBBL=&hfNewZones=21%7C22%7C23%7C24%7C26%7C27%7C28%7C29%7C&hfPull=&hfC=&hfSea=2024%7C&hfSit=&player_type=batter&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInn=&hfBBT=&hfFlag=is%5C.%5C.tracked%7Cis%5C.%5C.remove%5C.%5C.bunts%7C&hfLevel=AAA%7C&metric_1=&hfTeamAffiliate=&hfOpponentAffiliate=&group_by=name&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&chk_is..tracked=on#results'
+
+    chase_data = requests.get(chase_url).text
+    chase_data = chase_data[(chase_data.index("tbody")):(chase_data.index("/tbody"))]
+    chase_data = chase_data.split('</tr>')
+
+    chase_array = []
+    i=0
+    while(i<len(chase_data)-1):
+        chase_array.append(convert_chase_row_to_json(chase_data[i]))
+        i+=2
+
+    cdf = pd.DataFrame(chase_array)
+
+    df = df.merge(cdf, on='id', how='left')
+
+    return df
+
+def add_pitcher_velo_to_df(df: pd.DataFrame):
+    velo_url = 'https://baseballsavant.mlb.com/statcast-search-minors?hfPT=FF%7C&hfAB=&hfGT=R%7C&hfPR=&hfZ=&hfStadium=&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=2024%7C&hfSit=&player_type=pitcher&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInn=&hfBBT=&hfFlag=is%5C.%5C.tracked%7Cis%5C.%5C.remove%5C.%5C.bunts%7C&hfLevel=AAA%7C&metric_1=&hfTeamAffiliate=&hfOpponentAffiliate=&group_by=name&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&chk_stats_velocity=on&chk_is..tracked=on#results'
+
+    velo_data = requests.get(velo_url).text
+    velo_data = velo_data[(velo_data.index("tbody")):(velo_data.index("/tbody"))]
+    velo_data = velo_data.split('</tr>')
+
+    velo_array = []
+    i=0
+    while(i<len(velo_data)-1):
+        velo_array.append(convert_velo_row_to_json(velo_data[i]))
+        i+=2
+
+    cdf = pd.DataFrame(velo_array)
+    #print(cdf)
+
+    df = df.merge(cdf, on='id', how='left')
+
+    return df
+
+def add_pitcher_chase_rate_to_df(df: pd.DataFrame):
+    chase_url = 'https://baseballsavant.mlb.com/statcast-search-minors?hfPT=&hfAB=&hfGT=R%7C&hfPR=foul%7Cfoul%5C.%5C.bunt%7Cbunt%5C.%5C.foul%5C.%5C.tip%7Cfoul%5C.%5C.pitchout%7Chit%5C.%5C.into%5C.%5C.play%7Cmissed%5C.%5C.bunt%7Cfoul%5C.%5C.tip%7Cswinging%5C.%5C.pitchout%7Cswinging%5C.%5C.strike%7Cswinging%5C.%5C.strike%5C.%5C.blocked%7C&hfZ=&hfStadium=&hfBBL=&hfNewZones=21%7C22%7C23%7C24%7C26%7C27%7C28%7C29%7C&hfPull=&hfC=&hfSea=2024%7C&hfSit=&player_type=pitcher&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInn=&hfBBT=&hfFlag=is%5C.%5C.tracked%7Cis%5C.%5C.remove%5C.%5C.bunts%7C&hfLevel=AAA%7C&metric_1=&hfTeamAffiliate=&hfOpponentAffiliate=&group_by=name&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&chk_is..tracked=on#results'
 
     chase_data = requests.get(chase_url).text
     chase_data = chase_data[(chase_data.index("tbody")):(chase_data.index("/tbody"))]
@@ -128,19 +180,154 @@ def get_player_df():
     df = pd.DataFrame(ja)
     return df
 
-def add_percentiles_to_df(df):
-    df['krate_p'] = df.krate.rank(pct=True)
+def get_pitcher_df():
+    url = 'https://baseballsavant.mlb.com/statcast-search-minors?hfPT=&hfAB=&hfGT=R%7C&hfPR=&hfZ=&hfStadium=&hfBBL=&hfNewZones=&hfPull=&hfC=&hfSea=2024%7C&hfSit=&player_type=pitcher&hfOuts=&hfOpponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=&game_date_lt=&hfMo=&hfTeam=&home_road=&hfRO=&position=&hfInn=&hfBBT=&hfFlag=is%5C.%5C.tracked%7Cis%5C.%5C.remove%5C.%5C.bunts%7C&hfLevel=AAA%7C&metric_1=&hfTeamAffiliate=&hfOpponentAffiliate=&group_by=name&min_pitches=0&min_results=0&min_pas=0&sort_col=pitches&player_event_sort=api_p_release_speed&sort_order=desc&chk_is..tracked=on&chk_stats_pa=on&chk_stats_abs=on&chk_stats_bip=on&chk_stats_hits=on&chk_stats_singles=on&chk_stats_dbls=on&chk_stats_triples=on&chk_stats_hrs=on&chk_stats_so=on&chk_stats_k_percent=on&chk_stats_bb=on&chk_stats_bb_percent=on&chk_stats_whiffs=on&chk_stats_swings=on&chk_stats_ba=on&chk_stats_xba=on&chk_stats_obp=on&chk_stats_xobp=on&chk_stats_slg=on&chk_stats_xslg=on&chk_stats_woba=on&chk_stats_xwoba=on&chk_stats_barrels_total=on&chk_stats_babip=on&chk_stats_swing_miss_percent=on&chk_stats_launch_speed=on&chk_stats_launch_angle=on&chk_stats_hardhit_percent=on&chk_stats_barrels_per_bbe_percent=on&chk_stats_barrels_per_pa_percent=on#results'
+    data = requests.get(url).text
+    data = data[(data.index("tbody")):(data.index("/tbody"))]
+    data = data.split('</tr>')
+
+    ja = []
+
+    i=0
+    while(i<len(data)-1):
+        ja.append(convert_row_to_player_json(data[i]))
+        i+=2
+
+
+    df = pd.DataFrame(ja)
+    return df
+
+def add_hitting_percentiles_to_df(df):
+    df['krate_p'] = df.krate.rank(pct=True, ascending=False)
     df['bbrate_p'] = df.bbrate.rank(pct=True)
     df['xba_p'] = df.xba.rank(pct=True)
     df['xslg_p'] = df.xslg.rank(pct=True)
     df['xwoba_p'] = df.xwoba.rank(pct=True)
-    df['whiffrate_p'] = df.whiffrate.rank(pct=True)
+    df['whiffrate_p'] = df.whiffrate.rank(pct=True, ascending=False)
     df['ev_p'] = df.ev.rank(pct=True)
     df['langle_p'] = df.langle.rank(pct=True)
     df['hhrate_p'] = df.hhrate.rank(pct=True)
     df['barrelbbe_p'] = df.barrelbbe.rank(pct=True)
+    df['chaserate_p'] = df.chaserate.rank(pct=True, ascending=False)
+    return df
+
+def add_pitching_percentiles_to_df(df):
+    df['krate_p'] = df.krate.rank(pct=True)
+    df['bbrate_p'] = df.bbrate.rank(pct=True, ascending=False)
+    df['xba_p'] = df.xba.rank(pct=True, ascending=False)
+    df['xslg_p'] = df.xslg.rank(pct=True, ascending=False)
+    df['xwoba_p'] = df.xwoba.rank(pct=True, ascending=False)
+    df['whiffrate_p'] = df.whiffrate.rank(pct=True)
+    df['ev_p'] = df.ev.rank(pct=True, ascending=False)
+    df['langle_p'] = df.langle.rank(pct=True, ascending=False)
+    df['hhrate_p'] = df.hhrate.rank(pct=True, ascending=False)
+    df['barrelbbe_p'] = df.barrelbbe.rank(pct=True, ascending=False)
     df['chaserate_p'] = df.chaserate.rank(pct=True)
     return df
+
+def add_player_info(name):
+    headers = {
+        'accept': '*/*',
+        'accept-language': 'en-US,en;q=0.9,en-GB;q=0.8',
+        'authorization': 'Bearer search-cty1wzhqd1pqueai45ccxh7y',
+        'content-type': 'application/json',
+        'dnt': '1',
+        'origin': 'https://www.fangraphs.com',
+        'priority': 'u=1, i',
+        'referer': 'https://www.fangraphs.com/',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'cross-site',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'x-elastic-client-meta': 'ent=8.13.0-legacy,js=browser,t=8.13.0-legacy,ft=universal',
+        'x-swiftype-client': 'elastic-app-search-javascript',
+        'x-swiftype-client-version': '8.13.0',
+    }
+
+    json_data = {
+        'query': name,
+        'search_fields': {
+            'name': {},
+            'namekorean': {},
+        },
+        'result_fields': {
+            'id': {
+                'raw': {},
+            },
+            'name': {
+                'raw': {},
+            },
+            'firstname': {
+                'raw': {},
+            },
+            'lastname': {
+                'raw': {},
+            },
+            'namekorean': {
+                'raw': {},
+            },
+            'debut_season': {
+                'raw': {},
+            },
+            'last_season': {
+                'raw': {},
+            },
+            'birthdate': {
+                'raw': {},
+            },
+            'international': {
+                'raw': {},
+            },
+            'url': {
+                'raw': {},
+            },
+        },
+    }
+
+    response = requests.post(
+        'https://85798c555f18463c9d3ec7d18778c367.ent-search.us-east1.gcp.elastic-cloud.com/api/as/v1/engines/fangraphs/search.json',
+        headers=headers,
+        json=json_data,
+    )
+    print("RESPONSE: ",response.text)
+    search_json = json.loads(response.text)
+
+    results = search_json["results"]
+    results = [r for r in results if(r['name']['raw'].lower() == name.lower())] 
+    print("RESULTS: ", results)
+    url=""
+    if len(results) > 1:
+        for i in range(len(results)):
+            if results[i]['birthdate']['raw'] == None:
+                results[i]['birthdate']['raw'] = '1900-02-03T00:00:00+00:00'
+        results.sort(key = lambda json: json['birthdate']['raw'], reverse=True)
+        url = results[0]['url']['raw']
+    else:
+        url = results[0]['url']['raw']
+
+    url = 'https://www.fangraphs.com'+url
+    print(url)
+    data = requests.get(url).text
+    lines = data.split('<')
+    j = "Error"
+    for i in range(len(lines)):
+        if "dataCommon" in lines[i]:
+            j = json.loads(lines[i][lines[i].index('{'):])
+            break
+    if j == "Error":
+        print("Error for player ", name)
+        return {}, {}, "", "", "", "", "", "", "", "", "", ""
+    
+    print("DATACOMMON ", j["props"]["pageProps"]["dataCommon"])
+    info = j["props"]["pageProps"]["dataCommon"]["playerInfo"]
+    team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
+
+    print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
+
+    return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"]
 
 df = get_player_df()
 
@@ -149,11 +336,38 @@ df = df.query('pitches > '+str(pitch_qualifier))
 
 df = add_chase_rate_to_df(df)
 
-df = add_percentiles_to_df(df)
+df = add_hitting_percentiles_to_df(df)
+
+pdf = get_pitcher_df()
+
+pitch_qualifier_p = 700
+pdf = pdf.query('pitches > '+str(pitch_qualifier_p))
+
+pdf = add_pitcher_chase_rate_to_df(pdf)
+pdf = add_pitcher_velo_to_df(pdf)
+
+pdf = add_pitching_percentiles_to_df(pdf)
+pdf['velo_p'] = pdf.velo.rank(pct=True)
+
+"""id_df = pd.read_csv('player_ids.csv').fillna(0)[['MLBID', 'BATS', 'THROWS', 'TEAM', 'BIRTHDATE', 'LG', 'POS', 'IDFANGRAPHS', 'BREFID']]
+print(id_df.columns)
+df['id']=df['id'].astype(int)
+pdf['id']=pdf['id'].astype(int)
+id_df['MLBID']=id_df['MLBID'].astype(int)
+print(id_df)
+df = df.merge(id_df, how="left", left_on="id", right_on="MLBID")
+pdf = pdf.merge(id_df, how="left", left_on="id", right_on="MLBID")"""
+
+df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"] = zip(*df["name"].apply(add_player_info))
+pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"] = zip(*pdf["name"].apply(add_player_info))
 
 print(df)
+print(pdf)
 
 date = datetime.datetime.today().strftime('%m_%d_%Y')
 
 df.to_csv('minors_'+date+'_'+str(pitch_qualifier)+'.csv', index=False) 
+
+pdf.to_csv('minors_pitchers_'+date+'_'+str(pitch_qualifier)+'.csv', index=False) 
+
 

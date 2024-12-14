@@ -1,0 +1,390 @@
+{
+  "meta": {
+    "alerts": [],
+    "warnings": [],
+    "precision": 2,
+    "page": {
+      "current": 1,
+      "total_pages": 60,
+      "total_results": 599,
+      "size": 10
+    },
+    "engine": {
+      "name": "fangraphs",
+      "type": "default"
+    },
+    "request_id": "u-_UAz9KQqSL0IbChM-x-g"
+  },
+  "results": [
+    {
+      "firstname": {
+        "raw": "Jack"
+      },
+      "birthdate": {
+        "raw": "1872-10-06T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 1904
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 1897
+      },
+      "name": {
+        "raw": "Jack Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/jack-dunn/1003573/stats?position=P/3B"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 88.32855,
+        "id": "1003573"
+      },
+      "id": {
+        "raw": "1003573"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "John"
+      },
+      "birthdate": {
+        "raw": "1996-09-05T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": null
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": null
+      },
+      "name": {
+        "raw": "Jack Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/john-dunn/sa3010029/stats?position=3B/OF"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 87.9531,
+        "id": "sa3010029"
+      },
+      "id": {
+        "raw": "sa3010029"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Adam"
+      },
+      "birthdate": {
+        "raw": "1979-11-09T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 2014
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 2001
+      },
+      "name": {
+        "raw": "Adam Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/adam-dunn/319/stats?position=1B/OF"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 11.774456,
+        "id": "319"
+      },
+      "id": {
+        "raw": "319"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Oliver"
+      },
+      "birthdate": {
+        "raw": "1997-09-02T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 2024
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 2024
+      },
+      "name": {
+        "raw": "Oliver Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/oliver-dunn/26295/stats?position=3B"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 10.671719,
+        "id": "26295"
+      },
+      "id": {
+        "raw": "26295"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Justin"
+      },
+      "birthdate": {
+        "raw": "1995-09-22T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 2022
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 2019
+      },
+      "name": {
+        "raw": "Justin Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/justin-dunn/19268/stats?position=P"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 10.081735,
+        "id": "19268"
+      },
+      "id": {
+        "raw": "19268"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Jack"
+      },
+      "birthdate": {
+        "raw": "1995-10-15T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 2024
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 2017
+      },
+      "name": {
+        "raw": "Jack Flaherty"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/jack-flaherty/17479/stats?position=P"
+      },
+      "lastname": {
+        "raw": "Flaherty"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 9.9299755,
+        "id": "17479"
+      },
+      "id": {
+        "raw": "17479"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Blake"
+      },
+      "birthdate": {
+        "raw": "1998-09-05T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 2024
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 2024
+      },
+      "name": {
+        "raw": "Blake Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/blake-dunn/29487/stats?position=OF"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 9.713311,
+        "id": "29487"
+      },
+      "id": {
+        "raw": "29487"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Jake"
+      },
+      "birthdate": {
+        "raw": "1909-11-05T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 1943
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 1930
+      },
+      "name": {
+        "raw": "Jake Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/jake-dunn/1015091/stats?position=SS/OF"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 9.445358,
+        "id": "1015091"
+      },
+      "id": {
+        "raw": "1015091"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Jack"
+      },
+      "birthdate": {
+        "raw": "1955-05-16T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": 1994
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": 1977
+      },
+      "name": {
+        "raw": "Jack Morris"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/jack-morris/1009211/stats?position=P"
+      },
+      "lastname": {
+        "raw": "Morris"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 9.157874,
+        "id": "1009211"
+      },
+      "id": {
+        "raw": "1009211"
+      }
+    },
+    {
+      "firstname": {
+        "raw": "Cordell"
+      },
+      "birthdate": {
+        "raw": "1999-06-25T00:00:00+00:00"
+      },
+      "last_season": {
+        "raw": null
+      },
+      "namekorean": {
+        "raw": null
+      },
+      "debut_season": {
+        "raw": null
+      },
+      "name": {
+        "raw": "Cordell Dunn"
+      },
+      "international": {
+        "raw": 0
+      },
+      "url": {
+        "raw": "/players/cordell-dunn/sa3010854/stats?position=C"
+      },
+      "lastname": {
+        "raw": "Dunn"
+      },
+      "_meta": {
+        "engine": "fangraphs",
+        "score": 9.143798,
+        "id": "sa3010854"
+      },
+      "id": {
+        "raw": "sa3010854"
+      }
+    }
+  ]
+}
