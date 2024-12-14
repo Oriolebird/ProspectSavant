@@ -6,14 +6,14 @@ import json
 
 app = Flask(__name__)
 
-current_file = 'minors_12_10_2024_700.csv'
-current_pitchers_file = 'minors_pitchers_12_10_2024_700.csv'
+current_file = 'minors_12_14_2024_700.csv'
+current_pitchers_file = 'minors_pitchers_12_14_2024_700.csv'
 
 @app.route('/player/<id>')
 def get_player_data(id):
     df = pd.read_csv(current_file)
     pdf = pd.read_csv(current_pitchers_file)
-    df_merged = df.append(pdf, ignore_index=True)
+    df_merged = pd.concat([df, pdf], ignore_index=True)
     print(df_merged)
     d = json.loads(df_merged.query(f'id == {id}').to_json(orient ='records'))[0]
     return d
@@ -24,7 +24,7 @@ def search_player_name():
     print("Searching for player: ",name)
     df = pd.read_csv(current_file)
     pdf = pd.read_csv(current_pitchers_file)
-    df_merged = df.append(pdf, ignore_index=True)
+    df_merged = pd.concat([df, pdf], ignore_index=True)
     d = json.loads(df_merged.query(f'name == \"{name}\"').to_json(orient ='records'))
     print(d)
     if(len(d)==0):

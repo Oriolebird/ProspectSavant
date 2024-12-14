@@ -2,6 +2,7 @@
 import datetime
 import io
 import json
+from numpy import integer
 import pandas as pd
 import pybaseball
 import requests
@@ -225,6 +226,28 @@ def add_pitching_percentiles_to_df(df):
     df['chaserate_p'] = df.chaserate.rank(pct=True)
     return df
 
+def add_pitching_percentiles_to_df(df):
+    df['krate_p'] = df.krate.rank(pct=True)
+    df['bbrate_p'] = df.bbrate.rank(pct=True, ascending=False)
+    df['xba_p'] = df.xba.rank(pct=True, ascending=False)
+    df['xslg_p'] = df.xslg.rank(pct=True, ascending=False)
+    df['xwoba_p'] = df.xwoba.rank(pct=True, ascending=False)
+    df['whiffrate_p'] = df.whiffrate.rank(pct=True)
+    df['ev_p'] = df.ev.rank(pct=True, ascending=False)
+    df['langle_p'] = df.langle.rank(pct=True, ascending=False)
+    df['hhrate_p'] = df.hhrate.rank(pct=True, ascending=False)
+    df['barrelbbe_p'] = df.barrelbbe.rank(pct=True, ascending=False)
+    df['chaserate_p'] = df.chaserate.rank(pct=True)
+    return df
+
+def add_hitter_prospect_scores(df):
+    df['pscore'] = df['age_p']*((df['xwoba_p']*10)+df['barrelbbe_p']*5+df['ev_p']*7+df['krate_p']*2+df['bbrate_p']*4+(df['hhrate_p']*4))
+    return df
+
+def add_pitcher_prospect_scores(df):
+    df['pscore'] = df['age_p']*((df['velo_p']*10)+(df['xwoba_p']*10)+(df['krate_p']*10)+(df['bbrate_p']*5)+(df['whiffrate_p']*4)+(df['chaserate_p']*4)+(df['hhrate_p']*2)+(df['barrelbbe_p']*5))
+    return df
+
 def add_player_info(name):
     headers = {
         'accept': '*/*',
@@ -327,7 +350,7 @@ def add_player_info(name):
 
     print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
 
-    return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"]
+    return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"]
 
 df = get_player_df()
 
@@ -349,6 +372,8 @@ pdf = add_pitcher_velo_to_df(pdf)
 pdf = add_pitching_percentiles_to_df(pdf)
 pdf['velo_p'] = pdf.velo.rank(pct=True)
 
+
+
 """id_df = pd.read_csv('player_ids.csv').fillna(0)[['MLBID', 'BATS', 'THROWS', 'TEAM', 'BIRTHDATE', 'LG', 'POS', 'IDFANGRAPHS', 'BREFID']]
 print(id_df.columns)
 df['id']=df['id'].astype(int)
@@ -358,8 +383,24 @@ print(id_df)
 df = df.merge(id_df, how="left", left_on="id", right_on="MLBID")
 pdf = pdf.merge(id_df, how="left", left_on="id", right_on="MLBID")"""
 
-df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"] = zip(*df["name"].apply(add_player_info))
-pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"] = zip(*pdf["name"].apply(add_player_info))
+df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["AgeDisplayOld"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"] = zip(*df["name"].apply(add_player_info))
+pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["AgeDisplayOld"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"] = zip(*pdf["name"].apply(add_player_info))
+
+def add_age_days(age):
+    a = age.split(' ')
+    #"26 years, 6 months, 17 days"
+    days = int(a[0])*365 + int(a[2])*30 + int(a[4])
+    return days
+
+df['age_days'] = df['AgeDisplayOld'].apply(add_age_days)
+df['age_p'] = df.age_days.rank(pct=True, ascending=False)
+pdf['age_days'] = pdf['AgeDisplayOld'].apply(add_age_days)
+pdf['age_p'] = pdf.age_days.rank(pct=True, ascending=False)
+print(pdf['age_p'])
+df = add_hitter_prospect_scores(df)
+pdf = add_pitcher_prospect_scores(pdf)
+df['score_p'] = df.pscore.rank(pct=True, ascending=True)
+pdf['score_p'] = pdf.pscore.rank(pct=True, ascending=True)
 
 print(df)
 print(pdf)
