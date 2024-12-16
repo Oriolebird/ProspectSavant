@@ -10,32 +10,26 @@ import InfoCard from "./InfoCard";
 
 export default function PlayerPage(props: any) {
   const [playerData, setPlayerData] = useState<any>({});
-  const hitterFields = [
-    "xwoba_p",
-    "xba_p",
-    "xslg_p",
-    "xobp_p",
-    "ev_p",
-    "barrelbbe_p",
-    "hhrate_p",
-    "langle_p",
-    "chaserate_p",
-    "whiffrate_p",
-    "krate_p",
-    "bbrate_p",
-  ];
-
-  const thumbscale = chroma.scale(["blue", "#C2C2C2", "red"]);
-  const trackscale = chroma.scale(["blue", "#C2C2C2", "red"]);
-  const railscale = chroma.scale(["blue", "#C2C2C2", "red"]);
-  const activescale = chroma.scale(["blue", "#C2C2C2", "red"]);
+  const [playerInfo, setPlayerInfo] = useState<any>({});
 
   useEffect(() => {
     fetch("/player/" + props.id)
       .then((res) => res.json())
-      .then((data) => {
-        setPlayerData(data);
-        console.log(data);
+      .then((data1) => {
+        setPlayerData(data1);
+        fetch(`/player-info/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ playerUrlProp: data1['UPURL'] }),
+        })
+          .then((res) => res.json())
+          .then((data2) => {
+            setPlayerInfo(data2);
+            console.log("D: ", data2);
+          });
+        console.log(data1);
       });
   }, [props.id]);
 
@@ -79,8 +73,8 @@ export default function PlayerPage(props: any) {
                 square
                 variant="outlined"
               >
-                {playerData.player_info && (
-                  <InfoCard playerUrlProp={playerData.UPURL} />
+                {playerInfo.common && (
+                  <InfoCard playerInfoProp={playerInfo} />
                 )}
               </Paper>
             </Grid>
@@ -99,9 +93,6 @@ export default function PlayerPage(props: any) {
                 {playerData.xwoba_p !== "undefined" &&
                   !isNaN(playerData.xwoba_p) && (
                     <div>
-                      <Typography variant="h4">
-                        {playerData.name} (AAA) ({props.id})
-                      </Typography>
                       <PlayerCardRow
                         stat="xWOBA"
                         value={playerData.xwoba}

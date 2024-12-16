@@ -4,48 +4,34 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
 import { Typography } from "@mui/material";
 
-export default function InfoCard({ playerUrlProp }: { playerUrlProp: any }) {
-  const [playerUrl, setPlayerUrl] = useState<any>(playerUrlProp);
-  const [playerInfo, setPlayerInfo] = useState<any>({});
+export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
+  const [playerInfo, setPlayerInfo] = useState<any>(playerInfoProp);
   //console.log(playerInfoProp, teamInfoProp);
 
-  useEffect(() => {
-    console.log("URL: " + JSON.stringify(playerUrlProp));
-    setPlayerInfo(playerUrlProp);
-    fetch(`/player-info/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ playerUrlProp }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPlayerInfo(data);
-        console.log("D: ", data);
-      });
-  }, [playerUrlProp]);
+  
 
   return (
     <div>
       {playerInfo.common != undefined && (
-        <div>
+        <div style={{padding: "20px"}}>
           <Grid
             container
-            spacing={1}
-            columns={16}
             direction="row"
-            justifyContent="flex-end"
+            justifyContent="flex-start"
             alignItems="center"
           >
-            <Grid size={10}>
-              <Typography variant="h3">
-                {playerInfo.common.playerInfo.firstLastName}
+              <Typography variant="h4">
+                {playerInfo.common.playerInfo.firstLastName} ⋅ {playerInfo.common.playerInfo.Position}
               </Typography>
-            </Grid>
           </Grid>
-          <Typography variant="body2">
-            {playerInfo.common.prospect[0].Summary}
+          <Typography variant="h6">
+            {playerInfo.common.teamInfo.MLB_FullName} ({playerInfo.common.teamInfo.llevel1})
+          </Typography>
+          <Typography variant="subtitle1">
+            <span style={{fontWeight: "bold"}}>Age:</span> {playerInfo.common.playerInfo.AgeDisplay} ⋅ <span style={{fontWeight: "bold"}}>DOB:</span> {playerInfo.common.playerInfo.BirthDateDisplay}
+          </Typography>
+          <Typography variant="subtitle1">
+          <span style={{fontWeight: "bold"}}>Bats/Throws:</span> {playerInfo.common.playerInfo.Bats}/{playerInfo.common.playerInfo.Throws} ⋅ <span style={{fontWeight: "bold"}}>Service Time:</span> {playerInfo.common.playerInfo.servicetime ? playerInfo.common.playerInfo.servicetime : "0.000"}
           </Typography>
         </div>
       )}

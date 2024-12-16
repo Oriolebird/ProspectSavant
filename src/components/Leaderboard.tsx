@@ -139,7 +139,7 @@ export default function Leaderboard(props: any) {
 
   return (
     <div style={{ width: "100%" }}>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%"}}>
         <Box
           sx={{ borderBottom: 1, borderColor: "divider" }}
           paddingLeft={"50px"}
@@ -152,6 +152,7 @@ export default function Leaderboard(props: any) {
         <CustomTabPanel value={value} index={0}>
           <StripedDataGrid
             rows={hitterData}
+            sx={{height: "80vh"}}
             columns={h_columns}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
@@ -160,6 +161,7 @@ export default function Leaderboard(props: any) {
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <StripedDataGrid
+            sx={{height: "80vh"}}
             rows={pitcherData}
             columns={p_columns}
             getRowClassName={(params) =>
