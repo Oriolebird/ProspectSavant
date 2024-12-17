@@ -1,19 +1,12 @@
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   useParams,
   useNavigate,
 } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
+import React, { useState} from "react";
 import PlayerPage from "./components/PlayerPage";
 import Leaderboard from "./components/Leaderboard";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import TopNav from "./components/Topnav";
 
 export default function App() {

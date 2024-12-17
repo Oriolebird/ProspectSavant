@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Slider, { SliderThumb } from "@mui/material/Slider";
-import chroma from "chroma-js";
 import React from "react";
 import PlayerCardRow from "./PlayerCardRow";
-import { Divider, Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 import InfoCard from "./InfoCard";
 
 export default function PlayerPage(props: any) {
@@ -32,29 +30,6 @@ export default function PlayerPage(props: any) {
         console.log(data1);
       });
   }, [props.id]);
-
-  function ThumbComponent(props: ThumbComponentProps) {
-    const { children, ...other } = props;
-    return (
-      <SliderThumb {...other}>
-        {children}
-        <p
-          style={{
-            color: "white",
-            fontFamily: "Roboto Condensed",
-            fontWeight: "bold",
-            fontSize: "1.5vh",
-          }}
-        >
-          {props.value}
-        </p>
-      </SliderThumb>
-    );
-  }
-
-  interface ThumbComponentProps extends React.HTMLAttributes<unknown> {
-    value: number;
-  }
 
   return (
     <div>

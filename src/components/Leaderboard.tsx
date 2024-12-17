@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   DataGrid,
-  GridCellParams,
   gridClasses,
-  GridColDef,
-  GridRenderCellParams,
 } from "@mui/x-data-grid";
-import chroma from "chroma-js";
 import Box from "@mui/material/Box";
 import { Tabs, Tab, styled, alpha } from "@mui/material";
 import { hitter_columns, pitcher_columns } from "./utils/ColumnDefs";
@@ -120,7 +116,7 @@ export default function Leaderboard(props: any) {
 
   useEffect(() => {
     console.log("Data: ", hitterData);
-    if (hitterData.length == 0) {
+    if (hitterData.length === 0) {
       fetch("/leaders/hitters")
         .then((res) => res.json())
         .then((data) => {
@@ -135,7 +131,7 @@ export default function Leaderboard(props: any) {
           console.log("PDATA", data.data);
         });
     }
-  }, []);
+  }, [hitterData]);
 
   return (
     <div style={{ width: "100%" }}>

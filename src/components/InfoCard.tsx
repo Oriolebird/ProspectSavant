@@ -1,18 +1,13 @@
-import Slider, { SliderThumb } from "@mui/material/Slider";
-import chroma from "chroma-js";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid2";
 import { Typography } from "@mui/material";
 
 export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
-  const [playerInfo, setPlayerInfo] = useState<any>(playerInfoProp);
-  //console.log(playerInfoProp, teamInfoProp);
 
-  
 
   return (
     <div>
-      {playerInfo.common != undefined && (
+      {playerInfoProp.common !== undefined && (
         <div style={{padding: "20px"}}>
           <Grid
             container
@@ -21,17 +16,17 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
             alignItems="center"
           >
               <Typography variant="h4">
-                {playerInfo.common.playerInfo.firstLastName} ⋅ {playerInfo.common.playerInfo.Position}
+                {playerInfoProp.common.playerInfo.firstLastName} ⋅ {playerInfoProp.common.playerInfo.Position}
               </Typography>
           </Grid>
           <Typography variant="h6">
-            {playerInfo.common.teamInfo.MLB_FullName} ({playerInfo.common.teamInfo.llevel1})
+            {playerInfoProp.common.teamInfo.MLB_FullName} ({playerInfoProp.common.teamInfo.llevel1})
           </Typography>
           <Typography variant="subtitle1">
-            <span style={{fontWeight: "bold"}}>Age:</span> {playerInfo.common.playerInfo.AgeDisplay} ⋅ <span style={{fontWeight: "bold"}}>DOB:</span> {playerInfo.common.playerInfo.BirthDateDisplay}
+            <span style={{fontWeight: "bold"}}>Age:</span> {playerInfoProp.common.playerInfo.AgeDisplay} ⋅ <span style={{fontWeight: "bold"}}>DOB:</span> {playerInfoProp.common.playerInfo.BirthDateDisplay}
           </Typography>
           <Typography variant="subtitle1">
-          <span style={{fontWeight: "bold"}}>Bats/Throws:</span> {playerInfo.common.playerInfo.Bats}/{playerInfo.common.playerInfo.Throws} ⋅ <span style={{fontWeight: "bold"}}>Service Time:</span> {playerInfo.common.playerInfo.servicetime ? playerInfo.common.playerInfo.servicetime : "0.000"}
+          <span style={{fontWeight: "bold"}}>Bats/Throws:</span> {playerInfoProp.common.playerInfo.Bats}/{playerInfoProp.common.playerInfo.Throws} ⋅ <span style={{fontWeight: "bold"}}>Service Time:</span> {playerInfoProp.common.playerInfo.servicetime ? playerInfoProp.common.playerInfo.servicetime : "0.000"}
           </Typography>
         </div>
       )}

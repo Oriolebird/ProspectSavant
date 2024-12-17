@@ -3,35 +3,12 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Tab, Tabs } from "@mui/material";
+import { Tab } from "@mui/material";
 import logo from "./logo.png";
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-}
 
 function a11yProps(index: number) {
   return {
@@ -91,16 +68,11 @@ export default function TopNav({
   search: Function;
   searchText: string;
 }) {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
   return (
     <Box sx={{ flexGrow: 1, marginBottom: "25px" }}>
       <AppBar position="static" sx={{ backgroundColor: "#3D5A80" }}>
         <Toolbar>
-          <img src={logo} height="64px" />
+          <img src={logo} height="64px" alt="" />
           <Typography
             variant="h6"
             noWrap

@@ -41,7 +41,7 @@ export const hitter_columns: GridColDef<any>[] = [
     headerName: "Org",
     width: 60,
     valueFormatter: (value: string) => {
-      return value != "0" ? value : "FA";
+      return value !== "0" ? value : "FA";
     },
   },
   { field: "Position", headerName: "Position", width: 60 },
@@ -466,7 +466,7 @@ export const pitcher_columns: GridColDef<any>[] = [
     headerName: "Org",
     width: 60,
     valueFormatter: (value: string) => {
-      return value != "0" ? value : "FA";
+      return value !== "0" ? value : "FA";
     },
   },
   { field: "Position", headerName: "Position", width: 60 },
