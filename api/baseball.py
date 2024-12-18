@@ -2,6 +2,7 @@
 import datetime
 import io
 import json
+import locale
 from numpy import integer
 import pandas as pd
 import pybaseball
@@ -47,40 +48,41 @@ def convert_row_to_player_json(tr: str):
     hhrate = '-1' if '--' in tr_lines[225] else tr_lines[225][tr_lines[225].find(next(filter(str.isnumeric, tr_lines[225]))):]
     barrelbbe = '-1' if '--' in tr_lines[232] else tr_lines[232][tr_lines[232].find(next(filter(str.isnumeric, tr_lines[232]))):]
     barrelpa = '-1' if '--' in tr_lines[239] else tr_lines[239][tr_lines[239].find(next(filter(str.isnumeric, tr_lines[239]))):]
+    locale.setlocale(locale.LC_ALL, '')
     return {
             'id' : id,
             'name' : name,
-            'pitches' : int(float(pitches)),
-            'pa' : int(float(pa)),
-            'ab' : int(float(ab)),
-            'bip' : int(float(bip)),
-            'hits' : int(float(hits)),
-            'singles' : int(float(singles)),
-            'doubles' : int(float(doubles)),
-            'triples' : int(float(triples)),
-            'hr' : int(float(hr)),
-            'k' : int(float(k)),
-            'krate' : float(krate),
-            'bb' : int(float(bb)),
-            'bbrate' : float(bbrate),
-            'whiffs' : int(float(whiffs)),
-            'swings' : int(float(swings)),
-            'ba' : float(ba),
-            'xba' : float(xba),
-            'obp' : float(obp),
-            'xobp' : float(xobp),
-            'slg' : float(slg),
-            'xslg' : float(xslg),
-            'woba' : float(woba),
-            'xwoba' : float(xwoba),
-            'babip' : float(babip),
-            'whiffrate' : float(whiffrate),
-            'ev' : float(ev),
-            'langle' : float(langle),
-            'hhrate' : float(hhrate),
-            'barrels' : int(float(barrels)),
-            'barrelbbe' : float(barrelbbe),
-            'barrelpa' : float(barrelpa)
+            'pitches' : int(locale.atof(pitches)),
+            'pa' : int(locale.atof(pa)),
+            'ab' : int(locale.atof(ab)),
+            'bip' : int(locale.atof(bip)),
+            'hits' : int(locale.atof(hits)),
+            'singles' : int(locale.atof(singles)),
+            'doubles' : int(locale.atof(doubles)),
+            'triples' : int(locale.atof(triples)),
+            'hr' : int(locale.atof(hr)),
+            'k' : int(locale.atof(k)),
+            'krate' : locale.atof(krate),
+            'bb' : int(locale.atof(bb)),
+            'bbrate' : locale.atof(bbrate),
+            'whiffs' : int(locale.atof(whiffs)),
+            'swings' : int(locale.atof(swings)),
+            'ba' : locale.atof(ba),
+            'xba' : locale.atof(xba),
+            'obp' : locale.atof(obp),
+            'xobp' : locale.atof(xobp),
+            'slg' : locale.atof(slg),
+            'xslg' : locale.atof(xslg),
+            'woba' : locale.atof(woba),
+            'xwoba' : locale.atof(xwoba),
+            'babip' : locale.atof(babip),
+            'whiffrate' : locale.atof(whiffrate),
+            'ev' : locale.atof(ev),
+            'langle' : locale.atof(langle),
+            'hhrate' : locale.atof(hhrate),
+            'barrels' : int(locale.atof(barrels)),
+            'barrelbbe' : locale.atof(barrelbbe),
+            'barrelpa' : locale.atof(barrelpa)
             }
 
 def convert_chase_row_to_json(tr: str):
@@ -91,7 +93,7 @@ def convert_chase_row_to_json(tr: str):
     chaserate = '-1' if '--' in tr_lines[31] else tr_lines[31][tr_lines[31].find(next(filter(str.isnumeric, tr_lines[31]))):tr_lines[31].index("</span>")]
     return {
             'id' : id,
-            'chaserate' : float(chaserate)
+            'chaserate' : locale.atof(chaserate)
             }
 
 def convert_velo_row_to_json(tr: str):
@@ -103,7 +105,7 @@ def convert_velo_row_to_json(tr: str):
     #print(velo)
     return {
             'id' : id,
-            'velo' : float(velo)
+            'velo' : locale.atof(velo)
             }
 
 def add_chase_rate_to_df(df: pd.DataFrame):
@@ -363,7 +365,7 @@ df = add_hitting_percentiles_to_df(df)
 
 pdf = get_pitcher_df()
 
-pitch_qualifier_p = 700
+pitch_qualifier_p = 300
 pdf = pdf.query('pitches > '+str(pitch_qualifier_p))
 
 pdf = add_pitcher_chase_rate_to_df(pdf)
