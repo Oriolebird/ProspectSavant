@@ -15,7 +15,7 @@ export default function App() {
   const navigate = useNavigate();
 
   const search = () => {
-    fetch(`/search/`, {
+    fetch(`https://oriolebird.pythonanywhere.com/search/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

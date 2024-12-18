@@ -117,13 +117,13 @@ export default function Leaderboard(props: any) {
   useEffect(() => {
     console.log("Data: ", hitterData);
     if (hitterData.length === 0) {
-      fetch("/leaders/hitters")
+      fetch("https://oriolebird.pythonanywhere.com/leaders/hitters")
         .then((res) => res.json())
         .then((data) => {
           setHitterData(data.data);
           console.log("HDATA", data.data);
         });
-      fetch("/leaders/pitchers")
+      fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers")
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

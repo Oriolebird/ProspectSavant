@@ -11,11 +11,11 @@ export default function PlayerPage(props: any) {
   const [playerInfo, setPlayerInfo] = useState<any>({});
 
   useEffect(() => {
-    fetch("/player/" + props.id)
+    fetch("https://oriolebird.pythonanywhere.com/player/" + props.id)
       .then((res) => res.json())
       .then((data1) => {
         setPlayerData(data1);
-        fetch(`/player-info/`, {
+        fetch(`https://oriolebird.pythonanywhere.com/player-info/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
