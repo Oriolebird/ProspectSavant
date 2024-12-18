@@ -46,12 +46,14 @@ export const hitter_columns: GridColDef<any>[] = [
   },
   { field: "Position", headerName: "Position", width: 60 },
   { field: "age", headerName: "Age", width: 60 },
+  { field: "pscore", headerName: "Prospect Score", width: 120, valueFormatter: (value: number) => {
+    return `${value.toFixed(1)}`;
+  },},
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },
   { field: "pitches", headerName: "Pitches", width: 90 },
   { field: "xwoba", headerName: "xWOBA", width: 90 },
   { field: "woba", headerName: "WOBA", width: 90 },
-  { field: "pscore", headerName: "Prospect Score", width: 120 },
   {
     field: "score_p",
     headerName: "Prospect Score P%",
@@ -471,6 +473,9 @@ export const pitcher_columns: GridColDef<any>[] = [
   },
   { field: "Position", headerName: "Position", width: 60 },
   { field: "age", headerName: "Age", width: 60 },
+  { field: "pscore", headerName: "Prospect Score", width: 120, valueFormatter: (value: number) => {
+    return `${value.toFixed(1)}`;
+  },},
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },
   { field: "pitches", headerName: "Pitches", width: 90 },
@@ -484,7 +489,6 @@ export const pitcher_columns: GridColDef<any>[] = [
       return `${value.toFixed(1)}%`;
     },
   },
-  { field: "pscore", headerName: "Prospect Score", width: 120 },
   {
     field: "score_p",
     headerName: "Prospect Score P%",

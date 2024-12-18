@@ -3,6 +3,7 @@ import {
   Route,
   useParams,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 import React, { useState} from "react";
 import PlayerPage from "./components/PlayerPage";
@@ -40,6 +41,7 @@ export default function App() {
         ></TopNav>
       </div>
       <Routes>
+        <Route path="/" element={<Navigate to="/leaders" />} />
         <Route path="/player/:id" element={<PlayerPageWrapper />} />
         <Route path="/leaders" element={<LeaderboardWrapper />} />
       </Routes>

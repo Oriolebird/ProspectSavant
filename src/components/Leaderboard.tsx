@@ -153,6 +153,11 @@ export default function Leaderboard(props: any) {
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
+            initialState={{
+              sorting: {
+                sortModel: [{ field: 'score_p', sort: 'desc' }],
+              },
+            }}
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
@@ -163,6 +168,11 @@ export default function Leaderboard(props: any) {
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
+            initialState={{
+              sorting: {
+                sortModel: [{ field: 'score_p', sort: 'desc' }],
+              },
+            }}
           />
         </CustomTabPanel>
       </Box>
