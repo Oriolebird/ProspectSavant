@@ -8,6 +8,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Tab } from "@mui/material";
 import logo from "./logo.png";
+import logo2 from "./logo2.png";
 
 
 function a11yProps(index: number) {
@@ -97,7 +98,8 @@ export default function TopNav({
                 }
               }}
             />
-          </Search>
+          </Search> 
+          <img src={logo2} height="64px" alt="" style={{marginLeft: "20px"}}/>
         </Toolbar>
       </AppBar>
     </Box>
