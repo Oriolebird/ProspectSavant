@@ -2,10 +2,21 @@ import React, { useState, useEffect } from "react";
 import {
   DataGrid,
   gridClasses,
+  GridFooter,
+  gridPageCountSelector,
+  GridPagination,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+  useGridApiContext,
+  useGridSelector,
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { Tabs, Tab, styled, alpha } from "@mui/material";
+import { Tabs, Tab, styled, alpha, TablePaginationProps } from "@mui/material";
 import { hitter_columns, pitcher_columns } from "./utils/ColumnDefs";
+import MuiPagination from '@mui/material/Pagination';
 
 const ODD_OPACITY = 0.2;
 
@@ -27,8 +38,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          theme.palette.action.selectedOpacity +
+          theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -57,8 +68,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          theme.palette.action.selectedOpacity +
+          theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -70,6 +81,7 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
       },
     },
   },
+
 }));
 
 interface TabPanelProps {
@@ -100,6 +112,52 @@ function a11yProps(index: number) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
+function Pagination({
+  page,
+  onPageChange,
+  className,
+}: Pick<TablePaginationProps, 'page' | 'onPageChange' | 'className'>) {
+  const apiRef = useGridApiContext();
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+  return (
+    <MuiPagination
+      color="primary"
+      className={className}
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, newPage) => {
+        onPageChange(event as any, newPage - 1);
+      }}
+      sx={{backgroundColor: "#FFFFFF"}}
+    />
+  );
+}
+
+function CustomPagination(props: any) {
+  return <GridPagination ActionsComponent={Pagination} {...props} />;
+}
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer sx={{backgroundColor: "#FFFFFF"}}>
+      <GridToolbarColumnsButton slotProps={{button:{}}} />
+      <GridToolbarFilterButton slotProps={{button:{}}} />
+      <GridToolbarDensitySelector slotProps={{button:{}}} />
+      <GridToolbarExport slotProps={{button:{}}} />
+    </GridToolbarContainer>
+  )
+}
+function CustomFooter() {
+  return (
+    <GridFooter sx={{backgroundColor: "#FFFFFF"}}>
+      
+    </GridFooter>
+  )
+}
+
+
 
 export default function Leaderboard(props: any) {
   const [value, setValue] = React.useState(0);
@@ -135,7 +193,7 @@ export default function Leaderboard(props: any) {
 
   return (
     <div style={{ width: "100%" }}>
-      <Box sx={{ width: "100%"}}>
+      <Box sx={{ width: "100%" }}>
         <Box
           sx={{ borderBottom: 1, borderColor: "divider" }}
           paddingLeft={"50px"}
@@ -148,30 +206,53 @@ export default function Leaderboard(props: any) {
         <CustomTabPanel value={value} index={0}>
           <StripedDataGrid
             rows={hitterData}
-            sx={{height: "80vh"}}
+            sx={{ height: "80vh",
+              "&.MuiDataGrid-toolbarContainer": {
+                backgroundColor: "white",
+              }
+            }}
             columns={h_columns}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
+            pagination
+            slots={{
+              pagination: CustomPagination,
+              toolbar: CustomToolbar,
+              footer: CustomFooter
+            }}
             initialState={{
               sorting: {
                 sortModel: [{ field: 'score_p', sort: 'desc' }],
               },
+              density: 'compact',
             }}
           />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <StripedDataGrid
-            sx={{height: "80vh"}}
+            sx={{
+              height: "80vh", 
+              "&.MuiDataGrid-toolbarContainer": {
+                backgroundColor: "white",
+              }
+            }}
             rows={pitcherData}
             columns={p_columns}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
+            pagination
+            slots={{
+              pagination: CustomPagination,
+              toolbar: CustomToolbar,
+              footer: CustomFooter
+            }}
             initialState={{
               sorting: {
                 sortModel: [{ field: 'score_p', sort: 'desc' }],
               },
+              density: 'compact',
             }}
           />
         </CustomTabPanel>

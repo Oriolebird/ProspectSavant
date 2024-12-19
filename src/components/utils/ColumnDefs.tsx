@@ -44,20 +44,20 @@ export const hitter_columns: GridColDef<any>[] = [
       return value !== "0" ? value : "FA";
     },
   },
-  { field: "Position", headerName: "Position", width: 60 },
+  { field: "Position", headerName: "Pos", width: 80 },
   { field: "age", headerName: "Age", width: 60 },
-  { field: "pscore", headerName: "Prospect Score", width: 120, valueFormatter: (value: number) => {
-    return `${value.toFixed(1)}`;
-  },},
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },
-  { field: "pitches", headerName: "Pitches", width: 90 },
-  { field: "xwoba", headerName: "xWOBA", width: 90 },
-  { field: "woba", headerName: "WOBA", width: 90 },
+  { field: "pitches", headerName: "Pitches", width: 70 },
+  { field: "xwoba", headerName: "xWOBA", width: 70, valueFormatter: (value: number) => {
+    return value.toFixed(3);
+  },},
+  { field: "woba", headerName: "WOBA", width: 70, valueFormatter: (value: number) => {
+    return value.toFixed(3);}},
   {
     field: "score_p",
-    headerName: "Prospect Score P%",
-    width: 180,
+    headerName: "PS Score",
+    width: 120,
     cellClassName: (params: GridCellParams<any>) => {
       return "super-app";
     },
@@ -80,7 +80,7 @@ export const hitter_columns: GridColDef<any>[] = [
   },
   {
     field: "p_agg",
-    headerName: "Aggregate P%",
+    headerName: "Agg",
     width: 90,
     cellClassName: (params: GridCellParams<any>) => {
       return "super-app";
@@ -104,7 +104,7 @@ export const hitter_columns: GridColDef<any>[] = [
   },
   {
     field: "power_agg",
-    headerName: "Power Aggregate",
+    headerName: "Power",
     width: 90,
     cellClassName: (params: GridCellParams<any>) => {
       return "super-app";
@@ -473,26 +473,18 @@ export const pitcher_columns: GridColDef<any>[] = [
   },
   { field: "Position", headerName: "Position", width: 60 },
   { field: "age", headerName: "Age", width: 60 },
-  { field: "pscore", headerName: "Prospect Score", width: 120, valueFormatter: (value: number) => {
-    return `${value.toFixed(1)}`;
-  },},
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },
-  { field: "pitches", headerName: "Pitches", width: 90 },
-  { field: "xwoba", headerName: "xWOBA", width: 90 },
-  { field: "woba", headerName: "WOBA", width: 90 },
-  {
-    field: "kbb_rate",
-    headerName: "K-BB%",
-    width: 90,
-    valueFormatter: (value: number) => {
-      return `${value.toFixed(1)}%`;
-    },
-  },
+  { field: "pitches", headerName: "Pitches", width: 70 },
+  { field: "xwoba", headerName: "xWOBA", width: 70, valueFormatter: (value: number) => {
+    return value.toFixed(3);
+  },},
+  { field: "woba", headerName: "WOBA", width: 70, valueFormatter: (value: number) => {
+    return value.toFixed(3);}},
   {
     field: "score_p",
-    headerName: "Prospect Score P%",
-    width: 180,
+    headerName: "PS Score",
+    width: 120,
     cellClassName: (params: GridCellParams<any>) => {
       return "super-app";
     },
@@ -515,7 +507,7 @@ export const pitcher_columns: GridColDef<any>[] = [
   },
   {
     field: "p_agg",
-    headerName: "Aggregate P%",
+    headerName: "Agg",
     width: 90,
     cellClassName: (params: GridCellParams<any>) => {
       return "super-app";
@@ -561,31 +553,7 @@ export const pitcher_columns: GridColDef<any>[] = [
       );
     },
   },
-  {
-    field: "d_agg",
-    headerName: "Ratios",
-    width: 120,
-    cellClassName: (params: GridCellParams<any>) => {
-      return "super-app";
-    },
-    renderCell: (params: GridRenderCellParams) => {
-      const color = scale(params.value).toString();
-
-      return (
-        <Box
-          sx={{
-            backgroundColor: color,
-            width: "100%",
-            height: "100%",
-            textAlign: "center",
-          }}
-        >
-          {(params.value * 100).toFixed(2)}%
-        </Box>
-      );
-    },
-  },
-  { field: "velo", headerName: "FB Velo", width: 90 },
+  { field: "velo", headerName: "FB Velo", width: 70 },
   {
     field: "velo_p",
     headerName: "FB Velo P%",

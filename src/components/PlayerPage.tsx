@@ -5,6 +5,43 @@ import React from "react";
 import PlayerCardRow from "./PlayerCardRow";
 import { Divider } from "@mui/material";
 import InfoCard from "./InfoCard";
+import Strider from "./Strider.png";
+import Ohtani from "./Ohtani.png";
+
+const teamColors: { [id: string]: string[] } =
+{
+  "TBR": ["#02285C", "#90BDE7", "#FFFFFF"],
+  "BAL": ["#F25D23", "#000000", "#FFFFFF"],
+  "NYY": ["#132448", "#FFFFFF", "#FFFFFF"],
+  "BOS": ["#BD3039", "#0D2B56", "#FFFFFF"],
+  "TOR": ["#134A8E", "#E8291C", "#FFFFFF"],
+  "CLE": ["#E31937", "#002B5C", "#FFFFFF"],
+  "KCR": ["#004687", "#FFFFFF", "#FFFFFF"],
+  "DET": ["#0C2C56", "#FFFFFF", "#FFFFFF"],
+  "CWS": ["#000000", "#BFBFBF", "#FFFFFF"],
+  "MIN": ["#091F40", "#E31E34", "#FFFFFF"],
+  "HOU": ["#002D62", "#F4911E", "#FFFFFF"],
+  "SEA": ["#005C5C", "#0C2C56", "#FFFFFF"],
+  "TEX": ["#C0111F", "#003278", "#FFFFFF"],
+  "LAA": ["#BA0021", "#003263", "#C4CED4"],
+  "ATH": ["#00342C", "#FFB400", "#FFFFFF"],
+  "WAS": ["#AB0003", "#FFFFFF", "#FFFFFF"],
+  "NYM": ["#F75500", "#002C6E", "#FFFFFF"],
+  "MIA": ["#019CD6", "#E51829", "#FFFFFF"],
+  "PHI": ["#C21D39", "#01396F", "#FFFFFF"],
+  "ATL": ["#D3042B", "#001D3D", "#FFFFFF"],
+  "CIN": ["#C6011F", "#000000", "#FFFFFF"],
+  "PIT": ["#F7BF02", "#000000", "#FFFFFF"],
+  "CHC": ["#123581", "#E62F2E", "#FFFFFF"],
+  "MIL": ["#18294C", "#FEC430", "#FFFFFF"],
+  "STL": ["#BE0A15", "#FDDB00", "#FFFFFF"],
+  "LAD": ["#005A9D", "#FFFFFF", "#FFFFFF"],
+  "ARI": ["#C71128", "#00C2CE", "#FFFFFF"],
+  "SDP": ["#2D221C", "#FFC125", "#FFFFFF"],
+  "SFG": ["#231F20", "#F4793E", "#E8D8C4"],
+  "COL": ["#503E80", "#BFC2C9", "#FFFFFF"],
+  "FA": ["#BFBFBF", "#BFBFBF", "#FFFFFF"],
+}
 
 export default function PlayerPage(props: any) {
   const [playerData, setPlayerData] = useState<any>({});
@@ -54,19 +91,40 @@ export default function PlayerPage(props: any) {
               </Paper>
             </Grid>
             <Grid item>
-              <Paper
-                sx={{
-                  height: 500,
-                  width: 500,
-                  border: "#293241 solid 1px",
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-                }}
-                square
-                variant="outlined"
-              >
-                {playerData.xwoba_p !== "undefined" &&
-                  !isNaN(playerData.xwoba_p) && (
+              {playerData.xwoba_p !== "undefined" &&
+                !isNaN(playerData.xwoba_p) && (
+                  <Paper
+                    sx={{
+                      height: 500,
+                      width: 500,
+                      border: "#293241 solid 1px",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                    }}
+                    square
+                    variant="outlined"
+                  >
+                    {playerData.Position === "P" && <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px" }}
+                    ><img src={Strider} height="64px" alt="" style={{ marginLeft: "10px", marginTop: "10px" }} />
+                      <span style={{ marginLeft: "10px", fontSize: "24pt", fontWeight: "bold", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Pitching Percentiles</span>
+
+                    </Grid>}
+                    {playerData.Position !== "P" && <Grid
+                      container
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px" }}
+                    ><img src={Ohtani} height="64px" alt="" style={{ marginLeft: "10px", marginTop: "10px" }} />
+                      <span style={{ marginLeft: "10px", fontSize: "24pt", fontWeight: "bold", marginTop: "10px", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Hitting Percentiles</span>
+
+                    </Grid>}
+
                     <div>
                       <PlayerCardRow
                         stat="xWOBA"
@@ -138,8 +196,8 @@ export default function PlayerPage(props: any) {
                         percentile_raw={playerData.bbrate_p}
                       />
                     </div>
-                  )}
-              </Paper>
+                  </Paper>
+                )}
             </Grid>
             <Grid item>
               <Paper

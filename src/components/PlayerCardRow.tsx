@@ -29,7 +29,7 @@ export default function PlayerPage({
             style={{
               color: "white",
               fontWeight: "bold",
-              fontSize: "1.3vh",
+              fontSize: "1.2vh",
             }}
           >
             {Math.round(props.value)}

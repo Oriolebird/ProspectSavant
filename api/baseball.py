@@ -365,7 +365,7 @@ df = add_hitting_percentiles_to_df(df)
 
 pdf = get_pitcher_df()
 
-pitch_qualifier_p = 300
+pitch_qualifier_p = 700
 pdf = pdf.query('pitches > '+str(pitch_qualifier_p))
 
 pdf = add_pitcher_chase_rate_to_df(pdf)
