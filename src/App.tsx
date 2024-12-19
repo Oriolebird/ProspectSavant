@@ -5,13 +5,19 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import PlayerPage from "./components/PlayerPage";
 import Leaderboard from "./components/Leaderboard";
 import TopNav from "./components/Topnav";
+const breakpoints = {
+  desktop: '(min-width: 1025px)',
+  tablet: '(min-width: 768px) and (max-width: 1024px)',
+  phone: '(max-width: 767px)',
+ };
 
 export default function App() {
   const [searchText, setSearchText] = useState("");
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 1450);
 
   const navigate = useNavigate();
 
@@ -31,13 +37,22 @@ export default function App() {
       });
   };
 
+  const setVP = () => {
+    setDesktop(window.innerWidth > 1450)
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", setVP, false);
+  }, []);
+
   return (
-    <div style={{ backgroundColor: "#E0FBFC" }}>
+    <div style={{ backgroundColor: "#E0FBFC",  width: "100%"}}>
       <div>
         <TopNav
           search={search}
           searchText={searchText}
           setSearchText={setSearchText}
+          isDesktop={isDesktop}
         ></TopNav>
       </div>
       <Routes>

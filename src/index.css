@@ -1,9 +1,12 @@
-body {
+html, body {
   margin: 0;
   font-family: 'Roboto Condensed',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 code {
