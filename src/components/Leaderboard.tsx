@@ -14,7 +14,7 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { Tabs, Tab, styled, alpha, TablePaginationProps, Radio, FormControl, FormControlLabel, FormLabel, RadioGroup } from "@mui/material";
+import { Tabs, Tab, styled, alpha, TablePaginationProps, Radio, FormControl, FormControlLabel, FormLabel, RadioGroup} from "@mui/material";
 import { hitter_columns, hitter_columns_mobile, pitcher_columns, pitcher_columns_mobile} from "./utils/ColumnDefs";
 import MuiPagination from '@mui/material/Pagination';
 
@@ -139,16 +139,6 @@ function CustomPagination(props: any) {
   return <GridPagination ActionsComponent={Pagination} {...props} />;
 }
 
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer sx={{ backgroundColor: "#FFFFFF" }}>
-      <GridToolbarColumnsButton slotProps={{ button: {} }} />
-      <GridToolbarFilterButton slotProps={{ button: {} }} />
-      <GridToolbarDensitySelector slotProps={{ button: {} }} />
-      <GridToolbarExport slotProps={{ button: {} }} />
-    </GridToolbarContainer>
-  )
-}
 function CustomFooter() {
   return (
     <GridFooter sx={{ backgroundColor: "#FFFFFF" }}>
@@ -178,6 +168,21 @@ export default function Leaderboard(props: any) {
     setLevel(event.target.value);
   };
   console.log(level)
+
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer sx={{ backgroundColor: "#FFFFFF" }}>
+        <GridToolbarColumnsButton slotProps={{ button: {} }} />
+        <GridToolbarFilterButton slotProps={{ button: {} }} />
+        <GridToolbarDensitySelector slotProps={{ button: {} }} />
+        <GridToolbarExport slotProps={{ button: {} }} />
+        {level==="A" && <div>
+          <span style={{fontWeight: "bold", color: "#DC707A"}}>** Only 10 Organizations Have Single A Data Available **</span>
+        </div>
+        }
+      </GridToolbarContainer>
+    )
+  }
 
   useEffect(() => {
     console.log("Data: ", level);

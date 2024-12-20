@@ -67,3 +67,6 @@ const PlayerPageWrapper = () => {
 const LeaderboardWrapper = (isDesktop: any) => {
   return <Leaderboard isDesktop={isDesktop}/>;
 };
+
+
+//TODO: ADD EV90, MAX EV, ZCON%, ZSWING%, OCON%, SWING%
