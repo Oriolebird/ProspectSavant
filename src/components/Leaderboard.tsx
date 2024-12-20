@@ -15,7 +15,7 @@ import {
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import { Tabs, Tab, styled, alpha, TablePaginationProps } from "@mui/material";
-import { hitter_columns, pitcher_columns } from "./utils/ColumnDefs";
+import { hitter_columns, hitter_columns_mobile, pitcher_columns, pitcher_columns_mobile } from "./utils/ColumnDefs";
 import MuiPagination from '@mui/material/Pagination';
 
 const ODD_OPACITY = 0.2;
@@ -169,8 +169,10 @@ export default function Leaderboard(props: any) {
   const [hitterData, setHitterData] = useState([]);
   const [pitcherData, setPitcherData] = useState([]);
 
-  const h_columns = hitter_columns;
-  const p_columns = pitcher_columns;
+  console.log(props.isDesktop.isDesktop)
+
+  const h_columns = props.isDesktop.isDesktop ? hitter_columns : hitter_columns_mobile;
+  const p_columns = props.isDesktop.isDesktop ? pitcher_columns : pitcher_columns_mobile;
 
   useEffect(() => {
     console.log("Data: ", hitterData);
