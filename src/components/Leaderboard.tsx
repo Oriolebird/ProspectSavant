@@ -14,8 +14,8 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { Tabs, Tab, styled, alpha, TablePaginationProps, Typography, ToggleButtonGroup, ToggleButton } from "@mui/material";
-import { hitter_columns, hitter_columns_mobile, pitcher_columns, pitcher_columns_mobile } from "./utils/ColumnDefs";
+import { Tabs, Tab, styled, alpha, TablePaginationProps, Radio, FormControl, FormControlLabel, FormLabel, RadioGroup } from "@mui/material";
+import { hitter_columns, hitter_columns_a, hitter_columns_mobile, hitter_columns_mobile_a, pitcher_columns, pitcher_columns_a, pitcher_columns_mobile, pitcher_columns_mobile_a } from "./utils/ColumnDefs";
 import MuiPagination from '@mui/material/Pagination';
 
 const ODD_OPACITY = 0.2;
@@ -130,7 +130,7 @@ function Pagination({
       onChange={(event, newPage) => {
         onPageChange(event as any, newPage - 1);
       }}
-      sx={{backgroundColor: "#FFFFFF"}}
+      sx={{ backgroundColor: "#FFFFFF" }}
     />
   );
 }
@@ -141,18 +141,18 @@ function CustomPagination(props: any) {
 
 function CustomToolbar() {
   return (
-    <GridToolbarContainer sx={{backgroundColor: "#FFFFFF"}}>
-      <GridToolbarColumnsButton slotProps={{button:{}}} />
-      <GridToolbarFilterButton slotProps={{button:{}}} />
-      <GridToolbarDensitySelector slotProps={{button:{}}} />
-      <GridToolbarExport slotProps={{button:{}}} />
+    <GridToolbarContainer sx={{ backgroundColor: "#FFFFFF" }}>
+      <GridToolbarColumnsButton slotProps={{ button: {} }} />
+      <GridToolbarFilterButton slotProps={{ button: {} }} />
+      <GridToolbarDensitySelector slotProps={{ button: {} }} />
+      <GridToolbarExport slotProps={{ button: {} }} />
     </GridToolbarContainer>
   )
 }
 function CustomFooter() {
   return (
-    <GridFooter sx={{backgroundColor: "#FFFFFF"}}>
-      
+    <GridFooter sx={{ backgroundColor: "#FFFFFF" }}>
+
     </GridFooter>
   )
 }
@@ -171,34 +171,34 @@ export default function Leaderboard(props: any) {
 
   const h_columns = props.isDesktop.isDesktop ? hitter_columns : hitter_columns_mobile;
   const p_columns = props.isDesktop.isDesktop ? pitcher_columns : pitcher_columns_mobile;
+  const h_columns_a = props.isDesktop.isDesktop ? hitter_columns_a : hitter_columns_mobile_a;
+  const p_columns_a = props.isDesktop.isDesktop ? pitcher_columns_a : pitcher_columns_mobile_a;
 
-  const [alignment, setAlignment] = React.useState('AAA');
+  const [level, setLevel] = React.useState('AAA');
 
-  const handleLevel = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: string,
-  ) => {
-    setAlignment(newAlignment);
+  const handleLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLevel(event.target.value);
   };
+  console.log(level)
 
   useEffect(() => {
-    console.log("Data: ", hitterData);
-    if (hitterData.length === 0) {
-      fetch("https://oriolebird.pythonanywhere.com/leaders/hitters/"+alignment)
+    console.log("Data: ", level);
+
+      fetch("https://oriolebird.pythonanywhere.com/leaders/hitters/" + level)
         .then((res) => res.json())
         .then((data) => {
           setHitterData(data.data);
           console.log("HDATA", data.data);
         });
-      fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers/"+alignment)
+      fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers/" + level)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           setPitcherData(data.data);
           console.log("PDATA", data.data);
         });
-    }
-  }, [hitterData]);
+    
+  }, [level]);
 
   return (
     <div style={{ width: "100%" }}>
@@ -206,33 +206,50 @@ export default function Leaderboard(props: any) {
         <Box
           sx={{ borderBottom: 1, borderColor: "divider" }}
           paddingLeft={"50px"}
+          flexDirection="row"
         >
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Hitters" {...a11yProps(0)} />
             <Tab label="Pitchers" {...a11yProps(1)} />
-            <ToggleButtonGroup
-          color="primary"
-          value={alignment}
-          exclusive
-          onChange={handleLevel}
-          aria-label="Level"
-          style={{marginLeft: "20px"}}
-        >
-          <ToggleButton value="A">A</ToggleButton>
-          <ToggleButton value="AAA">AAA</ToggleButton>
-        </ToggleButtonGroup>
           </Tabs>
+
         </Box>
-        
+        <div style={{ marginTop: "10px", marginBottom: "-20px", marginLeft: "30px", verticalAlign: "baseline" }}>
+          <FormControl>
+            <FormLabel id="demo-row-radio-buttons-group-label">Level</FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+            >
+              <FormControlLabel value="A" control={<Radio
+                checked={level === 'A'}
+                onChange={handleLevel}
+                value="A"
+                name="radio-buttons"
+                inputProps={{ 'aria-label': 'A' }}
+              />} label="A" />
+              <FormControlLabel value="AAA" control={<Radio
+                checked={level === 'AAA'}
+                onChange={handleLevel}
+                value="AAA"
+                name="radio-buttons"
+                inputProps={{ 'aria-label': 'AAA' }}
+              />} label="AAA" />
+            </RadioGroup>
+          </FormControl>
+
+        </div>
         <CustomTabPanel value={value} index={0}>
           <StripedDataGrid
             rows={hitterData}
-            sx={{ height: "80vh",
+            sx={{
+              height: "80vh",
               "&.MuiDataGrid-toolbarContainer": {
                 backgroundColor: "white",
               }
             }}
-            columns={h_columns}
+            columns={level==="AAA"?h_columns:h_columns_a}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
@@ -253,13 +270,13 @@ export default function Leaderboard(props: any) {
         <CustomTabPanel value={value} index={1}>
           <StripedDataGrid
             sx={{
-              height: "80vh", 
+              height: "80vh",
               "&.MuiDataGrid-toolbarContainer": {
                 backgroundColor: "white",
               }
             }}
             rows={pitcherData}
-            columns={p_columns}
+            columns={level==="AAA"?p_columns:p_columns_a}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }

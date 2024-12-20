@@ -8,8 +8,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-current_file = 'minors_12_14_2024_700.csv'
-current_pitchers_file = 'minors_pitchers_12_14_2024_700.csv'
+current_file = 'minors_12_19_2024_700.csv'
+current_pitchers_file = 'minors_pitchers_12_19_2024_700.csv'
 
 @app.route('/player/<id>')
 def get_player_data(id):
@@ -73,7 +73,7 @@ def get_leader_data(level):
     "bbrate_p"]].sum(axis = 1, skipna = True)/4
     df = df.fillna(0)
 
-    return {"data": df[df["level" == level]].to_dict(orient="records")}
+    return {"data": df[df["level"] == level].to_dict(orient="records")}
 
 @app.route('/leaders/pitchers/<level>')
 def get_pitcher_leader_data(level):
@@ -104,4 +104,4 @@ def get_pitcher_leader_data(level):
 
     df = df.fillna(0)
 
-    return {"data": df[df["level" == level]].to_dict(orient="records")}
+    return {"data": df[df["level"] == level].to_dict(orient="records")}
