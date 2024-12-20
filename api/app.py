@@ -47,8 +47,8 @@ def get_player_info():
             break
     return {"stats": j['props']['pageProps']['dataStats'], "common": j['props']['pageProps']['dataCommon'], "contract": j['props']['pageProps']['dataContractStatus'], "draft": j['props']['pageProps']['dataModuleDraftInfo'] }
 
-@app.route('/leaders/hitters')
-def get_leader_data():
+@app.route('/leaders/hitters/<level>')
+def get_leader_data(level):
     df = pd.read_csv(current_file)
     df["p_agg"] = df[["xwoba_p",
     "xba_p",
@@ -73,10 +73,10 @@ def get_leader_data():
     "bbrate_p"]].sum(axis = 1, skipna = True)/4
     df = df.fillna(0)
 
-    return {"data": df.to_dict(orient="records")}
+    return {"data": df[df["level" == level]].to_dict(orient="records")}
 
-@app.route('/leaders/pitchers')
-def get_pitcher_leader_data():
+@app.route('/leaders/pitchers/<level>')
+def get_pitcher_leader_data(level):
     df = pd.read_csv(current_pitchers_file)
     df["p_agg"] = df[["xwoba_p",
     "xba_p",
@@ -104,4 +104,4 @@ def get_pitcher_leader_data():
 
     df = df.fillna(0)
 
-    return {"data": df.to_dict(orient="records")}
+    return {"data": df[df["level" == level]].to_dict(orient="records")}

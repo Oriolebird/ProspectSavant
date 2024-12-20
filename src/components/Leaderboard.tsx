@@ -14,7 +14,7 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { Tabs, Tab, styled, alpha, TablePaginationProps } from "@mui/material";
+import { Tabs, Tab, styled, alpha, TablePaginationProps, Typography, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { hitter_columns, hitter_columns_mobile, pitcher_columns, pitcher_columns_mobile } from "./utils/ColumnDefs";
 import MuiPagination from '@mui/material/Pagination';
 
@@ -169,21 +169,28 @@ export default function Leaderboard(props: any) {
   const [hitterData, setHitterData] = useState([]);
   const [pitcherData, setPitcherData] = useState([]);
 
-  console.log(props.isDesktop.isDesktop)
-
   const h_columns = props.isDesktop.isDesktop ? hitter_columns : hitter_columns_mobile;
   const p_columns = props.isDesktop.isDesktop ? pitcher_columns : pitcher_columns_mobile;
+
+  const [alignment, setAlignment] = React.useState('AAA');
+
+  const handleLevel = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment(newAlignment);
+  };
 
   useEffect(() => {
     console.log("Data: ", hitterData);
     if (hitterData.length === 0) {
-      fetch("https://oriolebird.pythonanywhere.com/leaders/hitters")
+      fetch("https://oriolebird.pythonanywhere.com/leaders/hitters/"+alignment)
         .then((res) => res.json())
         .then((data) => {
           setHitterData(data.data);
           console.log("HDATA", data.data);
         });
-      fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers")
+      fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers/"+alignment)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -203,8 +210,20 @@ export default function Leaderboard(props: any) {
           <Tabs value={value} onChange={handleChange}>
             <Tab label="Hitters" {...a11yProps(0)} />
             <Tab label="Pitchers" {...a11yProps(1)} />
+            <ToggleButtonGroup
+          color="primary"
+          value={alignment}
+          exclusive
+          onChange={handleLevel}
+          aria-label="Level"
+          style={{marginLeft: "20px"}}
+        >
+          <ToggleButton value="A">A</ToggleButton>
+          <ToggleButton value="AAA">AAA</ToggleButton>
+        </ToggleButtonGroup>
           </Tabs>
         </Box>
+        
         <CustomTabPanel value={value} index={0}>
           <StripedDataGrid
             rows={hitterData}
