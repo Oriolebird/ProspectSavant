@@ -6,7 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import { Divider, Grid, Tab } from "@mui/material";
+import { Grid, Tab } from "@mui/material";
 import logo from "./logo.png";
 import logo2 from "./logo2.png";
 

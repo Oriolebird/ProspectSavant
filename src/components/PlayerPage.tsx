@@ -72,7 +72,7 @@ export default function PlayerPage(props: any) {
     <div>
       {playerData !== undefined && playerData !== null && (
         <div>
-          <Grid container justifyContent="center" spacing={2}>
+          <Grid container justifyContent="center" spacing={2} maxWidth="100%">
             <Grid item>
               <Paper
                 sx={{
@@ -81,6 +81,7 @@ export default function PlayerPage(props: any) {
                   border: "#293241 solid 1px",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  
                 }}
                 square
                 variant="outlined"
