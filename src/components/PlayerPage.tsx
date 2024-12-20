@@ -112,9 +112,9 @@ export default function PlayerPage(props: any) {
                       direction="row"
                       justifyContent="flex-start"
                       alignItems="center"
-                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px" }}
+                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px", wordWrap: "break-word" }}
                     ><img src={Strider} height="64px" alt="" style={{ marginLeft: "10px", marginTop: "10px" }} />
-                      <span style={{ marginLeft: "10px", fontSize: "24pt", fontWeight: "bold", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Pitching Percentiles</span>
+                      <span style={{ marginLeft: "10px", fontSize: "17pt", fontWeight: "bold", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Pitching Percentiles</span>
 
                     </Grid>}
                     {playerData.Position !== "P" && <Grid
@@ -122,9 +122,9 @@ export default function PlayerPage(props: any) {
                       direction="row"
                       justifyContent="flex-start"
                       alignItems="center"
-                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px" }}
+                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px", wordWrap: "break-word"  }}
                     ><img src={Ohtani} height="64px" alt="" style={{ marginLeft: "10px", marginTop: "10px" }} />
-                      <span style={{ marginLeft: "10px", fontSize: "24pt", fontWeight: "bold", marginTop: "10px", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Hitting Percentiles</span>
+                      <span style={{ marginLeft: "10px", fontSize: "18pt", fontWeight: "bold", marginTop: "10px", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Hitting Percentiles</span>
 
                     </Grid>}
 
