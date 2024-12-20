@@ -73,10 +73,11 @@ export default function PlayerPage(props: any) {
       {playerData !== undefined && playerData !== null && (
         <div>
           <Grid container justifyContent="center" spacing={2} maxWidth="100%">
-            <Grid item>
+            <Grid item maxWidth="90vw">
               <Paper
                 sx={{
-                  height: 500,
+                  height: "100%",
+                  maxWidth: "90vw",
                   width: 500,
                   border: "#293241 solid 1px",
                   backgroundColor: (theme) =>
@@ -91,12 +92,13 @@ export default function PlayerPage(props: any) {
                 )}
               </Paper>
             </Grid>
-            <Grid item>
+            <Grid item maxWidth="90vw"> 
               {playerData.xwoba_p !== "undefined" &&
                 !isNaN(playerData.xwoba_p) && (
                   <Paper
                     sx={{
-                      height: 500,
+                      maxWidth: "90vw",
+                      height: "100%",
                       width: 500,
                       border: "#293241 solid 1px",
                       backgroundColor: (theme) =>
@@ -200,9 +202,10 @@ export default function PlayerPage(props: any) {
                   </Paper>
                 )}
             </Grid>
-            <Grid item>
+            <Grid item maxWidth="90vw">
               <Paper
                 sx={{
+                  maxWidth: "90vw",
                   height: 500,
                   width: 500,
                   border: "#293241 solid 1px",
