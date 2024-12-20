@@ -25,7 +25,7 @@ const teamColors: { [id: string]: string[] } =
   "TEX": ["#C0111F", "#003278", "#FFFFFF"],
   "LAA": ["#BA0021", "#003263", "#C4CED4"],
   "ATH": ["#00342C", "#FFB400", "#FFFFFF"],
-  "WAS": ["#AB0003", "#FFFFFF", "#FFFFFF"],
+  "WSN": ["#AB0003", "#FFFFFF", "#FFFFFF"],
   "NYM": ["#F75500", "#002C6E", "#FFFFFF"],
   "MIA": ["#019CD6", "#E51829", "#FFFFFF"],
   "PHI": ["#C21D39", "#01396F", "#FFFFFF"],
@@ -67,7 +67,7 @@ export default function PlayerPage(props: any) {
         console.log(data1);
       });
   }, [props.id]);
-
+  console.log(playerData.MLB_AbbName)
   return (
     <div>
       {playerData !== undefined && playerData !== null && (

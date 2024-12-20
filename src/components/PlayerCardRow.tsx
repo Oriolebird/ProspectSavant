@@ -105,7 +105,7 @@ export default function PlayerPage({
           />
         </Grid>
         <Grid size={3}>
-          <Typography variant="body2" textAlign="right" marginRight="40px">
+          <Typography variant="body2" textAlign="right" marginRight="30px">
             {value}
           </Typography>
         </Grid>
