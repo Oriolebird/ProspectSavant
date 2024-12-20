@@ -471,17 +471,17 @@ df_a = get_player_df_a()
 pitch_qualifier = 700
 df_a = df_a.query('pitches > '+str(pitch_qualifier))
 
-df_a = add_chase_rate_to_df(df_a)
+df_a = add_chase_rate_to_df_a(df_a)
 
 df_a = add_hitting_percentiles_to_df(df_a)
 
-pdf_a = get_pitcher_df()
+pdf_a = get_pitcher_df_a()
 
 pitch_qualifier_p = 700
 pdf_a = pdf_a.query('pitches > '+str(pitch_qualifier_p))
 
-pdf_a = add_pitcher_chase_rate_to_df(pdf_a)
-pdf_a = add_pitcher_velo_to_df(pdf_a)
+pdf_a = add_pitcher_chase_rate_to_df_a(pdf_a)
+pdf_a = add_pitcher_velo_to_df_a(pdf_a)
 
 pdf_a = add_pitching_percentiles_to_df(pdf_a)
 pdf_a['velo_p'] = pdf_a.velo.rank(pct=True)

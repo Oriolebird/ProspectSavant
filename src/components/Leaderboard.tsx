@@ -15,7 +15,7 @@ import {
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import { Tabs, Tab, styled, alpha, TablePaginationProps, Radio, FormControl, FormControlLabel, FormLabel, RadioGroup } from "@mui/material";
-import { hitter_columns, hitter_columns_a, hitter_columns_mobile, hitter_columns_mobile_a, pitcher_columns, pitcher_columns_a, pitcher_columns_mobile, pitcher_columns_mobile_a } from "./utils/ColumnDefs";
+import { hitter_columns, hitter_columns_mobile, pitcher_columns, pitcher_columns_mobile} from "./utils/ColumnDefs";
 import MuiPagination from '@mui/material/Pagination';
 
 const ODD_OPACITY = 0.2;
@@ -171,8 +171,6 @@ export default function Leaderboard(props: any) {
 
   const h_columns = props.isDesktop.isDesktop ? hitter_columns : hitter_columns_mobile;
   const p_columns = props.isDesktop.isDesktop ? pitcher_columns : pitcher_columns_mobile;
-  const h_columns_a = props.isDesktop.isDesktop ? hitter_columns_a : hitter_columns_mobile_a;
-  const p_columns_a = props.isDesktop.isDesktop ? pitcher_columns_a : pitcher_columns_mobile_a;
 
   const [level, setLevel] = React.useState('AAA');
 
@@ -249,7 +247,7 @@ export default function Leaderboard(props: any) {
                 backgroundColor: "white",
               }
             }}
-            columns={level==="AAA"?h_columns:h_columns_a}
+            columns={h_columns}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
@@ -276,7 +274,7 @@ export default function Leaderboard(props: any) {
               }
             }}
             rows={pitcherData}
-            columns={level==="AAA"?p_columns:p_columns_a}
+            columns={p_columns}
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
