@@ -9,6 +9,8 @@ import React, { useEffect, useState} from "react";
 import PlayerPage from "./components/PlayerPage";
 import Leaderboard from "./components/Leaderboard";
 import TopNav from "./components/Topnav";
+import { Divider } from "@mui/material";
+import Glossary from "./components/Glossary";
 
 export default function App() {
   const [searchText, setSearchText] = useState("");
@@ -55,6 +57,10 @@ export default function App() {
         <Route path="/player/:id" element={<PlayerPageWrapper />} />
         <Route path="/leaders" element={<LeaderboardWrapper isDesktop={isDesktop}/>} />
       </Routes>
+      <div>
+        <Divider variant="fullWidth"/>
+        <Glossary/>
+      </div>
     </div>
   );
 }
@@ -69,4 +75,15 @@ const LeaderboardWrapper = (isDesktop: any) => {
 };
 
 
+//TODO: ADD GLOSSARY
+//TODO: ADD 2023
+//TODO: FUZZY SEARCH
 //TODO: ADD EV90, MAX EV, ZCON%, ZSWING%, OCON%, SWING%
+//TODO: DEFENSE / BASERUNNING
+//TODO: FVs
+//TODO: MORE PLAYER RANKING/INFO/DRAFT/STATS/WRITEUP
+//TODO: SCORE PAGES
+//TODO: SPIN RATES, PITCH GRADES?
+//
+//TODO: SELECTION OPTIONS FOR LEADERBOARD
+

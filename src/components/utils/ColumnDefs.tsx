@@ -471,7 +471,7 @@ export const pitcher_columns: GridColDef<any>[] = [
       return value !== "0" ? value : "FA";
     },
   },
-  { field: "Position", headerName: "Position", width: 60 },
+  { field: "Position", headerName: "Pos", width: 60 },
   { field: "age", headerName: "Age", width: 60 },
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },

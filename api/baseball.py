@@ -417,10 +417,7 @@ def add_player_info(name):
     print("RESULTS: ", results)
     url=""
     if len(results) > 1:
-        for i in range(len(results)):
-            if results[i]['birthdate']['raw'] == None:
-                results[i]['birthdate']['raw'] = '1900-02-03T00:00:00+00:00'
-        results.sort(key = lambda json: json['birthdate']['raw'], reverse=True)
+        results.sort(key = lambda json: json['_meta']['score'], reverse=True)
         url = results[0]['url']['raw']
     else:
         url = results[0]['url']['raw']
@@ -440,11 +437,12 @@ def add_player_info(name):
     
     print("DATACOMMON ", j["props"]["pageProps"]["dataCommon"])
     info = j["props"]["pageProps"]["dataCommon"]["playerInfo"]
-    team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
-
-    print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
-
-    return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"]
+    if "teamInfo" in j["props"]["pageProps"]["dataCommon"]:
+        team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
+        #print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
+        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"]
+    else:
+        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA"
 
 df = get_player_df()
 
@@ -468,7 +466,7 @@ pdf['velo_p'] = pdf.velo.rank(pct=True)
 
 df_a = get_player_df_a()
 
-pitch_qualifier = 700
+pitch_qualifier = 400
 df_a = df_a.query('pitches > '+str(pitch_qualifier))
 
 df_a = add_chase_rate_to_df_a(df_a)
@@ -477,7 +475,7 @@ df_a = add_hitting_percentiles_to_df(df_a)
 
 pdf_a = get_pitcher_df_a()
 
-pitch_qualifier_p = 700
+pitch_qualifier_p = 400
 pdf_a = pdf_a.query('pitches > '+str(pitch_qualifier_p))
 
 pdf_a = add_pitcher_chase_rate_to_df_a(pdf_a)
@@ -544,9 +542,9 @@ print(pdf)
 
 date = datetime.datetime.today().strftime('%m_%d_%Y')
 
-df.to_csv('minors_'+date+'_'+str(pitch_qualifier)+'.csv', index=False) 
+df.to_csv('minors_'+date+'_'+str(700)+'.csv', index=False) 
 
-pdf.to_csv('minors_pitchers_'+date+'_'+str(pitch_qualifier)+'.csv', index=False) 
+pdf.to_csv('minors_pitchers_'+date+'_'+str(700)+'.csv', index=False) 
 
 
 
