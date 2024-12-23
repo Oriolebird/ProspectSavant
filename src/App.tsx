@@ -11,6 +11,7 @@ import Leaderboard from "./components/Leaderboard";
 import TopNav from "./components/Topnav";
 import { Divider } from "@mui/material";
 import Glossary from "./components/Glossary";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [searchText, setSearchText] = useState("");
@@ -60,6 +61,7 @@ export default function App() {
       <div>
         <Divider variant="fullWidth"/>
         <Glossary/>
+        <Footer/>
       </div>
     </div>
   );
