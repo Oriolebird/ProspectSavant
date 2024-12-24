@@ -45,77 +45,78 @@ export default function ProspectWriteup({
 
   return (
     <div>
-      {playerInfoProp.common !== undefined && (
-        <div>
-          <div
-            style={{
-              padding: "20px",
-              backgroundColor:
-                playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                  ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
-                  : teamColors["FA"][0],
-            }}
-          >
-            <Grid
-              container
-              direction="row"
-              justifyContent="flex-start"
-              alignItems="center"
+      {playerInfoProp.common !== undefined &&
+        playerInfoProp.common.prospect[0] !== undefined && (
+          <div>
+            <div
+              style={{
+                padding: "20px",
+                backgroundColor:
+                  playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                    ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
+                    : teamColors["FA"][0],
+              }}
             >
-              <Typography variant="h5">
-                <span
-                  style={{
-                    color:
-                      playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                        ? teamColors[
-                            playerInfoProp.common.teamInfo.MLB_AbbName
-                          ][1]
-                        : teamColors["FA"][1],
-                    fontWeight: "bold",
-                  }}
+              <Grid
+                container
+                direction="row"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
+                <Typography variant="h5">
+                  <span
+                    style={{
+                      color:
+                        playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                          ? teamColors[
+                              playerInfoProp.common.teamInfo.MLB_AbbName
+                            ][1]
+                          : teamColors["FA"][1],
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Prospect Writeup
+                  </span>
+                </Typography>
+              </Grid>
+            </div>
+            <div style={{ margin: "10px", padding: "10px" }}>
+              {playerInfoProp.common.prospect[0].TLDR !== undefined && (
+                <Typography
+                  variant="h6"
+                  textAlign="center"
+                  style={{ marginBottom: "10px" }}
                 >
-                  Prospect Writeup
-                </span>
-              </Typography>
-            </Grid>
-          </div>
-          <div style={{ margin: "10px", padding: "10px" }}>
-            {playerInfoProp.common.prospect[0].TLDR !== undefined && (
-              <Typography
-                variant="h6"
-                textAlign="center"
-                style={{ marginBottom: "10px" }}
-              >
-                <span style={{ fontWeight: "bold" }}>TLDR: </span>
-                {playerInfoProp.common.prospect[0].TLDR}{" "}
-                <Divider variant="middle" style={{ margin: "5px" }} />
-              </Typography>
-            )}
-            {playerInfoProp.common.prospect[0].Ovr_Summary !== undefined && (
-              <Typography
-                variant="body2"
-                textAlign="center"
-                style={{ marginBottom: "10px" }}
-              >
-                <span style={{ fontWeight: "bold" }}>Overall Summary: </span>
-                {playerInfoProp.common.prospect[0].Ovr_Summary}{" "}
-                <Divider variant="middle" style={{ margin: "5px" }} />
-              </Typography>
-            )}
+                  <span style={{ fontWeight: "bold" }}>TLDR: </span>
+                  {playerInfoProp.common.prospect[0].TLDR}{" "}
+                  <Divider variant="middle" style={{ margin: "5px" }} />
+                </Typography>
+              )}
+              {playerInfoProp.common.prospect[0].Ovr_Summary !== undefined && (
+                <Typography
+                  variant="body2"
+                  textAlign="center"
+                  style={{ marginBottom: "10px" }}
+                >
+                  <span style={{ fontWeight: "bold" }}>Overall Summary: </span>
+                  {playerInfoProp.common.prospect[0].Ovr_Summary}{" "}
+                  <Divider variant="middle" style={{ margin: "5px" }} />
+                </Typography>
+              )}
 
-            {playerInfoProp.common.prospect[0].Summary !== undefined && (
-              <Typography
-                variant="body2"
-                textAlign="center"
-                style={{ marginBottom: "10px" }}
-              >
-                <span style={{ fontWeight: "bold" }}>Summary: </span>
-                {playerInfoProp.common.prospect[0].Summary}{" "}
-              </Typography>
-            )}
+              {playerInfoProp.common.prospect[0].Summary !== undefined && (
+                <Typography
+                  variant="body2"
+                  textAlign="center"
+                  style={{ marginBottom: "10px" }}
+                >
+                  <span style={{ fontWeight: "bold" }}>Summary: </span>
+                  {playerInfoProp.common.prospect[0].Summary}{" "}
+                </Typography>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }
