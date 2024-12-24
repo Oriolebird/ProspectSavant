@@ -5,7 +5,7 @@ import {
   useNavigate,
   Navigate,
 } from "react-router-dom";
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PlayerPage from "./components/PlayerPage";
 import Leaderboard from "./components/Leaderboard";
 import TopNav from "./components/Topnav";
@@ -36,15 +36,15 @@ export default function App() {
   };
 
   const setVP = () => {
-    setDesktop(window.innerWidth > 1450)
-  }
+    setDesktop(window.innerWidth > 1450);
+  };
 
   useEffect(() => {
     window.addEventListener("resize", setVP, false);
   }, []);
 
   return (
-    <div style={{ backgroundColor: "#E0FBFC",  width: "100%"}}>
+    <div style={{ backgroundColor: "#E0FBFC", width: "100%" }}>
       <div>
         <TopNav
           search={search}
@@ -56,12 +56,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/leaders" />} />
         <Route path="/player/:id" element={<PlayerPageWrapper />} />
-        <Route path="/leaders" element={<LeaderboardWrapper isDesktop={isDesktop}/>} />
+        <Route
+          path="/leaders"
+          element={<LeaderboardWrapper isDesktop={isDesktop} />}
+        />
       </Routes>
       <div>
-        <Divider variant="fullWidth"/>
-        <Glossary/>
-        <Footer/>
+        <Divider variant="fullWidth" />
+        <Glossary />
+        <Footer />
       </div>
     </div>
   );
@@ -73,11 +76,9 @@ const PlayerPageWrapper = () => {
 };
 
 const LeaderboardWrapper = (isDesktop: any) => {
-  return <Leaderboard isDesktop={isDesktop}/>;
+  return <Leaderboard isDesktop={isDesktop} />;
 };
 
-
-//TODO: ADD GLOSSARY
 //TODO: ADD 2023
 //TODO: FUZZY SEARCH
 //TODO: ADD EV90, MAX EV, ZCON%, ZSWING%, OCON%, SWING%
@@ -88,4 +89,3 @@ const LeaderboardWrapper = (isDesktop: any) => {
 //TODO: SPIN RATES, PITCH GRADES?
 //
 //TODO: SELECTION OPTIONS FOR LEADERBOARD
-

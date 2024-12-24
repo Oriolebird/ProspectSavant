@@ -49,11 +49,22 @@ export const hitter_columns: GridColDef<any>[] = [
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },
   { field: "pitches", headerName: "Pitches", width: 70 },
-  { field: "xwoba", headerName: "xWOBA", width: 70, valueFormatter: (value: number) => {
-    return value.toFixed(3);
-  },},
-  { field: "woba", headerName: "WOBA", width: 70, valueFormatter: (value: number) => {
-    return value.toFixed(3);}},
+  {
+    field: "xwoba",
+    headerName: "xWOBA",
+    width: 70,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
+  {
+    field: "woba",
+    headerName: "WOBA",
+    width: 70,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
   {
     field: "score_p",
     headerName: "PS Score",
@@ -415,6 +426,81 @@ export const hitter_columns: GridColDef<any>[] = [
       );
     },
   },
+  {
+    field: "spd_p",
+    headerName: "Speed P%",
+    width: 100,
+    cellClassName: (params: GridCellParams<any>) => {
+      return "super-app";
+    },
+    renderCell: (params: GridRenderCellParams) => {
+      const color = scale(params.value).toString();
+
+      return (
+        <Box
+          sx={{
+            backgroundColor: color,
+            width: "100%",
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          {(params.value * 100).toFixed(2)}%
+        </Box>
+      );
+    },
+  },
+  {
+    field: "wbsr_pa_p",
+    headerName: "wBsR/PA P%",
+    width: 120,
+    cellClassName: (params: GridCellParams<any>) => {
+      return "super-app";
+    },
+    renderCell: (params: GridRenderCellParams) => {
+      const color = scale(params.value).toString();
+
+      return (
+        <Box
+          sx={{
+            backgroundColor: color,
+            width: "100%",
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          {(params.value * 100).toFixed(2)}%
+        </Box>
+      );
+    },
+  },
+  {
+    field: "pull_p",
+    headerName: "Pull P%",
+    width: 100,
+    cellClassName: (params: GridCellParams<any>) => {
+      return "super-app";
+    },
+    renderCell: (params: GridRenderCellParams) => {
+      const color = scale(params.value).toString();
+
+      return (
+        <Box
+          sx={{
+            backgroundColor: color,
+            width: "100%",
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          {(params.value * 100).toFixed(2)}%
+        </Box>
+      );
+    },
+  },
+  { field: "spd", headerName: "Spd", width: 90 },
+  { field: "wbsr", headerName: "wBsR", width: 90 },
+  { field: "wbsr_pa", headerName: "wBsR/PA", width: 90 },
   { field: "xba", headerName: "xBA", width: 90 },
   { field: "xslg", headerName: "xSLG", width: 90 },
   { field: "barrelbbe", headerName: "Barrels", width: 90 },
@@ -476,11 +562,22 @@ export const pitcher_columns: GridColDef<any>[] = [
   { field: "pa", headerName: "PA", width: 60 },
   { field: "ab", headerName: "AB", width: 60 },
   { field: "pitches", headerName: "Pitches", width: 70 },
-  { field: "xwoba", headerName: "xWOBA", width: 70, valueFormatter: (value: number) => {
-    return value.toFixed(3);
-  },},
-  { field: "woba", headerName: "WOBA", width: 70, valueFormatter: (value: number) => {
-    return value.toFixed(3);}},
+  {
+    field: "xwoba",
+    headerName: "xWOBA",
+    width: 70,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
+  {
+    field: "woba",
+    headerName: "WOBA",
+    width: 70,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
   {
     field: "score_p",
     headerName: "PS Score",
@@ -870,7 +967,6 @@ export const pitcher_columns: GridColDef<any>[] = [
   { field: "whiffs", headerName: "Whiffs", width: 90 },
 ];
 
-
 export const hitter_columns_mobile: GridColDef<any>[] = [
   { field: "id", headerName: "ID", width: 90 },
   {
@@ -906,11 +1002,22 @@ export const hitter_columns_mobile: GridColDef<any>[] = [
   { field: "pa", headerName: "PA", width: 100 },
   { field: "ab", headerName: "AB", width: 100 },
   { field: "pitches", headerName: "Pitches", width: 120 },
-  { field: "xwoba", headerName: "xWOBA", width: 125, valueFormatter: (value: number) => {
-    return value.toFixed(3);
-  },},
-  { field: "woba", headerName: "WOBA", width: 120, valueFormatter: (value: number) => {
-    return value.toFixed(3);}},
+  {
+    field: "xwoba",
+    headerName: "xWOBA",
+    width: 125,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
+  {
+    field: "woba",
+    headerName: "WOBA",
+    width: 120,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
   {
     field: "score_p",
     headerName: "PS Score",
@@ -1272,6 +1379,81 @@ export const hitter_columns_mobile: GridColDef<any>[] = [
       );
     },
   },
+  {
+    field: "spd_p",
+    headerName: "Speed P%",
+    width: 145,
+    cellClassName: (params: GridCellParams<any>) => {
+      return "super-app";
+    },
+    renderCell: (params: GridRenderCellParams) => {
+      const color = scale(params.value).toString();
+
+      return (
+        <Box
+          sx={{
+            backgroundColor: color,
+            width: "100%",
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          {(params.value * 100).toFixed(2)}%
+        </Box>
+      );
+    },
+  },
+  {
+    field: "wbsr_pa_p",
+    headerName: "wBsR/PA P%",
+    width: 145,
+    cellClassName: (params: GridCellParams<any>) => {
+      return "super-app";
+    },
+    renderCell: (params: GridRenderCellParams) => {
+      const color = scale(params.value).toString();
+
+      return (
+        <Box
+          sx={{
+            backgroundColor: color,
+            width: "100%",
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          {(params.value * 100).toFixed(2)}%
+        </Box>
+      );
+    },
+  },
+  {
+    field: "pull_p",
+    headerName: "Pull P%",
+    width: 145,
+    cellClassName: (params: GridCellParams<any>) => {
+      return "super-app";
+    },
+    renderCell: (params: GridRenderCellParams) => {
+      const color = scale(params.value).toString();
+
+      return (
+        <Box
+          sx={{
+            backgroundColor: color,
+            width: "100%",
+            height: "100%",
+            textAlign: "center",
+          }}
+        >
+          {(params.value * 100).toFixed(2)}%
+        </Box>
+      );
+    },
+  },
+  { field: "spd", headerName: "Spd", width: 90 },
+  { field: "wbsr", headerName: "wBsR", width: 90 },
+  { field: "wbsr_pa", headerName: "wBsR/PA", width: 90 },
   { field: "xba", headerName: "xBA", width: 100 },
   { field: "xslg", headerName: "xSLG", width: 110 },
   { field: "barrelbbe", headerName: "Barrels", width: 120 },
@@ -1333,11 +1515,22 @@ export const pitcher_columns_mobile: GridColDef<any>[] = [
   { field: "pa", headerName: "PA", width: 100 },
   { field: "ab", headerName: "AB", width: 100 },
   { field: "pitches", headerName: "Pitches", width: 120 },
-  { field: "xwoba", headerName: "xWOBA", width: 125, valueFormatter: (value: number) => {
-    return value.toFixed(3);
-  },},
-  { field: "woba", headerName: "WOBA", width: 120, valueFormatter: (value: number) => {
-    return value.toFixed(3);}},
+  {
+    field: "xwoba",
+    headerName: "xWOBA",
+    width: 125,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
+  {
+    field: "woba",
+    headerName: "WOBA",
+    width: 120,
+    valueFormatter: (value: number) => {
+      return value.toFixed(3);
+    },
+  },
   {
     field: "score_p",
     headerName: "PS Score",

@@ -7,41 +7,42 @@ import { Divider } from "@mui/material";
 import InfoCard from "./InfoCard";
 import Strider from "./Strider.png";
 import Ohtani from "./Ohtani.png";
+import ProspectCard from "./ProspectCard";
+import ProspectWriteup from "./ProspectWriteup";
 
-const teamColors: { [id: string]: string[] } =
-{
-  "TBR": ["#02285C", "#90BDE7", "#FFFFFF"],
-  "BAL": ["#F25D23", "#000000", "#FFFFFF"],
-  "NYY": ["#132448", "#FFFFFF", "#FFFFFF"],
-  "BOS": ["#BD3039", "#0D2B56", "#FFFFFF"],
-  "TOR": ["#134A8E", "#E8291C", "#FFFFFF"],
-  "CLE": ["#E31937", "#002B5C", "#FFFFFF"],
-  "KCR": ["#004687", "#FFFFFF", "#FFFFFF"],
-  "DET": ["#0C2C56", "#FFFFFF", "#FFFFFF"],
-  "CWS": ["#000000", "#BFBFBF", "#FFFFFF"],
-  "MIN": ["#091F40", "#E31E34", "#FFFFFF"],
-  "HOU": ["#002D62", "#F4911E", "#FFFFFF"],
-  "SEA": ["#005C5C", "#0C2C56", "#FFFFFF"],
-  "TEX": ["#C0111F", "#003278", "#FFFFFF"],
-  "LAA": ["#BA0021", "#003263", "#C4CED4"],
-  "ATH": ["#00342C", "#FFB400", "#FFFFFF"],
-  "WSN": ["#AB0003", "#FFFFFF", "#FFFFFF"],
-  "NYM": ["#F75500", "#002C6E", "#FFFFFF"],
-  "MIA": ["#019CD6", "#E51829", "#FFFFFF"],
-  "PHI": ["#C21D39", "#01396F", "#FFFFFF"],
-  "ATL": ["#D3042B", "#001D3D", "#FFFFFF"],
-  "CIN": ["#C6011F", "#000000", "#FFFFFF"],
-  "PIT": ["#F7BF02", "#000000", "#FFFFFF"],
-  "CHC": ["#123581", "#E62F2E", "#FFFFFF"],
-  "MIL": ["#18294C", "#FEC430", "#FFFFFF"],
-  "STL": ["#BE0A15", "#FDDB00", "#FFFFFF"],
-  "LAD": ["#005A9D", "#FFFFFF", "#FFFFFF"],
-  "ARI": ["#C71128", "#00C2CE", "#FFFFFF"],
-  "SDP": ["#2D221C", "#FFC125", "#FFFFFF"],
-  "SFG": ["#231F20", "#F4793E", "#E8D8C4"],
-  "COL": ["#503E80", "#BFC2C9", "#FFFFFF"],
-  "FA": ["#BFBFBF", "#BFBFBF", "#FFFFFF"],
-}
+const teamColors: { [id: string]: string[] } = {
+  TBR: ["#02285C", "#90BDE7", "#FFFFFF"],
+  BAL: ["#F25D23", "#000000", "#FFFFFF"],
+  NYY: ["#132448", "#FFFFFF", "#FFFFFF"],
+  BOS: ["#BD3039", "#0D2B56", "#FFFFFF"],
+  TOR: ["#134A8E", "#E8291C", "#FFFFFF"],
+  CLE: ["#E31937", "#002B5C", "#FFFFFF"],
+  KCR: ["#004687", "#FFFFFF", "#FFFFFF"],
+  DET: ["#0C2C56", "#FFFFFF", "#FFFFFF"],
+  CWS: ["#000000", "#BFBFBF", "#FFFFFF"],
+  MIN: ["#091F40", "#E31E34", "#FFFFFF"],
+  HOU: ["#002D62", "#F4911E", "#FFFFFF"],
+  SEA: ["#005C5C", "#0C2C56", "#FFFFFF"],
+  TEX: ["#C0111F", "#003278", "#FFFFFF"],
+  LAA: ["#BA0021", "#003263", "#C4CED4"],
+  ATH: ["#00342C", "#FFB400", "#FFFFFF"],
+  WSN: ["#AB0003", "#FFFFFF", "#FFFFFF"],
+  NYM: ["#F75500", "#002C6E", "#FFFFFF"],
+  MIA: ["#019CD6", "#E51829", "#FFFFFF"],
+  PHI: ["#C21D39", "#01396F", "#FFFFFF"],
+  ATL: ["#D3042B", "#001D3D", "#FFFFFF"],
+  CIN: ["#C6011F", "#000000", "#FFFFFF"],
+  PIT: ["#F7BF02", "#000000", "#FFFFFF"],
+  CHC: ["#123581", "#E62F2E", "#FFFFFF"],
+  MIL: ["#18294C", "#FEC430", "#FFFFFF"],
+  STL: ["#BE0A15", "#FDDB00", "#FFFFFF"],
+  LAD: ["#005A9D", "#FFFFFF", "#FFFFFF"],
+  ARI: ["#C71128", "#00C2CE", "#FFFFFF"],
+  SDP: ["#2D221C", "#FFC125", "#FFFFFF"],
+  SFG: ["#231F20", "#F4793E", "#E8D8C4"],
+  COL: ["#503E80", "#BFC2C9", "#FFFFFF"],
+  FA: ["#BFBFBF", "#FFFFFF", "#FFFFFF"],
+};
 
 export default function PlayerPage(props: any) {
   const [playerData, setPlayerData] = useState<any>({});
@@ -57,7 +58,7 @@ export default function PlayerPage(props: any) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ playerUrlProp: data1['UPURL'] }),
+          body: JSON.stringify({ playerUrlProp: data1["UPURL"] }),
         })
           .then((res) => res.json())
           .then((data2) => {
@@ -67,11 +68,11 @@ export default function PlayerPage(props: any) {
         console.log(data1);
       });
   }, [props.id]);
-  console.log(playerData.MLB_AbbName)
+  console.log(playerData.MLB_AbbName);
   return (
     <div>
       {playerData !== undefined && playerData !== null && (
-        <div>
+        <div style={{ marginBottom: "10px" }}>
           <Grid container justifyContent="center" spacing={2} maxWidth="100%">
             <Grid item maxWidth="90vw">
               <Paper
@@ -82,17 +83,14 @@ export default function PlayerPage(props: any) {
                   border: "#293241 solid 1px",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-                  
                 }}
                 square
                 variant="outlined"
               >
-                {playerInfo.common && (
-                  <InfoCard playerInfoProp={playerInfo} />
-                )}
+                {playerInfo.common && <InfoCard playerInfoProp={playerInfo} />}
               </Paper>
             </Grid>
-            <Grid item maxWidth="90vw"> 
+            <Grid item maxWidth="90vw">
               {playerData.xwoba_p !== "undefined" &&
                 !isNaN(playerData.xwoba_p) && (
                   <Paper
@@ -107,26 +105,81 @@ export default function PlayerPage(props: any) {
                     square
                     variant="outlined"
                   >
-                    {playerData.Position === "P" && <Grid
-                      container
-                      direction="row"
-                      justifyContent="flex-start"
-                      alignItems="center"
-                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px", wordWrap: "break-word" }}
-                    ><img src={Strider} height="64px" alt="" style={{ marginLeft: "10px", marginTop: "10px" }} />
-                      <span style={{ marginLeft: "10px", fontSize: "17pt", fontWeight: "bold", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>AAA Pitching Percentiles</span>
-
-                    </Grid>}
-                    {playerData.Position !== "P" && <Grid
-                      container
-                      direction="row"
-                      justifyContent="flex-start"
-                      alignItems="center"
-                      style={{ backgroundColor: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][0] : teamColors["FA"][0], paddingLeft: "10px", paddingBottom: "10px", marginBottom: "10px", wordWrap: "break-word"  }}
-                    ><img src={Ohtani} height="64px" alt="" style={{ marginLeft: "10px", marginTop: "10px" }} />
-                      <span style={{ marginLeft: "10px", fontSize: "18pt", fontWeight: "bold", marginTop: "10px", color: playerData.MLB_AbbName ? teamColors[playerData.MLB_AbbName][1] : teamColors["FA"][1] }}>{playerData.level==="AAA"?"AAA":"High A"} Hitting Percentiles</span>
-
-                    </Grid>}
+                    {playerData.Position === "P" && (
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        style={{
+                          backgroundColor: playerData.MLB_AbbName
+                            ? teamColors[playerData.MLB_AbbName][0]
+                            : teamColors["FA"][0],
+                          paddingLeft: "10px",
+                          paddingBottom: "10px",
+                          marginBottom: "10px",
+                          wordWrap: "break-word",
+                        }}
+                      >
+                        <img
+                          src={Strider}
+                          height="64px"
+                          alt=""
+                          style={{ marginLeft: "10px", marginTop: "10px" }}
+                        />
+                        <span
+                          style={{
+                            marginLeft: "10px",
+                            fontSize: "17pt",
+                            fontWeight: "bold",
+                            color: playerData.MLB_AbbName
+                              ? teamColors[playerData.MLB_AbbName][1]
+                              : teamColors["FA"][1],
+                          }}
+                        >
+                          {playerData.level === "AAA" ? "AAA" : "High A"}{" "}
+                          Pitching Percentiles
+                        </span>
+                      </Grid>
+                    )}
+                    {playerData.Position !== "P" && (
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        style={{
+                          backgroundColor: playerData.MLB_AbbName
+                            ? teamColors[playerData.MLB_AbbName][0]
+                            : teamColors["FA"][0],
+                          paddingLeft: "10px",
+                          paddingBottom: "10px",
+                          marginBottom: "10px",
+                          wordWrap: "break-word",
+                        }}
+                      >
+                        <img
+                          src={Ohtani}
+                          height="64px"
+                          alt=""
+                          style={{ marginLeft: "10px", marginTop: "10px" }}
+                        />
+                        <span
+                          style={{
+                            marginLeft: "10px",
+                            fontSize: "18pt",
+                            fontWeight: "bold",
+                            marginTop: "10px",
+                            color: playerData.MLB_AbbName
+                              ? teamColors[playerData.MLB_AbbName][1]
+                              : teamColors["FA"][1],
+                          }}
+                        >
+                          {playerData.level === "AAA" ? "AAA" : "High A"}{" "}
+                          Hitting Percentiles
+                        </span>
+                      </Grid>
+                    )}
 
                     <div>
                       <PlayerCardRow
@@ -198,6 +251,20 @@ export default function PlayerPage(props: any) {
                         percentile={playerData.bbrate_p.toFixed(2) * 100}
                         percentile_raw={playerData.bbrate_p}
                       />
+                      <Divider variant="middle" />
+                      <PlayerCardRow
+                        stat="Spd"
+                        value={playerData.spd.toFixed(2)}
+                        percentile={playerData.spd_p.toFixed(2) * 100}
+                        percentile_raw={playerData.spd_p}
+                      />
+                      <Divider variant="middle" />
+                      <PlayerCardRow
+                        stat="wBsR/PA"
+                        value={playerData.wbsr_pa.toFixed(4)}
+                        percentile={playerData.wbsr_pa_p * 100}
+                        percentile_raw={playerData.wbsr_pa_p}
+                      />
                     </div>
                   </Paper>
                 )}
@@ -206,7 +273,7 @@ export default function PlayerPage(props: any) {
               <Paper
                 sx={{
                   maxWidth: "90vw",
-                  height: 500,
+                  height: "100%",
                   width: 500,
                   border: "#293241 solid 1px",
                   backgroundColor: (theme) =>
@@ -214,79 +281,39 @@ export default function PlayerPage(props: any) {
                 }}
                 square
                 variant="outlined"
-              />
+              >
+                {playerInfo.common && (
+                  <ProspectCard playerInfoProp={playerInfo} />
+                )}
+              </Paper>
             </Grid>
           </Grid>
-          <div>
-            <h2>
-              {playerData.name} ({props.id})
-            </h2>
-            <h3>
-              xwOBA Percentile:{" "}
-              {playerData.xwoba_p ? playerData.xwoba_p.toFixed(2) * 100 : 0} (
-              {playerData.xwoba})
-            </h3>
-            <h3>
-              xba Percentile:{" "}
-              {playerData.xba_p ? playerData.xba_p.toFixed(2) * 100 : 0} (
-              {playerData.xba})
-            </h3>
-            <h3>
-              xslg Percentile:{" "}
-              {playerData.xslg_p ? playerData.xslg_p.toFixed(2) * 100 : 0} (
-              {playerData.xslg})
-            </h3>
-            <h3>
-              Avg Exit Velo Percentile:{" "}
-              {playerData.ev_p ? playerData.ev_p.toFixed(2) * 100 : 0} (
-              {playerData.ev} mph)
-            </h3>
-            <h3>
-              Barrel % Percentile:{" "}
-              {playerData.barrelbbe_p
-                ? playerData.barrelbbe_p.toFixed(2) * 100
-                : 0}{" "}
-              ({playerData.barrelbbe}%)
-            </h3>
-            <h3>
-              Hard Hit % Percentile:{" "}
-              {playerData.hhrate_p ? playerData.hhrate_p.toFixed(2) * 100 : 0} (
-              {playerData.hhrate}%)
-            </h3>
-            <h3>
-              Chase % Percentile:{" "}
-              {playerData.chaserate_p
-                ? 100 - playerData.chaserate_p.toFixed(2) * 100
-                : 0}{" "}
-              ({playerData.chaserate}%)
-            </h3>
-            <h3>
-              Whiff % Percentile:{" "}
-              {playerData.whiffrate_p
-                ? 100 - playerData.whiffrate_p.toFixed(2) * 100
-                : 0}{" "}
-              ({playerData.whiffrate}%)
-            </h3>
-            <h3>
-              K % Percentile:{" "}
-              {playerData.krate_p
-                ? 100 - playerData.krate_p.toFixed(2) * 100
-                : 0}{" "}
-              ({playerData.krate}%)
-            </h3>
-            <h3>
-              BB % Percentile:{" "}
-              {playerData.bbrate_p ? playerData.bbrate_p.toFixed(2) * 100 : 0} (
-              {playerData.bbrate}%)
-            </h3>
-            <div>
-              {Object.keys(playerData).map((key, index) => (
-                <p key={index}>
-                  {key} : {playerData[key]}
-                </p>
-              ))}
-            </div>
-          </div>
+          <Grid
+            container
+            justifyContent="center"
+            spacing={2}
+            maxWidth="100%"
+            style={{ margin: "30px" }}
+          >
+            <Grid item maxWidth="90vw">
+              <Paper
+                sx={{
+                  maxWidth: "90vw",
+                  height: "100%",
+                  width: "70vw",
+                  border: "#293241 solid 1px",
+                  backgroundColor: (theme) =>
+                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                }}
+                square
+                variant="outlined"
+              >
+                {playerInfo.common && (
+                  <ProspectWriteup playerInfoProp={playerInfo} />
+                )}
+              </Paper>
+            </Grid>
+          </Grid>
         </div>
       )}
     </div>
