@@ -19,7 +19,7 @@ const teamColors: { [id: string]: string[] } = {
   CLE: ["#E31937", "#002B5C", "#FFFFFF"],
   KCR: ["#004687", "#FFFFFF", "#FFFFFF"],
   DET: ["#0C2C56", "#FFFFFF", "#FFFFFF"],
-  CWS: ["#000000", "#BFBFBF", "#FFFFFF"],
+  CHW: ["#000000", "#BFBFBF", "#FFFFFF"],
   MIN: ["#091F40", "#E31E34", "#FFFFFF"],
   HOU: ["#002D62", "#F4911E", "#FFFFFF"],
   SEA: ["#005C5C", "#0C2C56", "#FFFFFF"],

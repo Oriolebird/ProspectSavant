@@ -434,14 +434,17 @@ def add_player_info(name):
     wbsr = stats[0]["wBsR"] if len(stats)>0 and "wBsR" in stats[0] else 0
     print("Check3: ", pull, spd, wbsr)
 
+    #FV
+    fv = j["props"]["pageProps"]["dataCommon"]["prospect"][0]["cFV"] if "prospect" in j["props"]["pageProps"]["dataCommon"] and len(j["props"]["pageProps"]["dataCommon"]["prospect"])>0 else 0
+
     print("DATACOMMON ", j["props"]["pageProps"]["dataCommon"])
     info = j["props"]["pageProps"]["dataCommon"]["playerInfo"]
     if "teamInfo" in j["props"]["pageProps"]["dataCommon"]:
         team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
         #print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
-        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"], spd, pull, wbsr
+        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"], spd, pull, wbsr, fv
     else:
-        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA", 0, 0, 0
+        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA", 0, 0, 0, 0
 
 def add_player_info_a(name):
     headers = {
@@ -545,14 +548,17 @@ def add_player_info_a(name):
     spd = stats[0]["Spd"] if len(stats)>0 and "Spd" in stats[0]  else 0
     wbsr = stats[0]["wBsR"] if len(stats)>0 and "wBsR" in stats[0] else 0
 
+    #FV
+    fv = j["props"]["pageProps"]["dataCommon"]["prospect"][0]["cFV"] if "prospect" in j["props"]["pageProps"]["dataCommon"] and len(j["props"]["pageProps"]["dataCommon"]["prospect"])>0 else 0
+
     print("DATACOMMON ", j["props"]["pageProps"]["dataCommon"])
     info = j["props"]["pageProps"]["dataCommon"]["playerInfo"]
     if "teamInfo" in j["props"]["pageProps"]["dataCommon"]:
         team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
         #print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
-        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"], spd, pull, wbsr
+        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"], spd, pull, wbsr, fv
     else:
-        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA", 0, 0, 0
+        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA", 0, 0, 0, 0
 
 
 df = get_player_df()
@@ -602,10 +608,10 @@ print(id_df)
 df = df.merge(id_df, how="left", left_on="id", right_on="MLBID")
 pdf = pdf.merge(id_df, how="left", left_on="id", right_on="MLBID")"""
 
-df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["AgeDisplayOld"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"], df["spd"], df["pull"] , df["wbsr"] = zip(*df["name"].apply(add_player_info))
-pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["AgeDisplayOld"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"], pdf["spd"], pdf["pull"], pdf["wbsr"] = zip(*pdf["name"].apply(add_player_info))
-df_a["player_info"], df_a["team_info"], df_a["PlayerID"], df_a["MLBAMId"], df_a["MinorMasterId"], df_a["age"], df_a["AgeDisplayOld"], df_a["Bats"], df_a["Throws"], df_a["Position"], df_a["UPURL"], df_a["MLB_FullName"], df_a["MLB_ShortName"], df_a["MLB_AbbName"], df_a["spd"], df_a["pull"], df_a["wbsr"] = zip(*df_a["name"].apply(add_player_info_a))
-pdf_a["player_info"], pdf_a["team_info"], pdf_a["PlayerID"],pdf_a["MLBAMId"], pdf_a["MinorMasterId"], pdf_a["age"], pdf_a["AgeDisplayOld"], pdf_a["Bats"], pdf_a["Throws"], pdf_a["Position"], pdf_a["UPURL"], pdf_a["MLB_FullName"], pdf_a["MLB_ShortName"], pdf_a["MLB_AbbName"], pdf_a["spd"], pdf_a["pull"], pdf_a["wbsr"] = zip(*pdf_a["name"].apply(add_player_info_a))
+df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["AgeDisplayOld"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"], df["spd"], df["pull"] , df["wbsr"], df["fv"] = zip(*df["name"].apply(add_player_info))
+pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["AgeDisplayOld"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"], pdf["spd"], pdf["pull"], pdf["wbsr"], pdf["fv"] = zip(*pdf["name"].apply(add_player_info))
+df_a["player_info"], df_a["team_info"], df_a["PlayerID"], df_a["MLBAMId"], df_a["MinorMasterId"], df_a["age"], df_a["AgeDisplayOld"], df_a["Bats"], df_a["Throws"], df_a["Position"], df_a["UPURL"], df_a["MLB_FullName"], df_a["MLB_ShortName"], df_a["MLB_AbbName"], df_a["spd"], df_a["pull"], df_a["wbsr"], df_a["fv"] = zip(*df_a["name"].apply(add_player_info_a))
+pdf_a["player_info"], pdf_a["team_info"], pdf_a["PlayerID"],pdf_a["MLBAMId"], pdf_a["MinorMasterId"], pdf_a["age"], pdf_a["AgeDisplayOld"], pdf_a["Bats"], pdf_a["Throws"], pdf_a["Position"], pdf_a["UPURL"], pdf_a["MLB_FullName"], pdf_a["MLB_ShortName"], pdf_a["MLB_AbbName"], pdf_a["spd"], pdf_a["pull"], pdf_a["wbsr"], pdf_a["fv"] = zip(*pdf_a["name"].apply(add_player_info_a))
 
 df["wbsr_pa"] = df["wbsr"]/df["pa"]
 df_a["wbsr_pa"] = df_a["wbsr"]/df_a["pa"]

@@ -12,7 +12,7 @@ const teamColors: { [id: string]: string[] } = {
   CLE: ["#E31937", "#002B5C", "#FFFFFF"],
   KCR: ["#004687", "#FFFFFF", "#FFFFFF"],
   DET: ["#0C2C56", "#FFFFFF", "#FFFFFF"],
-  CWS: ["#000000", "#BFBFBF", "#FFFFFF"],
+  CHW: ["#000000", "#BFBFBF", "#FFFFFF"],
   MIN: ["#091F40", "#E31E34", "#FFFFFF"],
   HOU: ["#002D62", "#F4911E", "#FFFFFF"],
   SEA: ["#005C5C", "#0C2C56", "#FFFFFF"],
@@ -93,26 +93,74 @@ export default function ProspectCard({
                 <span style={{ fontWeight: "bold" }}> ⋅ ETA: </span>
                 {playerInfoProp.common.prospect[0].cETA}
               </Typography>
-              <ValueChip
-                name="Hit"
-                value={playerInfoProp.common.prospect[0].Hit}
-              ></ValueChip>
-              <ValueChip
-                name="Game Power"
-                value={playerInfoProp.common.prospect[0].Game}
-              ></ValueChip>
-              <ValueChip
-                name="Raw Power"
-                value={playerInfoProp.common.prospect[0].Raw}
-              ></ValueChip>
-              <ValueChip
-                name="Speed"
-                value={playerInfoProp.common.prospect[0].Spd}
-              ></ValueChip>
-              <ValueChip
-                name="Fielding"
-                value={playerInfoProp.common.prospect[0].Fld}
-              ></ValueChip>
+              {playerInfoProp.common.playerInfo.Position !== "P" && (
+                <div>
+                  <ValueChip
+                    name="Hit"
+                    value={playerInfoProp.common.prospect[0].Hit}
+                  ></ValueChip>
+                  <ValueChip
+                    name="Game Power"
+                    value={playerInfoProp.common.prospect[0].Game}
+                  ></ValueChip>
+                  <ValueChip
+                    name="Raw Power"
+                    value={playerInfoProp.common.prospect[0].Raw}
+                  ></ValueChip>
+                  <ValueChip
+                    name="Speed"
+                    value={playerInfoProp.common.prospect[0].Spd}
+                  ></ValueChip>
+                  <ValueChip
+                    name="Fielding"
+                    value={playerInfoProp.common.prospect[0].Fld}
+                  ></ValueChip>
+                </div>
+              )}
+              {playerInfoProp.common.playerInfo.Position === "P" && (
+                <div>
+                  <ValueChip
+                    name="Command"
+                    value={playerInfoProp.common.prospect[0].CMD}
+                  />
+                  {playerInfoProp.common.prospect[0].FB !== "" && (
+                    <ValueChip
+                      name="Fastball"
+                      value={playerInfoProp.common.prospect[0].FB}
+                    />
+                  )}
+                  {playerInfoProp.common.prospect[0].CB !== "" && (
+                    <ValueChip
+                      name="Curveball"
+                      value={playerInfoProp.common.prospect[0].CB}
+                    />
+                  )}
+                  {playerInfoProp.common.prospect[0].CH !== "" && (
+                    <ValueChip
+                      name="Changeup"
+                      value={playerInfoProp.common.prospect[0].CH}
+                    />
+                  )}
+                  {playerInfoProp.common.prospect[0].SL !== "" && (
+                    <ValueChip
+                      name="Slider"
+                      value={playerInfoProp.common.prospect[0].SL}
+                    />
+                  )}
+                  {playerInfoProp.common.prospect[0].CT !== "" && (
+                    <ValueChip
+                      name="Cutter"
+                      value={playerInfoProp.common.prospect[0].CT}
+                    />
+                  )}
+                  {playerInfoProp.common.prospect[0].SPL !== "" && (
+                    <ValueChip
+                      name="Splitter"
+                      value={playerInfoProp.common.prospect[0].SPL}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}
