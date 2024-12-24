@@ -9,14 +9,29 @@ import {
   GridToolbarContainer,
   GridToolbarDensitySelector,
   GridToolbarExport,
-  GridToolbarFilterButton,
   useGridApiContext,
   useGridSelector,
 } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
-import { Tabs, Tab, styled, alpha, TablePaginationProps, Radio, FormControl, FormControlLabel, FormLabel, RadioGroup} from "@mui/material";
-import { hitter_columns, hitter_columns_mobile, pitcher_columns, pitcher_columns_mobile} from "./utils/ColumnDefs";
-import MuiPagination from '@mui/material/Pagination';
+import {
+  Tabs,
+  Tab,
+  styled,
+  alpha,
+  TablePaginationProps,
+  Radio,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  RadioGroup,
+} from "@mui/material";
+import {
+  hitter_columns,
+  hitter_columns_mobile,
+  pitcher_columns,
+  pitcher_columns_mobile,
+} from "./utils/ColumnDefs";
+import MuiPagination from "@mui/material/Pagination";
 
 const ODD_OPACITY = 0.2;
 
@@ -38,8 +53,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-          theme.palette.action.selectedOpacity +
-          theme.palette.action.hoverOpacity
+            theme.palette.action.selectedOpacity +
+            theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -68,8 +83,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-          theme.palette.action.selectedOpacity +
-          theme.palette.action.hoverOpacity
+            theme.palette.action.selectedOpacity +
+            theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -81,7 +96,6 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
       },
     },
   },
-
 }));
 
 interface TabPanelProps {
@@ -117,7 +131,7 @@ function Pagination({
   page,
   onPageChange,
   className,
-}: Pick<TablePaginationProps, 'page' | 'onPageChange' | 'className'>) {
+}: Pick<TablePaginationProps, "page" | "onPageChange" | "className">) {
   const apiRef = useGridApiContext();
   const pageCount = useGridSelector(apiRef, gridPageCountSelector);
 
@@ -140,14 +154,8 @@ function CustomPagination(props: any) {
 }
 
 function CustomFooter() {
-  return (
-    <GridFooter sx={{ backgroundColor: "#FFFFFF" }}>
-
-    </GridFooter>
-  )
+  return <GridFooter sx={{ backgroundColor: "#FFFFFF" }}></GridFooter>;
 }
-
-
 
 export default function Leaderboard(props: any) {
   const [value, setValue] = React.useState(0);
@@ -159,48 +167,53 @@ export default function Leaderboard(props: any) {
   const [hitterData, setHitterData] = useState([]);
   const [pitcherData, setPitcherData] = useState([]);
 
-  const h_columns = props.isDesktop.isDesktop ? hitter_columns : hitter_columns_mobile;
-  const p_columns = props.isDesktop.isDesktop ? pitcher_columns : pitcher_columns_mobile;
+  const h_columns = props.isDesktop.isDesktop
+    ? hitter_columns
+    : hitter_columns_mobile;
+  const p_columns = props.isDesktop.isDesktop
+    ? pitcher_columns
+    : pitcher_columns_mobile;
 
-  const [level, setLevel] = React.useState('AAA');
+  const [level, setLevel] = React.useState("AAA");
 
   const handleLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLevel(event.target.value);
   };
-  console.log(level)
+  console.log(level);
 
   function CustomToolbar() {
     return (
       <GridToolbarContainer sx={{ backgroundColor: "#FFFFFF" }}>
-        <GridToolbarColumnsButton slotProps={{ button: {} }} />
-        <GridToolbarFilterButton slotProps={{ button: {} }} />
-        <GridToolbarDensitySelector slotProps={{ button: {} }} />
-        <GridToolbarExport slotProps={{ button: {} }} />
-        {level==="A" && <div>
-          <span style={{fontWeight: "bold", color: "#DC707A"}}>** Only 10 Organizations Have Single A Data Available **</span>
-        </div>
-        }
+        <GridToolbarColumnsButton />
+        <GridToolbarDensitySelector />
+        <GridToolbarExport />
+        {level === "A" && (
+          <div>
+            <span style={{ fontWeight: "bold", color: "#DC707A" }}>
+              ** Only 10 Organizations Have Single A Data Available **
+            </span>
+          </div>
+        )}
       </GridToolbarContainer>
-    )
+    );
   }
 
   useEffect(() => {
     console.log("Data: ", level);
 
-      fetch("https://oriolebird.pythonanywhere.com/leaders/hitters/" + level)
-        .then((res) => res.json())
-        .then((data) => {
-          setHitterData(data.data);
-          console.log("HDATA", data.data);
-        });
-      fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers/" + level)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setPitcherData(data.data);
-          console.log("PDATA", data.data);
-        });
-    
+    fetch("https://oriolebird.pythonanywhere.com/leaders/hitters/" + level)
+      .then((res) => res.json())
+      .then((data) => {
+        setHitterData(data.data);
+        console.log("HDATA", data.data);
+      });
+    fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers/" + level)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setPitcherData(data.data);
+        console.log("PDATA", data.data);
+      });
   }, [level]);
 
   return (
@@ -215,9 +228,15 @@ export default function Leaderboard(props: any) {
             <Tab label="Hitters" {...a11yProps(0)} />
             <Tab label="Pitchers" {...a11yProps(1)} />
           </Tabs>
-
         </Box>
-        <div style={{ marginTop: "10px", marginBottom: "-20px", marginLeft: "30px", verticalAlign: "baseline" }}>
+        <div
+          style={{
+            marginTop: "10px",
+            marginBottom: "-20px",
+            marginLeft: "30px",
+            verticalAlign: "baseline",
+          }}
+        >
           <FormControl>
             <FormLabel id="demo-row-radio-buttons-group-label">Level</FormLabel>
             <RadioGroup
@@ -225,23 +244,34 @@ export default function Leaderboard(props: any) {
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
             >
-              <FormControlLabel value="A" control={<Radio
-                checked={level === 'A'}
-                onChange={handleLevel}
+              <FormControlLabel
                 value="A"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'A' }}
-              />} label="A" />
-              <FormControlLabel value="AAA" control={<Radio
-                checked={level === 'AAA'}
-                onChange={handleLevel}
+                control={
+                  <Radio
+                    checked={level === "A"}
+                    onChange={handleLevel}
+                    value="A"
+                    name="radio-buttons"
+                    inputProps={{ "aria-label": "A" }}
+                  />
+                }
+                label="A"
+              />
+              <FormControlLabel
                 value="AAA"
-                name="radio-buttons"
-                inputProps={{ 'aria-label': 'AAA' }}
-              />} label="AAA" />
+                control={
+                  <Radio
+                    checked={level === "AAA"}
+                    onChange={handleLevel}
+                    value="AAA"
+                    name="radio-buttons"
+                    inputProps={{ "aria-label": "AAA" }}
+                  />
+                }
+                label="AAA"
+              />
             </RadioGroup>
           </FormControl>
-
         </div>
         <CustomTabPanel value={value} index={0}>
           <StripedDataGrid
@@ -250,7 +280,7 @@ export default function Leaderboard(props: any) {
               height: "80vh",
               "&.MuiDataGrid-toolbarContainer": {
                 backgroundColor: "white",
-              }
+              },
             }}
             columns={h_columns}
             getRowClassName={(params) =>
@@ -260,13 +290,13 @@ export default function Leaderboard(props: any) {
             slots={{
               pagination: CustomPagination,
               toolbar: CustomToolbar,
-              footer: CustomFooter
+              footer: CustomFooter,
             }}
             initialState={{
               sorting: {
-                sortModel: [{ field: 'score_p', sort: 'desc' }],
+                sortModel: [{ field: "score_p", sort: "desc" }],
               },
-              density: 'compact',
+              density: "compact",
             }}
           />
         </CustomTabPanel>
@@ -276,7 +306,7 @@ export default function Leaderboard(props: any) {
               height: "80vh",
               "&.MuiDataGrid-toolbarContainer": {
                 backgroundColor: "white",
-              }
+              },
             }}
             rows={pitcherData}
             columns={p_columns}
@@ -287,13 +317,13 @@ export default function Leaderboard(props: any) {
             slots={{
               pagination: CustomPagination,
               toolbar: CustomToolbar,
-              footer: CustomFooter
+              footer: CustomFooter,
             }}
             initialState={{
               sorting: {
-                sortModel: [{ field: 'score_p', sort: 'desc' }],
+                sortModel: [{ field: "score_p", sort: "desc" }],
               },
-              density: 'compact',
+              density: "compact",
             }}
           />
         </CustomTabPanel>
