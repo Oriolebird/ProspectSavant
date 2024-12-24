@@ -106,166 +106,241 @@ export default function PlayerPage(props: any) {
                     variant="outlined"
                   >
                     {playerData.Position === "P" && (
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        style={{
-                          backgroundColor: playerData.MLB_AbbName
-                            ? teamColors[playerData.MLB_AbbName][0]
-                            : teamColors["FA"][0],
-                          paddingLeft: "10px",
-                          paddingBottom: "10px",
-                          marginBottom: "10px",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        <img
-                          src={Strider}
-                          height="64px"
-                          alt=""
-                          style={{ marginLeft: "10px", marginTop: "10px" }}
-                        />
-                        <span
+                      <div>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
                           style={{
-                            marginLeft: "10px",
-                            fontSize: "17pt",
-                            fontWeight: "bold",
-                            color: playerData.MLB_AbbName
-                              ? teamColors[playerData.MLB_AbbName][1]
-                              : teamColors["FA"][1],
+                            backgroundColor: playerData.MLB_AbbName
+                              ? teamColors[playerData.MLB_AbbName][0]
+                              : teamColors["FA"][0],
+                            paddingLeft: "10px",
+                            paddingBottom: "10px",
+                            marginBottom: "10px",
+                            wordWrap: "break-word",
                           }}
                         >
-                          {playerData.level === "AAA" ? "AAA" : "High A"}{" "}
-                          Pitching Percentiles
-                        </span>
-                      </Grid>
+                          <img
+                            src={Strider}
+                            height="64px"
+                            alt=""
+                            style={{ marginLeft: "10px", marginTop: "10px" }}
+                          />
+                          <span
+                            style={{
+                              marginLeft: "10px",
+                              fontSize: "17pt",
+                              fontWeight: "bold",
+                              color: playerData.MLB_AbbName
+                                ? teamColors[playerData.MLB_AbbName][1]
+                                : teamColors["FA"][1],
+                            }}
+                          >
+                            {playerData.level === "AAA" ? "AAA" : "High A"}{" "}
+                            Pitching Percentiles
+                          </span>
+                        </Grid>
+                        <div>
+                          <PlayerCardRow
+                            stat="xWOBA"
+                            value={playerData.xwoba}
+                            percentile={playerData.xwoba_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xwoba_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="xBA"
+                            value={playerData.xba}
+                            percentile={playerData.xba_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xba_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="xSLG"
+                            value={playerData.xslg}
+                            percentile={playerData.xslg_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xslg_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="EV"
+                            value={playerData.ev}
+                            percentile={playerData.ev_p.toFixed(2) * 100}
+                            percentile_raw={playerData.ev_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Barrel %"
+                            value={playerData.barrelbbe}
+                            percentile={playerData.barrelbbe_p.toFixed(2) * 100}
+                            percentile_raw={playerData.barrelbbe_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Hard-Hit%"
+                            value={playerData.xba}
+                            percentile={playerData.xba_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xba_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Chase %"
+                            value={playerData.chaserate}
+                            percentile={playerData.chaserate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.chaserate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Whiff %"
+                            value={playerData.whiffrate}
+                            percentile={playerData.whiffrate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.whiffrate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="K %"
+                            value={playerData.krate}
+                            percentile={playerData.krate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.krate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="BB %"
+                            value={playerData.bbrate}
+                            percentile={playerData.bbrate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.bbrate_p}
+                          />
+                          <Divider variant="middle" />
+                        </div>
+                      </div>
                     )}
                     {playerData.Position !== "P" && (
-                      <Grid
-                        container
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                        style={{
-                          backgroundColor: playerData.MLB_AbbName
-                            ? teamColors[playerData.MLB_AbbName][0]
-                            : teamColors["FA"][0],
-                          paddingLeft: "10px",
-                          paddingBottom: "10px",
-                          marginBottom: "10px",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        <img
-                          src={Ohtani}
-                          height="64px"
-                          alt=""
-                          style={{ marginLeft: "10px", marginTop: "10px" }}
-                        />
-                        <span
+                      <div>
+                        <Grid
+                          container
+                          direction="row"
+                          justifyContent="flex-start"
+                          alignItems="center"
                           style={{
-                            marginLeft: "10px",
-                            fontSize: "18pt",
-                            fontWeight: "bold",
-                            marginTop: "10px",
-                            color: playerData.MLB_AbbName
-                              ? teamColors[playerData.MLB_AbbName][1]
-                              : teamColors["FA"][1],
+                            backgroundColor: playerData.MLB_AbbName
+                              ? teamColors[playerData.MLB_AbbName][0]
+                              : teamColors["FA"][0],
+                            paddingLeft: "10px",
+                            paddingBottom: "10px",
+                            marginBottom: "10px",
+                            wordWrap: "break-word",
                           }}
                         >
-                          {playerData.level === "AAA" ? "AAA" : "High A"}{" "}
-                          Hitting Percentiles
-                        </span>
-                      </Grid>
+                          <img
+                            src={Ohtani}
+                            height="64px"
+                            alt=""
+                            style={{ marginLeft: "10px", marginTop: "10px" }}
+                          />
+                          <span
+                            style={{
+                              marginLeft: "10px",
+                              fontSize: "18pt",
+                              fontWeight: "bold",
+                              marginTop: "10px",
+                              color: playerData.MLB_AbbName
+                                ? teamColors[playerData.MLB_AbbName][1]
+                                : teamColors["FA"][1],
+                            }}
+                          >
+                            {playerData.level === "AAA" ? "AAA" : "High A"}{" "}
+                            Hitting Percentiles
+                          </span>
+                        </Grid>
+                        <div>
+                          <PlayerCardRow
+                            stat="xWOBA"
+                            value={playerData.xwoba}
+                            percentile={playerData.xwoba_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xwoba_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="xBA"
+                            value={playerData.xba}
+                            percentile={playerData.xba_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xba_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="xSLG"
+                            value={playerData.xslg}
+                            percentile={playerData.xslg_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xslg_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="EV"
+                            value={playerData.ev}
+                            percentile={playerData.ev_p.toFixed(2) * 100}
+                            percentile_raw={playerData.ev_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Barrel %"
+                            value={playerData.barrelbbe}
+                            percentile={playerData.barrelbbe_p.toFixed(2) * 100}
+                            percentile_raw={playerData.barrelbbe_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Hard-Hit%"
+                            value={playerData.xba}
+                            percentile={playerData.xba_p.toFixed(2) * 100}
+                            percentile_raw={playerData.xba_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Chase %"
+                            value={playerData.chaserate}
+                            percentile={playerData.chaserate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.chaserate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Whiff %"
+                            value={playerData.whiffrate}
+                            percentile={playerData.whiffrate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.whiffrate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="K %"
+                            value={playerData.krate}
+                            percentile={playerData.krate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.krate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="BB %"
+                            value={playerData.bbrate}
+                            percentile={playerData.bbrate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.bbrate_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="Spd"
+                            value={playerData.spd.toFixed(2)}
+                            percentile={playerData.spd_p.toFixed(2) * 100}
+                            percentile_raw={playerData.spd_p}
+                          />
+                          <Divider variant="middle" />
+                          <PlayerCardRow
+                            stat="wBsR/PA"
+                            value={playerData.wbsr_pa.toFixed(4)}
+                            percentile={playerData.wbsr_pa_p * 100}
+                            percentile_raw={playerData.wbsr_pa_p}
+                          />
+                        </div>
+                      </div>
                     )}
-
-                    <div>
-                      <PlayerCardRow
-                        stat="xWOBA"
-                        value={playerData.xwoba}
-                        percentile={playerData.xwoba_p.toFixed(2) * 100}
-                        percentile_raw={playerData.xwoba_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="xBA"
-                        value={playerData.xba}
-                        percentile={playerData.xba_p.toFixed(2) * 100}
-                        percentile_raw={playerData.xba_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="xSLG"
-                        value={playerData.xslg}
-                        percentile={playerData.xslg_p.toFixed(2) * 100}
-                        percentile_raw={playerData.xslg_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="EV"
-                        value={playerData.ev}
-                        percentile={playerData.ev_p.toFixed(2) * 100}
-                        percentile_raw={playerData.ev_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="Barrel %"
-                        value={playerData.barrelbbe}
-                        percentile={playerData.barrelbbe_p.toFixed(2) * 100}
-                        percentile_raw={playerData.barrelbbe_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="Hard-Hit%"
-                        value={playerData.xba}
-                        percentile={playerData.xba_p.toFixed(2) * 100}
-                        percentile_raw={playerData.xba_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="Chase %"
-                        value={playerData.chaserate}
-                        percentile={playerData.chaserate_p.toFixed(2) * 100}
-                        percentile_raw={playerData.chaserate_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="Whiff %"
-                        value={playerData.whiffrate}
-                        percentile={playerData.whiffrate_p.toFixed(2) * 100}
-                        percentile_raw={playerData.whiffrate_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="K %"
-                        value={playerData.krate}
-                        percentile={playerData.krate_p.toFixed(2) * 100}
-                        percentile_raw={playerData.krate_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="BB %"
-                        value={playerData.bbrate}
-                        percentile={playerData.bbrate_p.toFixed(2) * 100}
-                        percentile_raw={playerData.bbrate_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="Spd"
-                        value={playerData.spd.toFixed(2)}
-                        percentile={playerData.spd_p.toFixed(2) * 100}
-                        percentile_raw={playerData.spd_p}
-                      />
-                      <Divider variant="middle" />
-                      <PlayerCardRow
-                        stat="wBsR/PA"
-                        value={playerData.wbsr_pa.toFixed(4)}
-                        percentile={playerData.wbsr_pa_p * 100}
-                        percentile_raw={playerData.wbsr_pa_p}
-                      />
-                    </div>
                   </Paper>
                 )}
             </Grid>

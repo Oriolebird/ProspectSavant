@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid2";
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 
 const teamColors: { [id: string]: string[] } = {
   TBR: ["#02285C", "#90BDE7", "#FFFFFF"],
@@ -88,6 +88,7 @@ export default function ProspectWriteup({
               >
                 <span style={{ fontWeight: "bold" }}>TLDR: </span>
                 {playerInfoProp.common.prospect[0].TLDR}{" "}
+                <Divider variant="middle" style={{ margin: "5px" }} />
               </Typography>
             )}
             {playerInfoProp.common.prospect[0].Ovr_Summary !== undefined && (
@@ -98,8 +99,10 @@ export default function ProspectWriteup({
               >
                 <span style={{ fontWeight: "bold" }}>Overall Summary: </span>
                 {playerInfoProp.common.prospect[0].Ovr_Summary}{" "}
+                <Divider variant="middle" style={{ margin: "5px" }} />
               </Typography>
             )}
+
             {playerInfoProp.common.prospect[0].Summary !== undefined && (
               <Typography
                 variant="body2"

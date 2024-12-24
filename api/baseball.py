@@ -304,20 +304,9 @@ def add_hitting_percentiles_to_df(df):
     df['hhrate_p'] = df.hhrate.rank(pct=True)
     df['barrelbbe_p'] = df.barrelbbe.rank(pct=True)
     df['chaserate_p'] = df.chaserate.rank(pct=True, ascending=False)
-    return df
-
-def add_pitching_percentiles_to_df(df):
-    df['krate_p'] = df.krate.rank(pct=True)
-    df['bbrate_p'] = df.bbrate.rank(pct=True, ascending=False)
-    df['xba_p'] = df.xba.rank(pct=True, ascending=False)
-    df['xslg_p'] = df.xslg.rank(pct=True, ascending=False)
-    df['xwoba_p'] = df.xwoba.rank(pct=True, ascending=False)
-    df['whiffrate_p'] = df.whiffrate.rank(pct=True)
-    df['ev_p'] = df.ev.rank(pct=True, ascending=False)
-    df['langle_p'] = df.langle.rank(pct=True, ascending=False)
-    df['hhrate_p'] = df.hhrate.rank(pct=True, ascending=False)
-    df['barrelbbe_p'] = df.barrelbbe.rank(pct=True, ascending=False)
-    df['chaserate_p'] = df.chaserate.rank(pct=True)
+    df['wbsr_pa_p'] = df.wbsr_pa.rank(pct=True)
+    df['spd_p'] = df.spd.rank(pct=True)
+    df['pull_p'] = df.pull.rank(pct=True)
     return df
 
 def add_pitching_percentiles_to_df(df):
@@ -335,7 +324,7 @@ def add_pitching_percentiles_to_df(df):
     return df
 
 def add_hitter_prospect_scores(df):
-    df['pscore'] = df['age_p']*((df['xwoba_p']*10)+df['barrelbbe_p']*5+df['ev_p']*7+df['krate_p']*2+df['bbrate_p']*4+(df['hhrate_p']*4))
+    df['pscore'] = df['age_p']*((df['xwoba_p']*10)+df['barrelbbe_p']*5+df['ev_p']*7+df['krate_p']*2+df['bbrate_p']*4+(df['hhrate_p']*4)+(df['spd_p']*5)+(df['wbsr_pa_p']*5))
     return df
 
 def add_pitcher_prospect_scores(df):
@@ -435,14 +424,136 @@ def add_player_info(name):
         print("Error for player ", name)
         return {}, {}, "", "", "", "", "", "", "", "", "", ""
     
+    #SPEED CALCULATION
+    stats = j["props"]["pageProps"]["dataStats"]["data"] 
+    print("Stats1: ", stats)
+    stats = list(filter(lambda x: "Season" in x and "AbbLevel" in x and "2024" in x["Season"] and "AAA" in x["AbbLevel"], stats))
+    print("Stats: ", stats)
+    pull = stats[0]["Pull%"] if len(stats)>0 and "Pull%" in stats[0]  else 0
+    spd = stats[0]["Spd"] if len(stats)>0 and "Spd" in stats[0]  else 0
+    wbsr = stats[0]["wBsR"] if len(stats)>0 and "wBsR" in stats[0] else 0
+    print("Check3: ", pull, spd, wbsr)
+
     print("DATACOMMON ", j["props"]["pageProps"]["dataCommon"])
     info = j["props"]["pageProps"]["dataCommon"]["playerInfo"]
     if "teamInfo" in j["props"]["pageProps"]["dataCommon"]:
         team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
         #print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
-        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"]
+        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"], spd, pull, wbsr
     else:
-        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA"
+        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA", 0, 0, 0
+
+def add_player_info_a(name):
+    headers = {
+        'accept': '*/*',
+        'accept-language': 'en-US,en;q=0.9,en-GB;q=0.8',
+        'authorization': 'Bearer search-cty1wzhqd1pqueai45ccxh7y',
+        'content-type': 'application/json',
+        'dnt': '1',
+        'origin': 'https://www.fangraphs.com',
+        'priority': 'u=1, i',
+        'referer': 'https://www.fangraphs.com/',
+        'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'cross-site',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'x-elastic-client-meta': 'ent=8.13.0-legacy,js=browser,t=8.13.0-legacy,ft=universal',
+        'x-swiftype-client': 'elastic-app-search-javascript',
+        'x-swiftype-client-version': '8.13.0',
+    }
+
+    json_data = {
+        'query': name,
+        'search_fields': {
+            'name': {},
+            'namekorean': {},
+        },
+        'result_fields': {
+            'id': {
+                'raw': {},
+            },
+            'name': {
+                'raw': {},
+            },
+            'firstname': {
+                'raw': {},
+            },
+            'lastname': {
+                'raw': {},
+            },
+            'namekorean': {
+                'raw': {},
+            },
+            'debut_season': {
+                'raw': {},
+            },
+            'last_season': {
+                'raw': {},
+            },
+            'birthdate': {
+                'raw': {},
+            },
+            'international': {
+                'raw': {},
+            },
+            'url': {
+                'raw': {},
+            },
+        },
+    }
+
+    response = requests.post(
+        'https://85798c555f18463c9d3ec7d18778c367.ent-search.us-east1.gcp.elastic-cloud.com/api/as/v1/engines/fangraphs/search.json',
+        headers=headers,
+        json=json_data,
+    )
+    print("RESPONSE: ",response.text)
+    search_json = json.loads(response.text)
+
+    results = search_json["results"]
+    results = [r for r in results if(r['name']['raw'].lower() == name.lower())] 
+    print("RESULTS: ", results)
+    url=""
+    if len(results) > 1:
+        results.sort(key = lambda json: json['_meta']['score'], reverse=True)
+        url = results[0]['url']['raw']
+    else:
+        url = results[0]['url']['raw']
+
+    url = 'https://www.fangraphs.com'+url
+    print(url)
+    data = requests.get(url).text
+    lines = data.split('<')
+    j = "Error"
+    for i in range(len(lines)):
+        if "dataCommon" in lines[i]:
+            j = json.loads(lines[i][lines[i].index('{'):])
+            break
+    if j == "Error":
+        print("Error for player ", name)
+        return {}, {}, "", "", "", "", "", "", "", "", "", ""
+    
+    #SPEED CALCULATION
+    stats = j["props"]["pageProps"]["dataStats"]["data"] 
+    print("Stats1: ", stats)
+    stats = list(filter(lambda x: "Season" in x and "AbbLevel" in x and "2024" in x["Season"] and "A" in x["AbbLevel"], stats))
+    print("Stats: ", stats)
+    pull = stats[0]["Pull%"] if len(stats)>0 and "Pull%" in stats[0]  else 0
+    spd = stats[0]["Spd"] if len(stats)>0 and "Spd" in stats[0]  else 0
+    wbsr = stats[0]["wBsR"] if len(stats)>0 and "wBsR" in stats[0] else 0
+
+    print("DATACOMMON ", j["props"]["pageProps"]["dataCommon"])
+    info = j["props"]["pageProps"]["dataCommon"]["playerInfo"]
+    if "teamInfo" in j["props"]["pageProps"]["dataCommon"]:
+        team = j["props"]["pageProps"]["dataCommon"]["teamInfo"]
+        #print("RETURNS: ", info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], team["MLB_FullName"], team["MLB_ShortName"], team["MLB_AbbName"])
+        return info, team, info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], (team["MLB_FullName"]), team["MLB_ShortName"], team["MLB_AbbName"], spd, pull, wbsr
+    else:
+        return info, "{}", info["PlayerId"], info["MLBAMId"], info["MinorMasterId"], info["AgeYears"], info["AgeDisplayOld"], info["Bats"], info["Throws"], info["Position"], info["UPURL"], "FA", "FA", "FA", 0, 0, 0
+
 
 df = get_player_df()
 
@@ -450,8 +561,6 @@ pitch_qualifier = 700
 df = df.query('pitches > '+str(pitch_qualifier))
 
 df = add_chase_rate_to_df(df)
-
-df = add_hitting_percentiles_to_df(df)
 
 pdf = get_pitcher_df()
 
@@ -470,8 +579,6 @@ pitch_qualifier = 400
 df_a = df_a.query('pitches > '+str(pitch_qualifier))
 
 df_a = add_chase_rate_to_df_a(df_a)
-
-df_a = add_hitting_percentiles_to_df(df_a)
 
 pdf_a = get_pitcher_df_a()
 
@@ -495,11 +602,16 @@ print(id_df)
 df = df.merge(id_df, how="left", left_on="id", right_on="MLBID")
 pdf = pdf.merge(id_df, how="left", left_on="id", right_on="MLBID")"""
 
-df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["AgeDisplayOld"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"] = zip(*df["name"].apply(add_player_info))
-pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["AgeDisplayOld"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"] = zip(*pdf["name"].apply(add_player_info))
-df_a["player_info"], df_a["team_info"], df_a["PlayerID"], df_a["MLBAMId"], df_a["MinorMasterId"], df_a["age"], df_a["AgeDisplayOld"], df_a["Bats"], df_a["Throws"], df_a["Position"], df_a["UPURL"], df_a["MLB_FullName"], df_a["MLB_ShortName"], df_a["MLB_AbbName"] = zip(*df_a["name"].apply(add_player_info))
-pdf_a["player_info"], pdf_a["team_info"], pdf_a["PlayerID"],pdf_a["MLBAMId"], pdf_a["MinorMasterId"], pdf_a["age"], pdf_a["AgeDisplayOld"], pdf_a["Bats"], pdf_a["Throws"], pdf_a["Position"], pdf_a["UPURL"], pdf_a["MLB_FullName"], pdf_a["MLB_ShortName"], pdf_a["MLB_AbbName"] = zip(*pdf_a["name"].apply(add_player_info))
+df["player_info"], df["team_info"], df["PlayerID"], df["MLBAMId"], df["MinorMasterId"], df["age"], df["AgeDisplayOld"], df["Bats"], df["Throws"], df["Position"], df["UPURL"], df["MLB_FullName"], df["MLB_ShortName"], df["MLB_AbbName"], df["spd"], df["pull"] , df["wbsr"] = zip(*df["name"].apply(add_player_info))
+pdf["player_info"], pdf["team_info"], pdf["PlayerID"],pdf["MLBAMId"], pdf["MinorMasterId"], pdf["age"], pdf["AgeDisplayOld"], pdf["Bats"], pdf["Throws"], pdf["Position"], pdf["UPURL"], pdf["MLB_FullName"], pdf["MLB_ShortName"], pdf["MLB_AbbName"], pdf["spd"], pdf["pull"], pdf["wbsr"] = zip(*pdf["name"].apply(add_player_info))
+df_a["player_info"], df_a["team_info"], df_a["PlayerID"], df_a["MLBAMId"], df_a["MinorMasterId"], df_a["age"], df_a["AgeDisplayOld"], df_a["Bats"], df_a["Throws"], df_a["Position"], df_a["UPURL"], df_a["MLB_FullName"], df_a["MLB_ShortName"], df_a["MLB_AbbName"], df_a["spd"], df_a["pull"], df_a["wbsr"] = zip(*df_a["name"].apply(add_player_info_a))
+pdf_a["player_info"], pdf_a["team_info"], pdf_a["PlayerID"],pdf_a["MLBAMId"], pdf_a["MinorMasterId"], pdf_a["age"], pdf_a["AgeDisplayOld"], pdf_a["Bats"], pdf_a["Throws"], pdf_a["Position"], pdf_a["UPURL"], pdf_a["MLB_FullName"], pdf_a["MLB_ShortName"], pdf_a["MLB_AbbName"], pdf_a["spd"], pdf_a["pull"], pdf_a["wbsr"] = zip(*pdf_a["name"].apply(add_player_info_a))
 
+df["wbsr_pa"] = df["wbsr"]/df["pa"]
+df_a["wbsr_pa"] = df_a["wbsr"]/df_a["pa"]
+
+df = add_hitting_percentiles_to_df(df)
+df_a = add_hitting_percentiles_to_df(df_a)
 
 
 def add_age_days(age):
