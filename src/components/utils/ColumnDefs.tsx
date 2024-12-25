@@ -40,8 +40,8 @@ export const hitter_columns: GridColDef<any>[] = [
     field: "MLB_AbbName",
     headerName: "Org",
     width: 60,
-    valueFormatter: (value: string) => {
-      return value !== "0" ? value : "FA";
+    valueFormatter: (value: any) => {
+      return value !== "0" && value !== 0 ? value : "FA";
     },
   },
   { field: "fv", headerName: "FV", width: 80 },
@@ -554,8 +554,8 @@ export const pitcher_columns: GridColDef<any>[] = [
     field: "MLB_AbbName",
     headerName: "Org",
     width: 60,
-    valueFormatter: (value: string) => {
-      return value !== "0" ? value : "FA";
+    valueFormatter: (value: any) => {
+      return value !== "0" && value !== 0 ? value : "FA";
     },
   },
   { field: "fv", headerName: "FV", width: 80 },
@@ -995,8 +995,8 @@ export const hitter_columns_mobile: GridColDef<any>[] = [
     field: "MLB_AbbName",
     headerName: "Org",
     width: 100,
-    valueFormatter: (value: string) => {
-      return value !== "0" ? value : "FA";
+    valueFormatter: (value: any) => {
+      return value !== "0" && value !== 0 ? value : "FA";
     },
   },
   { field: "fv", headerName: "FV", width: 100 },
@@ -1509,8 +1509,8 @@ export const pitcher_columns_mobile: GridColDef<any>[] = [
     field: "MLB_AbbName",
     headerName: "Org",
     width: 100,
-    valueFormatter: (value: string) => {
-      return value !== "0" ? value : "FA";
+    valueFormatter: (value: any) => {
+      return value !== "0" && value !== 0 ? value : "FA";
     },
   },
   { field: "fv", headerName: "FV", width: 80 },

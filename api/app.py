@@ -8,8 +8,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-current_file = 'minors_12_19_2024_700.csv'
-current_pitchers_file = 'minors_pitchers_12_19_2024_700.csv'
+current_file = 'minors_12_24_2024_700.csv'
+current_pitchers_file = 'minors_pitchers_12_24_2024_700.csv'
 
 @app.route('/player/<id>')
 def get_player_data(id):
@@ -21,11 +21,11 @@ def get_player_data(id):
 
 @app.route('/search/', methods=["POST"])
 def search_player_name():
-    name = request.get_json()
+    name = request.get_json().lower()
     df = pd.read_csv(current_file)
     pdf = pd.read_csv(current_pitchers_file)
     df_merged = pd.concat([df, pdf], ignore_index=True)
-    d = json.loads(df_merged.query(f'name == \"{name}\"').to_json(orient ='records'))
+    d = json.loads(df_merged.query(f'name.str.lower() == \"{name}\"').to_json(orient ='records'))
     if(len(d)==0):
         return "No such player"
     return d[0]
