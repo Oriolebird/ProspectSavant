@@ -165,8 +165,9 @@ export default function ProspectCard({
           </div>
         )}
       {playerInfoProp.common.prospect[0] === undefined && (
-        <div style={{ margin: "10px" }}>
+        <div style={{ margin: "40px" }}>
           <Typography variant="h4">Prospect Info Unavailable</Typography>
+          <Typography variant="h5">My bad sorry about that</Typography>
         </div>
       )}
     </div>
