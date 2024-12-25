@@ -254,6 +254,76 @@ export default function TopNav({
                       }}
                     />
                   </Search>
+                  {searchText.length > 0 && (
+                    <Grid
+                      container
+                      spacing={0}
+                      columns={1}
+                      direction="column"
+                      style={{
+                        position: "absolute",
+                        bottom: "-150px",
+                        overflow: "visible",
+                        backgroundColor: "#FFFFFF",
+                        height: 150,
+                        border: "#293241 solid 1px",
+                        zIndex: 2,
+                        width: "95vw",
+                      }}
+                    >
+                      {matches.map((player: any, index: number) => {
+                        return (
+                          <a
+                            href={"/player/" + player.id}
+                            style={{ zIndex: 2 }}
+                          >
+                            <Grid
+                              container
+                              spacing={1}
+                              columns={16}
+                              direction="row"
+                              justifyContent="flex-end"
+                              alignItems="center"
+                              style={{
+                                position: "absolute",
+                                top: 10 + index * 30,
+                                height: 30,
+                              }}
+                              key={index}
+                            >
+                              <Typography
+                                variant="subtitle2"
+                                textAlign="right"
+                                marginRight="30px"
+                                style={{ color: "#000000" }}
+                              >
+                                {player.name}
+                              </Typography>
+                              <Typography
+                                variant="subtitle2"
+                                textAlign="right"
+                                marginRight="30px"
+                                style={{ color: "#000000", width: 30 }}
+                              >
+                                {player.MLB_AbbName !== undefined &&
+                                player.MLB_AbbName !== null
+                                  ? player.MLB_AbbName
+                                  : "FA"}
+                              </Typography>
+                              <Typography
+                                variant="subtitle2"
+                                textAlign="right"
+                                marginRight="30px"
+                                style={{ color: "#000000", width: 70 }}
+                              >
+                                {player.Position}
+                              </Typography>
+                            </Grid>
+                          </a>
+                        );
+                      })}
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Toolbar>
