@@ -38,6 +38,7 @@ const teamColors: { [id: string]: string[] } = {
 };
 
 export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
+  console.log(playerInfoProp);
   return (
     <div>
       {playerInfoProp.common !== undefined && (
@@ -126,7 +127,7 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
               </span>
             </Typography>
           </div>
-          {playerInfoProp.draft !== undefined && (
+          {playerInfoProp.draft !== null && (
             <div style={{ padding: "20px" }}>
               <Typography variant="subtitle1">
                 <span style={{ fontWeight: "bold" }}>Draft: </span>
@@ -144,6 +145,27 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
                 <span style={{ fontWeight: "bold" }}>School: </span>
                 {playerInfoProp.draft.schoolName}
                 <br />
+              </Typography>
+            </div>
+          )}
+          {playerInfoProp.draft === null && (
+            <div style={{ padding: "20px" }}>
+              <Typography variant="subtitle1">
+                <span style={{ fontWeight: "bold" }}>Draft: UDFA</span>
+                {playerInfoProp.common.prospect[0] !== undefined && (
+                  <div>
+                    <span style={{ fontWeight: "bold" }}>Signing Org: </span>
+                    {playerInfoProp.common.prospect[0].Signed_Org} (
+                    {playerInfoProp.common.prospect[0].Signed_Yr})
+                    <br />
+                    <span style={{ fontWeight: "bold" }}>Signing Bonus: </span>$
+                    {playerInfoProp.common.prospect[0].Sign_Bonus}
+                    <br />
+                    <span style={{ fontWeight: "bold" }}>School: </span>
+                    {playerInfoProp.common.prospect[0].School}
+                    <br />
+                  </div>
+                )}
               </Typography>
             </div>
           )}
