@@ -4,6 +4,7 @@ import requests
 from flask import Flask, request
 import json
 from flask_cors import CORS
+from thefuzz import fuzz
 
 app = Flask(__name__)
 CORS(app)
@@ -29,6 +30,20 @@ def search_player_name():
     if(len(d)==0):
         return "No such player"
     return d[0]
+
+@app.route('/search-fuzzy/', methods=["POST"])
+def search_fuzzy():
+    name = request.get_json().lower()
+    df = pd.read_csv(current_file)
+    pdf = pd.read_csv(current_pitchers_file)
+    df_merged = pd.concat([df, pdf], ignore_index=True)
+    df_merged['FuzzScore'] = df_merged.apply(lambda x: fuzz.ratio(x['name'], name), axis=1)
+    df_merged = df_merged.sort_values(by=['FuzzScore'], axis=0, ascending=False, na_position='last')
+    print(df_merged)
+    d = json.loads(df_merged.head(5).to_json(orient ='records'))
+    if(len(d)==0):
+        return "No such player"
+    return json.dumps(d)
 
 @app.route('/player-info/', methods=["POST"])
 def get_player_info():

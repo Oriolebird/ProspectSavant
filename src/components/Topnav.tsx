@@ -10,7 +10,6 @@ import { Grid, Tab } from "@mui/material";
 import logo from "./logo.png";
 import logo2 from "./logo2.png";
 
-
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
@@ -63,66 +62,68 @@ export default function TopNav({
   setSearchText,
   search,
   searchText,
-  isDesktop
+  isDesktop,
+  matches,
 }: {
   setSearchText: Function;
   search: Function;
   searchText: string;
   isDesktop: boolean;
+  matches: any;
 }) {
+  //const [open, setOpen] = useState(true);
+  const open = true;
   return (
-    <div>{isDesktop &&
-      <Box sx={{ flexGrow: 1, marginBottom: "25px" }}>
-        <AppBar position="static" sx={{ backgroundColor: "#3D5A80" }}>
-          <Toolbar>
-            <img src={logo} width="600vw" alt="" style={{ maxWidth: "100%" }} />
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            >
-
-            </Typography>
-            <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
-
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                inputProps={{ "aria-label": "search" }}
-                placeholder="Search For a Player"
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                onKeyDown={(ev) => {
-                  if (ev.key === "Enter") {
-                    search();
-                    ev.preventDefault();
-                  }
-                }}
+    <div>
+      {isDesktop && (
+        <Box
+          sx={{
+            flexGrow: 1,
+            marginBottom: "25px",
+          }}
+        >
+          <AppBar
+            position="static"
+            sx={{
+              backgroundColor: "#3D5A80",
+              overflow: "visible",
+              height: "68px",
+              maxHeight: "68px",
+            }}
+          >
+            <Toolbar>
+              <img
+                src={logo}
+                width="600vw"
+                alt=""
+                style={{ maxWidth: "100%" }}
               />
-            </Search>
-            <img src={logo2} height="64px" alt="" style={{ marginLeft: "20px" }} />
-          </Toolbar>
-        </AppBar>
-      </Box>}
-      {!isDesktop &&
-        <Box sx={{ flexGrow: 1, marginBottom: "25px" }}>
-          <AppBar position="static" sx={{ backgroundColor: "#3D5A80" }}>
-            <Toolbar style={{ display: "flex", flexDirection: "column" }}>
-              <img src={logo} width="600vw" alt="" style={{ maxWidth: "100%" }} />
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+              ></Typography>
+              <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
               <Grid
                 container
-                spacing={1}
-                columns={16}
-                direction="row"
-                justifyContent="flex-end"
-                alignItems="center"
-                marginTop="0px" 
+                spacing={0}
+                columns={1}
+                direction="column"
+                style={{
+                  overflow: "visible",
+                  height: "100%",
+                  width: "400px",
+                  position: "relative",
+                }}
               >
-                <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
-                <Search>
+                <Search
+                  id="search"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  style={{ marginTop: "15px" }}
+                >
                   <SearchIconWrapper>
                     <SearchIcon />
                   </SearchIconWrapper>
@@ -139,11 +140,126 @@ export default function TopNav({
                     }}
                   />
                 </Search>
+                {searchText.length > 0 && (
+                  <Grid
+                    container
+                    spacing={0}
+                    columns={1}
+                    direction="column"
+                    style={{
+                      position: "absolute",
+                      bottom: "-150px",
+                      overflow: "visible",
+                      backgroundColor: "#FFFFFF",
+                      height: 150,
+                      border: "#293241 solid 1px",
+                    }}
+                  >
+                    {matches.map((player: any, index: number) => {
+                      return (
+                        <a href={"/player/" + player.id} style={{ zIndex: 2 }}>
+                          <Grid
+                            container
+                            spacing={1}
+                            columns={16}
+                            direction="row"
+                            justifyContent="flex-end"
+                            alignItems="center"
+                            style={{
+                              position: "absolute",
+                              top: 10 + index * 30,
+                              height: 30,
+                            }}
+                            key={index}
+                          >
+                            <Typography
+                              variant="subtitle2"
+                              textAlign="right"
+                              marginRight="30px"
+                              style={{ color: "#000000" }}
+                            >
+                              {player.name}
+                            </Typography>
+                            <Typography
+                              variant="subtitle2"
+                              textAlign="right"
+                              marginRight="30px"
+                              style={{ color: "#000000", width: 30 }}
+                            >
+                              {player.MLB_AbbName !== undefined &&
+                              player.MLB_AbbName !== null
+                                ? player.MLB_AbbName
+                                : "FA"}
+                            </Typography>
+                            <Typography
+                              variant="subtitle2"
+                              textAlign="right"
+                              marginRight="30px"
+                              style={{ color: "#000000", width: 70 }}
+                            >
+                              {player.Position}
+                            </Typography>
+                          </Grid>
+                        </a>
+                      );
+                    })}
+                  </Grid>
+                )}
+              </Grid>
+              <img
+                src={logo2}
+                height="64px"
+                alt=""
+                style={{ marginLeft: "20px" }}
+              />
+            </Toolbar>
+          </AppBar>
+        </Box>
+      )}
+      {!isDesktop && (
+        <Box sx={{ flexGrow: 1, marginBottom: "25px" }}>
+          <AppBar position="static" sx={{ backgroundColor: "#3D5A80" }}>
+            <Toolbar style={{ display: "flex", flexDirection: "column" }}>
+              <img
+                src={logo}
+                width="600vw"
+                alt=""
+                style={{ maxWidth: "100%" }}
+              />
+              <Grid
+                container
+                spacing={1}
+                columns={16}
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                marginTop="0px"
+              >
+                <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
+                <Grid container spacing={0} columns={1} direction="column">
+                  <Search>
+                    <SearchIconWrapper>
+                      <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                      inputProps={{ "aria-label": "search" }}
+                      placeholder="Search For a Player"
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      onKeyDown={(ev) => {
+                        if (ev.key === "Enter") {
+                          search();
+                          ev.preventDefault();
+                        }
+                      }}
+                    />
+                  </Search>
+                </Grid>
               </Grid>
             </Toolbar>
           </AppBar>
         </Box>
-      }
+      )}
     </div>
   );
 }

@@ -47,6 +47,8 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
             style={{
               padding: "20px",
               backgroundColor:
+                playerInfoProp.common.teamInfo !== undefined &&
+                "MLB_AbbName" in playerInfoProp.common.teamInfo &&
                 playerInfoProp.common.teamInfo.MLB_AbbName !== null
                   ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
                   : teamColors["FA"][0],
@@ -62,6 +64,8 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
                 <span
                   style={{
                     color:
+                      playerInfoProp.common.teamInfo !== undefined &&
+                      "MLB_AbbName" in playerInfoProp.common.teamInfo &&
                       playerInfoProp.common.teamInfo.MLB_AbbName !== null
                         ? teamColors[
                             playerInfoProp.common.teamInfo.MLB_AbbName
@@ -78,6 +82,8 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
               <span
                 style={{
                   color:
+                    playerInfoProp.common.teamInfo !== undefined &&
+                    "MLB_AbbName" in playerInfoProp.common.teamInfo &&
                     playerInfoProp.common.teamInfo.MLB_AbbName !== null
                       ? teamColors[
                           playerInfoProp.common.teamInfo.MLB_AbbName
@@ -85,14 +91,22 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
                       : teamColors["FA"][2],
                 }}
               >
-                {playerInfoProp.common.teamInfo.MLB_FullName} (
-                {playerInfoProp.common.teamInfo.llevel1})
+                {playerInfoProp.common.teamInfo !== undefined
+                  ? playerInfoProp.common.teamInfo.MLB_FullName
+                  : "Free Agent"}{" "}
+                (
+                {playerInfoProp.common.teamInfo !== undefined
+                  ? playerInfoProp.common.teamInfo.llevel1
+                  : ""}
+                )
               </span>
             </Typography>
             <Typography variant="subtitle1">
               <span
                 style={{
                   color:
+                    playerInfoProp.common.teamInfo !== undefined &&
+                    "MLB_AbbName" in playerInfoProp.common.teamInfo &&
                     playerInfoProp.common.teamInfo.MLB_AbbName !== null
                       ? teamColors[
                           playerInfoProp.common.teamInfo.MLB_AbbName
@@ -110,11 +124,13 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
               <span
                 style={{
                   color:
+                    playerInfoProp.common.teamInfo !== undefined &&
+                    "MLB_AbbName" in playerInfoProp.common.teamInfo &&
                     playerInfoProp.common.teamInfo.MLB_AbbName !== null
                       ? teamColors[
                           playerInfoProp.common.teamInfo.MLB_AbbName
-                        ][2]
-                      : teamColors["FA"][2],
+                        ][0]
+                      : teamColors["FA"][0],
                 }}
               >
                 <span style={{ fontWeight: "bold" }}>Bats/Throws:</span>{" "}

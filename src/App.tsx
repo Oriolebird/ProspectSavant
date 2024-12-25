@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 export default function App() {
   const [searchText, setSearchText] = useState("");
   const [isDesktop, setDesktop] = useState(window.innerWidth > 1450);
+  const [matches, setMatches] = useState([""]);
 
   const navigate = useNavigate();
 
@@ -34,6 +35,23 @@ export default function App() {
       });
   };
 
+  useEffect(() => {
+    console.log("Text update");
+    fetch(`https://oriolebird.pythonanywhere.com/search-fuzzy/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(searchText),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const id = data;
+        console.log("FUZZY", id, data);
+        setMatches(id);
+      });
+  }, [searchText]);
+
   const setVP = () => {
     setDesktop(window.innerWidth > 1450);
   };
@@ -50,6 +68,7 @@ export default function App() {
           searchText={searchText}
           setSearchText={setSearchText}
           isDesktop={isDesktop}
+          matches={matches}
         ></TopNav>
       </div>
       <Routes>
