@@ -41,83 +41,112 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
   return (
     <div>
       {playerInfoProp.common !== undefined && (
-        <div
-          style={{
-            padding: "20px",
-            backgroundColor:
-              playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
-                : teamColors["FA"][0],
-          }}
-        >
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
+        <div>
+          <div
+            style={{
+              padding: "20px",
+              backgroundColor:
+                playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                  ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
+                  : teamColors["FA"][0],
+            }}
           >
-            <Typography variant="h4">
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
+              <Typography variant="h4">
+                <span
+                  style={{
+                    color:
+                      playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                        ? teamColors[
+                            playerInfoProp.common.teamInfo.MLB_AbbName
+                          ][1]
+                        : teamColors["FA"][1],
+                  }}
+                >
+                  {playerInfoProp.common.playerInfo.firstLastName} ⋅{" "}
+                  {playerInfoProp.common.playerInfo.Position}
+                </span>
+              </Typography>
+            </Grid>
+            <Typography variant="h6">
               <span
                 style={{
                   color:
                     playerInfoProp.common.teamInfo.MLB_AbbName !== null
                       ? teamColors[
                           playerInfoProp.common.teamInfo.MLB_AbbName
-                        ][1]
-                      : teamColors["FA"][1],
+                        ][2]
+                      : teamColors["FA"][2],
                 }}
               >
-                {playerInfoProp.common.playerInfo.firstLastName} ⋅{" "}
-                {playerInfoProp.common.playerInfo.Position}
+                {playerInfoProp.common.teamInfo.MLB_FullName} (
+                {playerInfoProp.common.teamInfo.llevel1})
               </span>
             </Typography>
-          </Grid>
-          <Typography variant="h6">
-            <span
-              style={{
-                color:
-                  playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                    ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][2]
-                    : teamColors["FA"][2],
-              }}
-            >
-              {playerInfoProp.common.teamInfo.MLB_FullName} (
-              {playerInfoProp.common.teamInfo.llevel1})
-            </span>
-          </Typography>
-          <Typography variant="subtitle1">
-            <span
-              style={{
-                color:
-                  playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                    ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][2]
-                    : teamColors["FA"][2],
-              }}
-            >
-              <span style={{ fontWeight: "bold" }}>Age:</span>{" "}
-              {playerInfoProp.common.playerInfo.AgeDisplay} ⋅{" "}
-              <span style={{ fontWeight: "bold" }}>DOB:</span>{" "}
-              {playerInfoProp.common.playerInfo.BirthDateDisplay}
-            </span>
-          </Typography>
-          <Typography variant="subtitle1">
-            <span
-              style={{
-                color:
-                  playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                    ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][2]
-                    : teamColors["FA"][2],
-              }}
-            >
-              <span style={{ fontWeight: "bold" }}>Bats/Throws:</span>{" "}
-              {playerInfoProp.common.playerInfo.Bats}/
-              {playerInfoProp.common.playerInfo.Throws} ⋅{" "}
-              <span style={{ fontWeight: "bold" }}>Service Time:</span>{" "}
-              {playerInfoProp.contract.serviceTime
-                ? playerInfoProp.contract.serviceTime
-                : "0.000"}
-            </span>
-          </Typography>
+            <Typography variant="subtitle1">
+              <span
+                style={{
+                  color:
+                    playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                      ? teamColors[
+                          playerInfoProp.common.teamInfo.MLB_AbbName
+                        ][2]
+                      : teamColors["FA"][2],
+                }}
+              >
+                <span style={{ fontWeight: "bold" }}>Age:</span>{" "}
+                {playerInfoProp.common.playerInfo.AgeDisplay} ⋅{" "}
+                <span style={{ fontWeight: "bold" }}>DOB:</span>{" "}
+                {playerInfoProp.common.playerInfo.BirthDateDisplay}
+              </span>
+            </Typography>
+            <Typography variant="subtitle1">
+              <span
+                style={{
+                  color:
+                    playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                      ? teamColors[
+                          playerInfoProp.common.teamInfo.MLB_AbbName
+                        ][2]
+                      : teamColors["FA"][2],
+                }}
+              >
+                <span style={{ fontWeight: "bold" }}>Bats/Throws:</span>{" "}
+                {playerInfoProp.common.playerInfo.Bats}/
+                {playerInfoProp.common.playerInfo.Throws} ⋅{" "}
+                <span style={{ fontWeight: "bold" }}>Service Time:</span>{" "}
+                {playerInfoProp.contract.serviceTime
+                  ? playerInfoProp.contract.serviceTime
+                  : "0.000"}
+              </span>
+            </Typography>
+          </div>
+          {playerInfoProp.draft !== undefined && (
+            <div style={{ padding: "20px" }}>
+              <Typography variant="subtitle1">
+                <span style={{ fontWeight: "bold" }}>Draft: </span>
+                {playerInfoProp.draft.season} {playerInfoProp.draft.draftType},
+                Pick {playerInfoProp.draft.pickNumber} (Round{" "}
+                {playerInfoProp.draft.pickRound}, Pick{" "}
+                {playerInfoProp.draft.roundPickNumber})
+                <br />
+                <span style={{ fontWeight: "bold" }}>Draft Team: </span>
+                {playerInfoProp.draft.TeamName}
+                <br />
+                <span style={{ fontWeight: "bold" }}>Signing Bonus: </span>
+                {playerInfoProp.draft.signingBonusFormat}
+                <br />
+                <span style={{ fontWeight: "bold" }}>School: </span>
+                {playerInfoProp.draft.schoolName}
+                <br />
+              </Typography>
+            </div>
+          )}
         </div>
       )}
     </div>
