@@ -10,8 +10,7 @@ export default function Footer() {
       <Grid
         container
         justifyContent="center"
-        spacing={2}
-        maxWidth="100%"
+        spacing={0}
         alignContent="center"
         sx={{
           maxWidth: "100vw",
@@ -21,59 +20,80 @@ export default function Footer() {
           backgroundColor: "#25364c",
         }}
       >
+        <Typography
+          variant="h5"
+          style={{ color: "#FFFFFF", marginTop: "10px" }}
+        >
+          Email all recommendations, requests, bugs, and love letters to
+          duke@prospectsavant.com
+        </Typography>
         <Grid
           container
           justifyContent="center"
-          spacing={0}
-          maxWidth="80%"
+          spacing={2}
+          maxWidth="100%"
           alignContent="center"
-          width="400px"
-          height="200px"
+          sx={{
+            maxWidth: "100vw",
+            width: "100%",
+            border: "#293241 solid 1px",
+            backgroundColor: "#25364c",
+          }}
         >
-          <img
-            src={SIS}
-            height="128px"
-            alt=""
-            style={{ marginLeft: "10px", marginTop: "10px" }}
-          />
-
-          <Typography
-            style={{ color: "#FFFFFF", textAlign: "center" }}
-            variant="body2"
+          <Grid
+            container
+            justifyContent="center"
+            spacing={0}
+            maxWidth="80%"
+            alignContent="center"
+            width="400px"
+            height="200px"
           >
-            All major league baseball data including pitch type, velocity,
-            batted ball location, and play-by-play data provided by Sports Info
-            Solutions.
-          </Typography>
-        </Grid>
-        <Grid
-          container
-          justifyContent="center"
-          spacing={0}
-          maxWidth="80%"
-          alignContent="center"
-          width="400px"
-          height="200px"
-          paddingTop="10px"
-        >
-          <img
-            src={MLB}
-            height="80px"
-            alt=""
-            style={{
-              marginLeft: "10px",
-              marginTop: "10px",
-              marginBottom: "20px",
-            }}
-          />
+            <img
+              src={SIS}
+              height="128px"
+              alt=""
+              style={{ marginLeft: "10px", marginTop: "10px" }}
+            />
 
-          <Typography
-            style={{ color: "#FFFFFF", textAlign: "center" }}
-            variant="body2"
+            <Typography
+              style={{ color: "#FFFFFF", textAlign: "center" }}
+              variant="body2"
+            >
+              All major league baseball data including pitch type, velocity,
+              batted ball location, and play-by-play data provided by Sports
+              Info Solutions.
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            spacing={0}
+            maxWidth="80%"
+            alignContent="center"
+            width="400px"
+            height="200px"
+            paddingTop="10px"
           >
-            Major League and Minor League Baseball data provided by Major League
-            Baseball.
-          </Typography>
+            <img
+              src={MLB}
+              height="80px"
+              alt=""
+              style={{
+                marginLeft: "10px",
+                marginTop: "10px",
+                marginBottom: "20px",
+              }}
+            />
+
+            <Typography
+              style={{ color: "#FFFFFF", textAlign: "center" }}
+              variant="body2"
+            >
+              Major League and Minor League Baseball data provided by Major
+              League Baseball.
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </div>
