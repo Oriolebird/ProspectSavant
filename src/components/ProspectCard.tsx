@@ -76,7 +76,7 @@ export default function ProspectCard({
                       fontWeight: "bold",
                     }}
                   >
-                    Prospect Info ({playerInfoProp.common.prospect[0].cSeason})
+                    Prospect Info ({playerInfoProp.common.prospect[0].Type})
                   </span>
                 </Typography>
               </Grid>

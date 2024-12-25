@@ -127,48 +127,69 @@ export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
               </span>
             </Typography>
           </div>
-          {playerInfoProp.draft !== null && (
-            <div style={{ padding: "20px" }}>
-              <Typography variant="subtitle1">
-                <span style={{ fontWeight: "bold" }}>Draft: </span>
-                {playerInfoProp.draft.season} {playerInfoProp.draft.draftType},
-                Pick {playerInfoProp.draft.pickNumber} (Round{" "}
-                {playerInfoProp.draft.pickRound}, Pick{" "}
-                {playerInfoProp.draft.roundPickNumber})
-                <br />
-                <span style={{ fontWeight: "bold" }}>Draft Team: </span>
-                {playerInfoProp.draft.TeamName}
-                <br />
-                <span style={{ fontWeight: "bold" }}>Signing Bonus: </span>
-                {playerInfoProp.draft.signingBonusFormat}
-                <br />
-                <span style={{ fontWeight: "bold" }}>School: </span>
-                {playerInfoProp.draft.schoolName}
-                <br />
-              </Typography>
-            </div>
-          )}
-          {playerInfoProp.draft === null && (
-            <div style={{ padding: "20px" }}>
-              <Typography variant="subtitle1">
-                <span style={{ fontWeight: "bold" }}>Draft: UDFA</span>
-                {playerInfoProp.common.prospect[0] !== undefined && (
-                  <div>
-                    <span style={{ fontWeight: "bold" }}>Signing Org: </span>
-                    {playerInfoProp.common.prospect[0].Signed_Org} (
-                    {playerInfoProp.common.prospect[0].Signed_Yr})
-                    <br />
-                    <span style={{ fontWeight: "bold" }}>Signing Bonus: </span>$
-                    {playerInfoProp.common.prospect[0].Sign_Bonus}
-                    <br />
-                    <span style={{ fontWeight: "bold" }}>School: </span>
-                    {playerInfoProp.common.prospect[0].School}
-                    <br />
-                  </div>
-                )}
-              </Typography>
-            </div>
-          )}
+          <div style={{ padding: "20px" }}>
+            {playerInfoProp.common.prospect[0] !== undefined && (
+              <div>
+                <Typography variant="h6">
+                  Ranks From Report: {playerInfoProp.common.prospect[0].Type}
+                  <br />
+                  <span style={{ fontWeight: "bold" }}>Overall Rank: </span>
+                  {playerInfoProp.common.prospect[0].Ovr_Rank
+                    ? playerInfoProp.common.prospect[0].Ovr_Rank
+                    : "NR"}
+                  {"  ⋅  "}
+                  <span style={{ fontWeight: "bold" }}>Org Rank: </span>
+                  {playerInfoProp.common.prospect[0].Org_Rank
+                    ? playerInfoProp.common.prospect[0].Org_Rank
+                    : "NR"}
+                </Typography>
+              </div>
+            )}
+            {playerInfoProp.draft !== null && (
+              <div>
+                <Typography variant="subtitle1">
+                  <span style={{ fontWeight: "bold" }}>Draft: </span>
+                  {playerInfoProp.draft.season} {playerInfoProp.draft.draftType}
+                  , Pick {playerInfoProp.draft.pickNumber} (Round{" "}
+                  {playerInfoProp.draft.pickRound}, Pick{" "}
+                  {playerInfoProp.draft.roundPickNumber})
+                  <br />
+                  <span style={{ fontWeight: "bold" }}>Draft Team: </span>
+                  {playerInfoProp.draft.TeamName}
+                  <br />
+                  <span style={{ fontWeight: "bold" }}>Signing Bonus: </span>
+                  {playerInfoProp.draft.signingBonusFormat}
+                  <br />
+                  <span style={{ fontWeight: "bold" }}>School: </span>
+                  {playerInfoProp.draft.schoolName}
+                  <br />
+                </Typography>
+              </div>
+            )}
+            {playerInfoProp.draft === null && (
+              <div>
+                <Typography variant="subtitle1">
+                  <span style={{ fontWeight: "bold" }}>Draft: UDFA</span>
+                  {playerInfoProp.common.prospect[0] !== undefined && (
+                    <div>
+                      <span style={{ fontWeight: "bold" }}>Signing Org: </span>
+                      {playerInfoProp.common.prospect[0].Signed_Org} (
+                      {playerInfoProp.common.prospect[0].Signed_Yr})
+                      <br />
+                      <span style={{ fontWeight: "bold" }}>
+                        Signing Bonus:{" "}
+                      </span>
+                      ${playerInfoProp.common.prospect[0].Sign_Bonus}
+                      <br />
+                      <span style={{ fontWeight: "bold" }}>School: </span>
+                      {playerInfoProp.common.prospect[0].School}
+                      <br />
+                    </div>
+                  )}
+                </Typography>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
