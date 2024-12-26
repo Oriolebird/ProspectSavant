@@ -281,6 +281,8 @@ export default function Leaderboard(props: any) {
               "&.MuiDataGrid-toolbarContainer": {
                 backgroundColor: "white",
               },
+              width: props.isDesktop.isDesktop? "100%" : "100vw",
+              marginLeft: props.isDesktop.isDesktop? "0px" : "-6vw",
             }}
             columns={h_columns}
             getRowClassName={(params) =>
