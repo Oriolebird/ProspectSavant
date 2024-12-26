@@ -77,7 +77,7 @@ export default function Footer() {
             height="200px"
             paddingTop="10px"
           >
-            <a href="https://www.sportsinfosolutions.com/">
+            <a href="https://www.mlb.com/">
               <img
                 src={MLB}
                 height="80px"
@@ -108,7 +108,7 @@ export default function Footer() {
             height="200px"
             paddingTop="10px"
           >
-            <a href="https://www.sportsinfosolutions.com/">
+            <a href="https://www.fangraphs.com/">
               <img
                 src={Fangraphs}
                 height="80px"

@@ -104,6 +104,7 @@ export default function TopNav({
                 component="div"
                 sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
               ></Typography>
+              <Tab label="Donate" {...a11yProps(1)} href="/donate" />
               <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
               <Grid
                 container
@@ -235,6 +236,7 @@ export default function TopNav({
                 alignItems="center"
                 marginTop="0px"
               >
+                <Tab label="Donate" {...a11yProps(1)} href="/donate" />
                 <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
                 <Grid container spacing={0} columns={1} direction="column">
                   <Search>

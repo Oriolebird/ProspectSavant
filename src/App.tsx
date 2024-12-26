@@ -12,6 +12,7 @@ import TopNav from "./components/Topnav";
 import { Divider } from "@mui/material";
 import Glossary from "./components/Glossary";
 import Footer from "./components/Footer";
+import Donate from "./components/Donate";
 
 export default function App() {
   const [searchText, setSearchText] = useState("");
@@ -78,6 +79,10 @@ export default function App() {
           path="/leaders"
           element={<LeaderboardWrapper isDesktop={isDesktop} />}
         />
+        <Route
+          path="/donate"
+          element={<DonateWrapper isDesktop={isDesktop} />}
+        />
       </Routes>
       <div>
         <Divider variant="fullWidth" />
@@ -95,6 +100,10 @@ const PlayerPageWrapper = () => {
 
 const LeaderboardWrapper = (isDesktop: any) => {
   return <Leaderboard isDesktop={isDesktop} />;
+};
+
+const DonateWrapper = (isDesktop: any) => {
+  return <Donate isDesktop={isDesktop} />;
 };
 
 //TODO: ADD 2023
