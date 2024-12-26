@@ -83,7 +83,7 @@ export default function CustomizedTables() {
     <div>
       <TableContainer
         component={Paper}
-        sx={{ height: 400, maxWidth: "75vw", width: 750, margin: "10px" }}
+        sx={{ height: "100%", width: 750, maxWidth: "100vw" }}
       >
         <Toolbar style={{ backgroundColor: "#25364C" }}>
           <Typography

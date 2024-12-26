@@ -81,7 +81,7 @@ export default function App() {
       </Routes>
       <div>
         <Divider variant="fullWidth" />
-        <Glossary />
+        <Glossary isDesktop={isDesktop} />
         <Footer />
       </div>
     </div>

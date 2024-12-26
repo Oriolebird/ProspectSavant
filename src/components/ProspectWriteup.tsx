@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid2";
 import { Divider, Typography } from "@mui/material";
+import FanBanner from "./FanBanner.png";
 
 const teamColors: { [id: string]: string[] } = {
   TBR: ["#02285C", "#90BDE7", "#FFFFFF"],
@@ -50,7 +51,6 @@ export default function ProspectWriteup({
           <div>
             <div
               style={{
-                padding: "20px",
                 backgroundColor:
                   playerInfoProp.common.teamInfo.MLB_AbbName !== null
                     ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
@@ -73,11 +73,27 @@ export default function ProspectWriteup({
                             ][1]
                           : teamColors["FA"][1],
                       fontWeight: "bold",
+                      padding: "10px",
                     }}
                   >
                     Prospect Writeup
                   </span>
                 </Typography>
+                <a
+                  href={
+                    "https://www.fangraphs.com" +
+                    playerInfoProp.common.prospect[0].UPURL
+                  }
+                >
+                  <img
+                    src={FanBanner}
+                    height="50px"
+                    alt=""
+                    style={{
+                      marginLeft: "10px",
+                    }}
+                  />
+                </a>
               </Grid>
             </div>
             <div style={{ margin: "10px", padding: "10px" }}>

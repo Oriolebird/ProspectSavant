@@ -3,6 +3,7 @@ import { Grid } from "@mui/system";
 import React from "react";
 import SIS from "./SIS.png";
 import MLB from "./MLB.png";
+import Fangraphs from "./fangraphs.png";
 
 export default function Footer() {
   return (
@@ -49,13 +50,14 @@ export default function Footer() {
             width="400px"
             height="200px"
           >
-            <img
-              src={SIS}
-              height="128px"
-              alt=""
-              style={{ marginLeft: "10px", marginTop: "10px" }}
-            />
-
+            <a href="https://www.sportsinfosolutions.com/">
+              <img
+                src={SIS}
+                height="128px"
+                alt=""
+                style={{ marginLeft: "10px", marginTop: "10px" }}
+              />
+            </a>
             <Typography
               style={{ color: "#FFFFFF", textAlign: "center" }}
               variant="body2"
@@ -75,16 +77,18 @@ export default function Footer() {
             height="200px"
             paddingTop="10px"
           >
-            <img
-              src={MLB}
-              height="80px"
-              alt=""
-              style={{
-                marginLeft: "10px",
-                marginTop: "10px",
-                marginBottom: "20px",
-              }}
-            />
+            <a href="https://www.sportsinfosolutions.com/">
+              <img
+                src={MLB}
+                height="80px"
+                alt=""
+                style={{
+                  marginLeft: "10px",
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                }}
+              />
+            </a>
 
             <Typography
               style={{ color: "#FFFFFF", textAlign: "center" }}
@@ -92,6 +96,37 @@ export default function Footer() {
             >
               Major League and Minor League Baseball data provided by Major
               League Baseball.
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            justifyContent="center"
+            spacing={0}
+            maxWidth="80%"
+            alignContent="center"
+            width="400px"
+            height="200px"
+            paddingTop="10px"
+          >
+            <a href="https://www.sportsinfosolutions.com/">
+              <img
+                src={Fangraphs}
+                height="80px"
+                alt=""
+                style={{
+                  marginLeft: "10px",
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                }}
+              />
+            </a>
+
+            <Typography
+              style={{ color: "#FFFFFF", textAlign: "center" }}
+              variant="body2"
+            >
+              Prospect Future Values and Summaries/Writeups provided by
+              FanGraphs API.
             </Typography>
           </Grid>
         </Grid>

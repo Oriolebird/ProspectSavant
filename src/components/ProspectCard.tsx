@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid2";
 import { Typography } from "@mui/material";
 import ValueChip from "./ValueChip";
+import FanBanner from "./FanBanner.png";
 
 const teamColors: { [id: string]: string[] } = {
   TBR: ["#02285C", "#90BDE7", "#FFFFFF"],
@@ -79,6 +80,21 @@ export default function ProspectCard({
                     Prospect Info ({playerInfoProp.common.prospect[0].Type})
                   </span>
                 </Typography>
+                <a
+                  href={
+                    "https://www.fangraphs.com" +
+                    playerInfoProp.common.prospect[0].UPURL
+                  }
+                >
+                  <img
+                    src={FanBanner}
+                    height="50px"
+                    alt=""
+                    style={{
+                      marginLeft: "10px",
+                    }}
+                  />
+                </a>
               </Grid>
             </div>
             <div style={{ margin: "10px" }}>

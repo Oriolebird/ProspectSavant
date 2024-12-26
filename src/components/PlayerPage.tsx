@@ -368,14 +368,14 @@ export default function PlayerPage(props: any) {
             justifyContent="center"
             spacing={2}
             maxWidth="100%"
-            style={{ margin: "30px" }}
+            style={{ marginTop: "30px" }}
           >
             <Grid item maxWidth="90vw">
               <Paper
                 sx={{
                   maxWidth: "90vw",
                   height: "100%",
-                  width: "70vw",
+                  width: "1000px",
                   border: "#293241 solid 1px",
                   backgroundColor: (theme) =>
                     theme.palette.mode === "dark" ? "#1A2027" : "#fff",

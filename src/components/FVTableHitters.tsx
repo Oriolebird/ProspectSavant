@@ -62,10 +62,7 @@ const rows = [
 export default function CustomizedTables() {
   return (
     <div>
-      <TableContainer
-        component={Paper}
-        sx={{ height: 400, maxWidth: "75vw", width: 410 }}
-      >
+      <TableContainer component={Paper} sx={{ height: 400, width: 410 }}>
         <Toolbar style={{ backgroundColor: "#25364C" }}>
           <Typography
             variant="h6"
