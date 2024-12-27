@@ -117,6 +117,8 @@ export default function Footer() {
                   marginLeft: "10px",
                   marginTop: "10px",
                   marginBottom: "20px",
+                  boxShadow: "1px 1px 1px white",
+                  border: "5px solid white"
                 }}
               />
             </a>

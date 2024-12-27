@@ -74,7 +74,7 @@ export default function App() {
       </div>
       <Routes>
         <Route path="/" element={<Navigate to="/leaders" />} />
-        <Route path="/player/:id" element={<PlayerPageWrapper />} />
+        <Route path="/player/:id" element={<PlayerPageWrapper isDesktop={isDesktop}/>} />
         <Route
           path="/leaders"
           element={<LeaderboardWrapper isDesktop={isDesktop} />}
@@ -93,9 +93,9 @@ export default function App() {
   );
 }
 
-const PlayerPageWrapper = () => {
+const PlayerPageWrapper = (isDesktop: any) => {
   const { id } = useParams();
-  return <PlayerPage id={id} />;
+  return <PlayerPage id={id} isDesktop={isDesktop} />;
 };
 
 const LeaderboardWrapper = (isDesktop: any) => {

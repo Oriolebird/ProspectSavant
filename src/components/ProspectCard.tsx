@@ -40,8 +40,10 @@ const teamColors: { [id: string]: string[] } = {
 
 export default function ProspectCard({
   playerInfoProp,
+  isDesktop
 }: {
   playerInfoProp: any;
+  isDesktop: boolean;
 }) {
   console.log(playerInfoProp.common.prospect[0]);
 
@@ -52,50 +54,101 @@ export default function ProspectCard({
           <div>
             <div
               style={{
-                padding: "20px",
+                padding: "10px",
                 backgroundColor:
                   playerInfoProp.common.teamInfo.MLB_AbbName !== null
                     ? teamColors[playerInfoProp.common.teamInfo.MLB_AbbName][0]
                     : teamColors["FA"][0],
               }}
             >
-              <Grid
-                container
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-              >
-                <Typography variant="h5">
-                  <span
-                    style={{
-                      color:
-                        playerInfoProp.common.teamInfo.MLB_AbbName !== null
-                          ? teamColors[
-                              playerInfoProp.common.teamInfo.MLB_AbbName
-                            ][1]
-                          : teamColors["FA"][1],
-                      fontWeight: "bold",
-                    }}
+                {isDesktop &&
+                  (<Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
                   >
-                    Prospect Info ({playerInfoProp.common.prospect[0].Type})
-                  </span>
-                </Typography>
-                <a
-                  href={
-                    "https://www.fangraphs.com" +
-                    playerInfoProp.common.prospect[0].UPURL
-                  }
-                >
-                  <img
-                    src={FanBanner}
-                    height="50px"
-                    alt=""
-                    style={{
-                      marginLeft: "10px",
-                    }}
-                  />
-                </a>
-              </Grid>
+                    <Typography variant="h5">
+                      <span
+                        style={{
+                          color:
+                            playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                              ? teamColors[
+                                  playerInfoProp.common.teamInfo.MLB_AbbName
+                                ][1]
+                              : teamColors["FA"][1],
+                          fontWeight: "bold",
+                          fontSize: "15pt"
+                        }}
+                      >
+                        Prospect Info ({playerInfoProp.common.prospect[0].Type})
+                      </span>
+                    </Typography>
+                    <a
+                      href={
+                        "https://www.fangraphs.com" +
+                        playerInfoProp.common.prospect[0].UPURL
+                      }
+                    >
+                      <img
+                        src={FanBanner}
+                        height="50px"
+                        alt=""
+                        style={{
+                          marginLeft: "10px",
+                        }}
+                      />
+                    </a>
+                  </Grid>)}
+                  {!isDesktop &&
+                  (<Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  ><Typography variant="h5" style={{fontSize: "15pt"}}>
+                    <div
+                      style={{
+                        color:
+                          playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                            ? teamColors[
+                                playerInfoProp.common.teamInfo.MLB_AbbName
+                              ][1]
+                            : teamColors["FA"][1],
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Prospect Info{" "}
+                      </div>
+                    <span
+                      style={{
+                        color:
+                          playerInfoProp.common.teamInfo.MLB_AbbName !== null
+                            ? teamColors[
+                                playerInfoProp.common.teamInfo.MLB_AbbName
+                              ][1]
+                            : teamColors["FA"][1],
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ({playerInfoProp.common.prospect[0].Type})
+                    </span>
+                  </Typography>
+                  <a
+                    href={
+                      "https://www.fangraphs.com" +
+                      playerInfoProp.common.prospect[0].UPURL
+                    }
+                  >
+                    <img
+                      src={FanBanner}
+                      height="70px"
+                      alt=""
+                      style={{
+                        marginLeft: "30px",
+                      }}
+                    />
+                  </a></Grid>)}
             </div>
             <div style={{ margin: "10px" }}>
               <Typography variant="h4" textAlign="center">

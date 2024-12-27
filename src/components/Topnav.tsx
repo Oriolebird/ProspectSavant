@@ -89,6 +89,7 @@ export default function TopNav({
               overflow: "visible",
               height: "68px",
               maxHeight: "68px",
+              boxShadow: "0px 1px 1px black, 0px 3px 3px black"
             }}
           >
             <Toolbar>
@@ -219,14 +220,9 @@ export default function TopNav({
       )}
       {!isDesktop && (
         <Box sx={{ flexGrow: 1, marginBottom: "25px" }}>
-          <AppBar position="static" sx={{ backgroundColor: "#3D5A80" }}>
+          <AppBar position="static" sx={{ backgroundColor: "#3D5A80", boxShadow: "0px 2px 1px black" }}>
             <Toolbar style={{ display: "flex", flexDirection: "column" }}>
-              <img
-                src={logo}
-                width="600vw"
-                alt=""
-                style={{ maxWidth: "100%" }}
-              />
+              
               <Grid
                 container
                 spacing={1}
@@ -236,9 +232,15 @@ export default function TopNav({
                 alignItems="center"
                 marginTop="0px"
               >
+                <img
+                src={logo}
+                width="100%"
+                alt=""
+                style={{ maxWidth: "100%", boxShadow: "0px 2px 0px black", marginTop: "10px", borderTop: "2px solid black"   }}
+              />
                 <Tab label="Donate" {...a11yProps(1)} href="/donate" />
                 <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
-                <Grid container spacing={0} columns={1} direction="column">
+                <Grid container spacing={0} columns={1} direction="column" style={{marginBottom: "10px"}}>
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon />

@@ -80,9 +80,9 @@ export default function PlayerPage(props: any) {
                   height: "100%",
                   maxWidth: "90vw",
                   width: 500,
-                  border: "#293241 solid 1px",
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  border: "#293241 solid 2px",
+                  backgroundColor: "#FFFFFF",
+                  boxShadow: "1px 1px 1px black,2px 2px 1px white,3px 3px 1px black,4px 4px 3px"
                 }}
                 square
                 variant="outlined"
@@ -98,9 +98,8 @@ export default function PlayerPage(props: any) {
                       maxWidth: "90vw",
                       height: "100%",
                       width: 500,
-                      border: "#293241 solid 1px",
-                      backgroundColor: (theme) =>
-                        theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                      border: "#293241 solid 2px",
+                      boxShadow: "1px 1px 1px black,2px 2px 1px white,3px 3px 1px black,4px 4px 3px"
                     }}
                     square
                     variant="outlined"
@@ -124,9 +123,8 @@ export default function PlayerPage(props: any) {
                         >
                           <img
                             src={Strider}
-                            height="64px"
                             alt=""
-                            style={{ marginLeft: "10px", marginTop: "10px" }}
+                            style={{ marginLeft: "10px", marginTop: "10px", width:"64px",maxWidth: "12vw" }}
                           />
                           <span
                             style={{
@@ -231,6 +229,7 @@ export default function PlayerPage(props: any) {
                             paddingBottom: "10px",
                             marginBottom: "10px",
                             wordWrap: "break-word",
+                            
                           }}
                         >
                           <img
@@ -350,15 +349,14 @@ export default function PlayerPage(props: any) {
                   maxWidth: "90vw",
                   height: "100%",
                   width: 500,
-                  border: "#293241 solid 1px",
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  border: "#293241 solid 2px",
+                  boxShadow: "1px 1px 1px black,2px 2px 1px white,3px 3px 1px black,4px 4px 3px"
                 }}
                 square
                 variant="outlined"
               >
                 {playerInfo.common && (
-                  <ProspectCard playerInfoProp={playerInfo} />
+                  <ProspectCard playerInfoProp={playerInfo} isDesktop={props.isDesktop.isDesktop}/>
                 )}
               </Paper>
             </Grid>
@@ -376,9 +374,8 @@ export default function PlayerPage(props: any) {
                   maxWidth: "90vw",
                   height: "100%",
                   width: "1000px",
-                  border: "#293241 solid 1px",
-                  backgroundColor: (theme) =>
-                    theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+                  border: "#293241 solid 2px",
+                  boxShadow: "1px 1px 1px black,2px 2px 1px white,3px 3px 1px black,4px 4px 3px"
                 }}
                 square
                 variant="outlined"

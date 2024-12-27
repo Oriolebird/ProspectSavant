@@ -288,6 +288,7 @@ export default function Leaderboard(props: any) {
             getRowClassName={(params) =>
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
+            pageSizeOptions={[]}
             pagination
             slots={{
               pagination: CustomPagination,
@@ -316,6 +317,7 @@ export default function Leaderboard(props: any) {
               params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
             }
             pagination
+            pageSizeOptions={[]}
             slots={{
               pagination: CustomPagination,
               toolbar: CustomToolbar,
