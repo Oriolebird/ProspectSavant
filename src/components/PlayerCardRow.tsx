@@ -11,7 +11,7 @@ export default function PlayerPage({
   percentile_raw,
 }: {
   stat: string;
-  value: number;
+  value: string;
   percentile: number;
   percentile_raw: number;
 }) {
@@ -105,7 +105,7 @@ export default function PlayerPage({
           />
         </Grid>
         <Grid size={3}>
-          <Typography variant="body2" textAlign="right" marginRight="30px">
+          <Typography variant="body2" textAlign="right" marginRight="20px">
             {value}
           </Typography>
         </Grid>

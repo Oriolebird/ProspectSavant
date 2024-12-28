@@ -65,7 +65,7 @@ export default function PlayerPage(props: any) {
             setPlayerInfo(data2);
             console.log("D: ", data2);
           });
-        console.log(data1);
+        console.log("P%", data1);
       });
   }, [props.id]);
   console.log(playerData.MLB_AbbName);
@@ -143,70 +143,70 @@ export default function PlayerPage(props: any) {
                         <div>
                           <PlayerCardRow
                             stat="xWOBA"
-                            value={playerData.xwoba}
+                            value={playerData.xwoba.toFixed(3)}
                             percentile={playerData.xwoba_p.toFixed(2) * 100}
                             percentile_raw={playerData.xwoba_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="xBA"
-                            value={playerData.xba}
+                            value={playerData.xba.toFixed(3)}
                             percentile={playerData.xba_p.toFixed(2) * 100}
                             percentile_raw={playerData.xba_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="xSLG"
-                            value={playerData.xslg}
+                            value={playerData.xslg.toFixed(3)}
                             percentile={playerData.xslg_p.toFixed(2) * 100}
                             percentile_raw={playerData.xslg_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="EV"
-                            value={playerData.ev}
+                            value={playerData.ev+(props.isDesktop.isDesktop?" mph":"")}
                             percentile={playerData.ev_p.toFixed(2) * 100}
                             percentile_raw={playerData.ev_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Barrel %"
-                            value={playerData.barrelbbe}
+                            value={playerData.barrelbbe+"%"}
                             percentile={playerData.barrelbbe_p.toFixed(2) * 100}
                             percentile_raw={playerData.barrelbbe_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Hard-Hit%"
-                            value={playerData.xba}
-                            percentile={playerData.xba_p.toFixed(2) * 100}
-                            percentile_raw={playerData.xba_p}
+                            value={playerData.hhrate+"%"}
+                            percentile={playerData.hhrate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.hhrate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Chase %"
-                            value={playerData.chaserate}
+                            value={playerData.chaserate+"%"}
                             percentile={playerData.chaserate_p.toFixed(2) * 100}
                             percentile_raw={playerData.chaserate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Whiff %"
-                            value={playerData.whiffrate}
+                            value={playerData.whiffrate+"%"}
                             percentile={playerData.whiffrate_p.toFixed(2) * 100}
                             percentile_raw={playerData.whiffrate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="K %"
-                            value={playerData.krate}
+                            value={playerData.krate+"%"}
                             percentile={playerData.krate_p.toFixed(2) * 100}
                             percentile_raw={playerData.krate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="BB %"
-                            value={playerData.bbrate}
+                            value={playerData.bbrate+"%"}
                             percentile={playerData.bbrate_p.toFixed(2) * 100}
                             percentile_raw={playerData.bbrate_p}
                           />
@@ -256,70 +256,70 @@ export default function PlayerPage(props: any) {
                         <div>
                           <PlayerCardRow
                             stat="xWOBA"
-                            value={playerData.xwoba}
+                            value={playerData.xwoba.toFixed(3)}
                             percentile={playerData.xwoba_p.toFixed(2) * 100}
                             percentile_raw={playerData.xwoba_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="xBA"
-                            value={playerData.xba}
+                            value={playerData.xba.toFixed(3)}
                             percentile={playerData.xba_p.toFixed(2) * 100}
                             percentile_raw={playerData.xba_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="xSLG"
-                            value={playerData.xslg}
+                            value={playerData.xslg.toFixed(3)}
                             percentile={playerData.xslg_p.toFixed(2) * 100}
                             percentile_raw={playerData.xslg_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="EV"
-                            value={playerData.ev}
+                            value={playerData.ev+(props.isDesktop.isDesktop?" mph":"")}
                             percentile={playerData.ev_p.toFixed(2) * 100}
                             percentile_raw={playerData.ev_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Barrel %"
-                            value={playerData.barrelbbe}
+                            value={playerData.barrelbbe+"%"}
                             percentile={playerData.barrelbbe_p.toFixed(2) * 100}
                             percentile_raw={playerData.barrelbbe_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Hard-Hit%"
-                            value={playerData.xba}
-                            percentile={playerData.xba_p.toFixed(2) * 100}
-                            percentile_raw={playerData.xba_p}
+                            value={playerData.hhrate+"%"}
+                            percentile={playerData.hhrate_p.toFixed(2) * 100}
+                            percentile_raw={playerData.hhrate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Chase %"
-                            value={playerData.chaserate}
+                            value={playerData.chaserate+"%"}
                             percentile={playerData.chaserate_p.toFixed(2) * 100}
                             percentile_raw={playerData.chaserate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="Whiff %"
-                            value={playerData.whiffrate}
+                            value={playerData.whiffrate+"%"}
                             percentile={playerData.whiffrate_p.toFixed(2) * 100}
                             percentile_raw={playerData.whiffrate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="K %"
-                            value={playerData.krate}
+                            value={playerData.krate+"%"}
                             percentile={playerData.krate_p.toFixed(2) * 100}
                             percentile_raw={playerData.krate_p}
                           />
                           <Divider variant="middle" />
                           <PlayerCardRow
                             stat="BB %"
-                            value={playerData.bbrate}
+                            value={playerData.bbrate+"%"}
                             percentile={playerData.bbrate_p.toFixed(2) * 100}
                             percentile_raw={playerData.bbrate_p}
                           />
