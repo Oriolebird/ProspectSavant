@@ -1,5 +1,5 @@
 function set_focus () {
-    console.loog("TEST")
+    console.log("TEST")
 }
 
 function set_module_hide_status () {
