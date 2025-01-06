@@ -1,11 +1,4 @@
-function set_focus () {
+function duke () {
     console.log("TEST")
 }
 
-function set_module_hide_status () {
-    console.log("TEST")
-}
-
-window.onload=function() {
-    console.log("TEST")
-}
