@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from flask_cors import CORS
 
 friar_blueprint = Blueprint('friar_blueprint', __name__)
-CORS(friar_blueprint)
+
 
 current_file = 'padres_july_2024.csv'
 
@@ -534,7 +534,8 @@ def friar_pitcher_pitches(id):
     df = df.query('pitcher_team == \"San Diego Padres\"')
     df["name"] = df["pitcher_name_first"]+"-"+df["pitcher_name_last"]
     df = df.query(f'name == \"{id}\"')
-    df = df[['pitch_type', 'horz_break', 'induced_vert_break']].fillna(0)
+    df = df[['pitch_type', 'horz_break', 'induced_vert_break', 'rel_side', 'rel_height']].fillna(0)
+    df = df.query('rel_side != 0')
 
     return {"data": df.to_dict(orient="records")}
 

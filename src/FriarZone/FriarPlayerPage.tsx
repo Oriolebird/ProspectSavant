@@ -362,6 +362,47 @@ export default function FriarPlayerPage(props: any) {
                 />
               </ScatterChart>
               <CustomLegend colors={legendColors} />
+              <Typography variant="h4" style={{ marginTop: "20px" }} textAlign="center">Release Point Chart</Typography>
+              <ScatterChart
+                width={props.isDesktop.isDesktop ? 700: 400}
+                height={props.isDesktop.isDesktop ? 600: 400}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                  left: 20
+                }}
+              >
+                <CartesianGrid />
+                <XAxis type="number" dataKey="rel_side" name="Release Side" unit="ft" />
+                <YAxis type="number" dataKey="rel_height" name="Release Height" unit="ft" />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                <Scatter name="Pitch Movement" data={pitchData} fill="#8884d8">
+                  {pitchData.map((p: any, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[p.pitch_type]} />
+                  ))}
+                </Scatter>
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} labelFormatter={labelFormatter} />
+                <ReferenceLine y={0} stroke="#000000" />
+                <ReferenceLine x={0} stroke="#000000" />
+                <ReferenceLine
+                  segment={[
+                    {
+                      x: 0,
+                      y: 0
+                    },
+                    {
+                      x: 0,
+                      y: 0
+                    }
+                  ]}
+                  label={{
+                    value: "(0 ,0)",
+                    position: "bottom"
+                  }}
+                />
+              </ScatterChart>
+              <CustomLegend colors={legendColors} />
             </div>}
           </Box>
         </Grid>
