@@ -42,7 +42,7 @@ export default function ProspectWriteup({
 }: {
   playerInfoProp: any;
 }) {
-  console.log(playerInfoProp.common.prospect[0]);
+  //console.log(playerInfoProp.common.prospect[0]);
 
   return (
     <div>

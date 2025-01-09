@@ -38,7 +38,7 @@ const teamColors: { [id: string]: string[] } = {
 };
 
 export default function InfoCard({ playerInfoProp }: { playerInfoProp: any }) {
-  console.log(playerInfoProp);
+  //console.log(playerInfoProp);
   return (
     <div>
       {playerInfoProp.common !== undefined && (

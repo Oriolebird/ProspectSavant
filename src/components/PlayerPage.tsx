@@ -63,12 +63,12 @@ export default function PlayerPage(props: any) {
           .then((res) => res.json())
           .then((data2) => {
             setPlayerInfo(data2);
-            console.log("D: ", data2);
+            //console.log("D: ", data2);
           });
-        console.log("P%", data1);
+        //console.log("P%", data1);
       });
   }, [props.id]);
-  console.log(playerData.MLB_AbbName);
+  //console.log(playerData.MLB_AbbName);
   return (
     <div>
       {playerData !== undefined && playerData !== null && (

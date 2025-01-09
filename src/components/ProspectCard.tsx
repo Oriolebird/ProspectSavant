@@ -45,7 +45,7 @@ export default function ProspectCard({
   playerInfoProp: any;
   isDesktop: boolean;
 }) {
-  console.log(playerInfoProp.common.prospect[0]);
+  //console.log(playerInfoProp.common.prospect[0]);
 
   return (
     <div>

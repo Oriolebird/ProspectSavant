@@ -7,7 +7,10 @@ from flask_cors import CORS
 from thefuzz import fuzz
 
 app = Flask(__name__)
-CORS(app)
+
+from FriarZone import friarzone
+app.register_blueprint(friarzone.friar_blueprint)
+CORS(app, resources={r'/*': {'origins': '*'}})
 
 current_file = 'minors_12_24_2024_700.csv'
 current_pitchers_file = 'minors_pitchers_12_24_2024_700.csv'

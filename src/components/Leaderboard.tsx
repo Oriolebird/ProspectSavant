@@ -179,7 +179,7 @@ export default function Leaderboard(props: any) {
   const handleLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLevel(event.target.value);
   };
-  console.log(level);
+  //console.log(level);
 
   function CustomToolbar() {
     return (
@@ -199,20 +199,20 @@ export default function Leaderboard(props: any) {
   }
 
   useEffect(() => {
-    console.log("Data: ", level);
+    //console.log("Data: ", level);
 
     fetch("https://oriolebird.pythonanywhere.com/leaders/hitters/" + level)
       .then((res) => res.json())
       .then((data) => {
         setHitterData(data.data);
-        console.log("HDATA", data.data);
+        //console.log("HDATA", data.data);
       });
     fetch("https://oriolebird.pythonanywhere.com/leaders/pitchers/" + level)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setPitcherData(data.data);
-        console.log("PDATA", data.data);
+        //console.log("PDATA", data.data);
       });
   }, [level]);
 
