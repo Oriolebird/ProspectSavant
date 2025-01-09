@@ -2,17 +2,11 @@ import { Link } from "@mui/material";
 import Box from "@mui/material/Box";
 import {
   GridColDef,
-  GridCellParams,
   GridRenderCellParams,
 } from "@mui/x-data-grid";
 import chroma from "chroma-js";
 import React from "react";
 
-const scale = chroma.scale([
-  "rgba(0,0,255,0.5)",
-  "#C2C2C2",
-  "rgba(255,0,0,0.5)",
-]);
 
 export const pitcher_columns: GridColDef<any>[] = [
   {
