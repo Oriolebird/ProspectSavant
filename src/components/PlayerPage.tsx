@@ -5,8 +5,8 @@ import React from "react";
 import PlayerCardRow from "./PlayerCardRow";
 import { Divider } from "@mui/material";
 import InfoCard from "./InfoCard";
-import Strider from "./Strider.png";
-import Ohtani from "./Ohtani.png";
+import Strider from "./images/Strider.png";
+import Ohtani from "./images/Ohtani.png";
 import ProspectCard from "./ProspectCard";
 import ProspectWriteup from "./ProspectWriteup";
 

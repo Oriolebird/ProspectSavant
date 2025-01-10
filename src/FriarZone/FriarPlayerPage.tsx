@@ -12,218 +12,16 @@ import {
   Scatter,
 } from "recharts";
 import React, { useState, useEffect } from "react";
-import {
-  DataGrid,
-  gridClasses,
-  GridFooter,
-  gridPageCountSelector,
-  GridPagination,
-  GridToolbarColumnsButton,
-  GridToolbarContainer,
-  GridToolbarDensitySelector,
-  GridToolbarExport,
-  useGridApiContext,
-  useGridSelector,
-} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import {
-  styled,
-  alpha,
-  TablePaginationProps,
   Typography,
   Divider,
 } from "@mui/material";
 import { pitcher_columns, batter_columns } from "./utils/ColumnDefs";
-import MuiPagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
-const ODD_OPACITY = 0.2;
+import { StripedDataGrid, getRowIdBatter, getRowIdPitcher, CustomPagination, CustomToolbar, CustomFooter } from "./utils/GridExtras";
+import { EVENT_COLORS, labelFormatter, CustomLegend, legendEventColors, TRAJ_COLORS, legendTrajColors, COLORS, legendColors } from "./utils/ChartUtils";
 
-const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
-  [`& .${gridClasses.row}.even`]: {
-    backgroundColor: theme.palette.grey[200],
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      "@media (hover: none)": {
-        backgroundColor: "transparent",
-      },
-    },
-    "&.Mui-selected": {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity
-      ),
-      "&:hover": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          ODD_OPACITY +
-          theme.palette.action.selectedOpacity +
-          theme.palette.action.hoverOpacity
-        ),
-        // Reset on touch devices, it doesn't add specificity
-        "@media (hover: none)": {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity
-          ),
-        },
-      },
-    },
-  },
-  [`& .${gridClasses.row}.odd`]: {
-    backgroundColor: "white",
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.primary.main, ODD_OPACITY),
-      "@media (hover: none)": {
-        backgroundColor: "transparent",
-      },
-    },
-    "&.Mui-selected": {
-      backgroundColor: alpha(
-        theme.palette.primary.main,
-        ODD_OPACITY + theme.palette.action.selectedOpacity
-      ),
-      "&:hover": {
-        backgroundColor: alpha(
-          theme.palette.primary.main,
-          ODD_OPACITY +
-          theme.palette.action.selectedOpacity +
-          theme.palette.action.hoverOpacity
-        ),
-        // Reset on touch devices, it doesn't add specificity
-        "@media (hover: none)": {
-          backgroundColor: alpha(
-            theme.palette.primary.main,
-            ODD_OPACITY + theme.palette.action.selectedOpacity
-          ),
-        },
-      },
-    },
-  },
-}));
-
-function Pagination({
-  page,
-  onPageChange,
-  className,
-}: Pick<TablePaginationProps, "page" | "onPageChange" | "className">) {
-  const apiRef = useGridApiContext();
-  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
-
-  return (
-    <MuiPagination
-      color="primary"
-      className={className}
-      count={pageCount}
-      page={page + 1}
-      onChange={(event, newPage) => {
-        onPageChange(event as any, newPage - 1);
-      }}
-      sx={{ backgroundColor: "#FFFFFF" }}
-    />
-  );
-}
-
-function CustomPagination(props: any) {
-  return <GridPagination ActionsComponent={Pagination} {...props} />;
-}
-
-function CustomFooter() {
-  return <GridFooter sx={{ backgroundColor: "#FFFFFF" }}></GridFooter>;
-}
-
-const COLORS: { [id: string]: string } = {
-  "4S": "#D22D49",
-  SL: "#EEE716",
-  CB: "#33DAF1",
-  "2S": "#FE9D00",
-  CH: "#1DBE3A",
-  SW: "#DDB33A",
-  KN: "#6369D7",
-  CT: "#94412E",
-  SP: "#62BDBD",
-};
-
-const EVENT_COLORS: { [id: string]: string } = {
-  field_out: "#BDBDBD",
-  single: "#008000",
-  double: "#0000FF",
-  home_run: "#f7eb11",
-  grounded_into_double_play: "#BDBDBD",
-  force_out: "#BDBDBD",
-  field_error: "#BDBDBD",
-  sac_fly: "#BDBDBD",
-  sac_bunt: "#BDBDBD",
-  triple: "#f42f11",
-  double_play: "#BDBDBD",
-  fielders_choice_out: "#BDBDBD",
-  fielders_choice: "#BDBDBD",
-};
-
-const TRAJ_COLORS: { [id: string]: string } = {
-  ground_ball: "#BDBDBD",
-  line_drive: "#008000",
-  fly_ball: "#0000FF",
-};
-
-const legendColors: any[] = [
-  { key: "4S", color: "#D22D49" },
-  { key: "SL", color: "#EEE716" },
-  { key: "CB", color: "#33DAF1" },
-  { key: "2S", color: "#FE9D00" },
-  { key: "CH", color: "#1DBE3A" },
-  { key: "SW", color: "#DDB33A" },
-  { key: "KN", color: "#6369D7" },
-  { key: "CT", color: "#94412E" },
-  { key: "SP", color: "#62BDBD" },
-];
-
-const legendEventColors: any[] = [
-  { key: "Out", color: "#BDBDBD" },
-  { key: "Single", color: "#008000" },
-  { key: "Double", color: "#0000FF" },
-  { key: "Triple", color: "#f42f11" },
-  { key: "Home Run", color: "#f7eb11" },
-];
-
-const legendTrajColors: any[] = [
-  { key: "Ground Ball", color: "#BDBDBD" },
-  { key: "Line Drive", color: "#008000" },
-  { key: "Fly Ball", color: "#0000FF" },
-];
-
-// Custom Legend Component
-const CustomLegend: React.FC<{ colors: any[] }> = ({ colors }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-      gap: "15px",
-      marginBottom: "20px",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    {colors.map((legend) => (
-      <div key={legend.key} style={{ display: "flex", alignItems: "center" }}>
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            backgroundColor: legend.color,
-            marginRight: "8px",
-          }}
-        />
-        <span style={{ fontSize: "14px" }}>{legend.key}</span>
-      </div>
-    ))}
-  </div>
-);
-
-const labelFormatter = (label: number, payload: any) => {
-  const dataPoint = payload.find((p: any) => p.payload.x === label);
-  return dataPoint ? `Pitch Type: ${dataPoint.payload.pitch_type}` : label;
-};
 
 export default function FriarPlayerPage(props: any) {
   const [playerType, setPlayerType] = useState("batter");
@@ -291,23 +89,9 @@ export default function FriarPlayerPage(props: any) {
       });
   }, [props.id]);
 
-  function CustomToolbar() {
-    return (
-      <GridToolbarContainer sx={{ backgroundColor: "#FFFFFF" }}>
-        <GridToolbarColumnsButton />
-        <GridToolbarDensitySelector />
-        <GridToolbarExport />
-      </GridToolbarContainer>
-    );
-  }
 
-  function getRowIdBatter(row: any) {
-    return row.batter_name_first + row.batter_name_last + row.pitch_type;
-  }
 
-  function getRowIdPitcher(row: any) {
-    return row.pitcher_name_first + row.pitcher_name_last + row.pitch_type;
-  }
+
 
   function replaceLastHyphen(input: any): any {
     const lastIndex = input.lastIndexOf("-");
@@ -389,6 +173,11 @@ export default function FriarPlayerPage(props: any) {
                   sortModel: [{ field: "count", sort: "desc" }],
                 },
                 density: "compact",
+                columns: {
+                  columnVisibilityModel: {
+                    name: false
+                  },
+                },
               }}
             />
             <Divider variant="middle" flexItem />

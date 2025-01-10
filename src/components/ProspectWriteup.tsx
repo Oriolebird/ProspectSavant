@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid2";
 import { Divider, Typography } from "@mui/material";
-import FanBanner from "./FanBanner.png";
+import FanBanner from "./images/FanBanner.png";
 
 const teamColors: { [id: string]: string[] } = {
   TBR: ["#02285C", "#90BDE7", "#FFFFFF"],

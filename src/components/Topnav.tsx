@@ -7,8 +7,8 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Grid, Tab } from "@mui/material";
-import logo from "./logo.png";
-import logo2 from "./logo2.png";
+import logo from "./images/logo.png";
+import logo2 from "./images/logo2.png";
 
 function a11yProps(index: number) {
   return {

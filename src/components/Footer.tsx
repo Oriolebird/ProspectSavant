@@ -1,9 +1,9 @@
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/system";
 import React from "react";
-import SIS from "./SIS.png";
-import MLB from "./MLB.png";
-import Fangraphs from "./fangraphs.png";
+import SIS from "./images/SIS.png";
+import MLB from "./images/MLB.png";
+import Fangraphs from "./images/fangraphs.png";
 
 export default function Footer() {
   return (

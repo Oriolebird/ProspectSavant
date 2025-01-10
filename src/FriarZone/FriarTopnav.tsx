@@ -9,13 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Grid, Tab } from "@mui/material";
 import logo from "./logo.png";
 import logo2 from "./logo2.png";
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import { a11yProps } from "./utils/TabExtras";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

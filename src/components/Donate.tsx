@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@mui/material";
 import { Grid } from "@mui/system";
 import React from "react"; 
-import Paypal from "./Paypal.png"
+import Paypal from "./images/Paypal.png"
 
 export default function Donate(props: any) {
 
