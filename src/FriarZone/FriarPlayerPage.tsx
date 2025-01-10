@@ -1,4 +1,16 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Label, ScatterChart, Cell, ReferenceLine, Scatter } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  Label,
+  ScatterChart,
+  Cell,
+  ReferenceLine,
+  Scatter,
+} from "recharts";
 import React, { useState, useEffect } from "react";
 import {
   DataGrid,
@@ -21,9 +33,7 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import {
-  pitcher_columns, batter_columns
-} from "./utils/ColumnDefs";
+import { pitcher_columns, batter_columns } from "./utils/ColumnDefs";
 import MuiPagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 const ODD_OPACITY = 0.2;
@@ -46,8 +56,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-          theme.palette.action.selectedOpacity +
-          theme.palette.action.hoverOpacity
+            theme.palette.action.selectedOpacity +
+            theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -76,8 +86,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-          theme.palette.action.selectedOpacity +
-          theme.palette.action.hoverOpacity
+            theme.palette.action.selectedOpacity +
+            theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -121,7 +131,39 @@ function CustomFooter() {
   return <GridFooter sx={{ backgroundColor: "#FFFFFF" }}></GridFooter>;
 }
 
-const COLORS: { [id: string]: string } = {"4S":"#D22D49", "SL":"#EEE716", "CB":"#33DAF1", "2S":"#FE9D00", "CH":"#1DBE3A", "SW":"#DDB33A", "KN":"#6369D7", "CT":"#94412E", "SP":"#62BDBD"};
+const COLORS: { [id: string]: string } = {
+  "4S": "#D22D49",
+  SL: "#EEE716",
+  CB: "#33DAF1",
+  "2S": "#FE9D00",
+  CH: "#1DBE3A",
+  SW: "#DDB33A",
+  KN: "#6369D7",
+  CT: "#94412E",
+  SP: "#62BDBD",
+};
+
+const EVENT_COLORS: { [id: string]: string } = {
+  field_out: "#BDBDBD",
+  single: "#008000",
+  double: "#0000FF",
+  home_run: "#f7eb11",
+  grounded_into_double_play: "#BDBDBD",
+  force_out: "#BDBDBD",
+  field_error: "#BDBDBD",
+  sac_fly: "#BDBDBD",
+  sac_bunt: "#BDBDBD",
+  triple: "#f42f11",
+  double_play: "#BDBDBD",
+  fielders_choice_out: "#BDBDBD",
+  fielders_choice: "#BDBDBD",
+};
+
+const TRAJ_COLORS: { [id: string]: string } = {
+  ground_ball: "#BDBDBD",
+  line_drive: "#008000",
+  fly_ball: "#0000FF",
+};
 
 const legendColors: any[] = [
   { key: "4S", color: "#D22D49" },
@@ -135,10 +177,33 @@ const legendColors: any[] = [
   { key: "SP", color: "#62BDBD" },
 ];
 
+const legendEventColors: any[] = [
+  { key: "Out", color: "#BDBDBD" },
+  { key: "Single", color: "#008000" },
+  { key: "Double", color: "#0000FF" },
+  { key: "Triple", color: "#f42f11" },
+  { key: "Home Run", color: "#f7eb11" },
+];
+
+const legendTrajColors: any[] = [
+  { key: "Ground Ball", color: "#BDBDBD" },
+  { key: "Line Drive", color: "#008000" },
+  { key: "Fly Ball", color: "#0000FF" },
+];
 
 // Custom Legend Component
 const CustomLegend: React.FC<{ colors: any[] }> = ({ colors }) => (
-  <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: "15px", marginBottom: "20px", alignItems: "center", justifyContent: "center"}}>
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: "15px",
+      marginBottom: "20px",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
     {colors.map((legend) => (
       <div key={legend.key} style={{ display: "flex", alignItems: "center" }}>
         <div
@@ -160,11 +225,10 @@ const labelFormatter = (label: number, payload: any) => {
   return dataPoint ? `Pitch Type: ${dataPoint.payload.pitch_type}` : label;
 };
 
-
-
 export default function FriarPlayerPage(props: any) {
   const [playerType, setPlayerType] = useState("batter");
   const [swingData, setSwingData] = useState([]);
+  const [sprayData, setSprayData] = useState([]);
   const [pitchData, setPitchData] = useState<any[]>([]);
   const [playerData, setPlayerData] = useState([]);
 
@@ -175,35 +239,54 @@ export default function FriarPlayerPage(props: any) {
         setPlayerType(data.type);
         //console.log("Type", data.type);
         if (data.type === "pitcher") {
-          fetch("https://oriolebird.pythonanywhere.com/friar-pitcher-data/" + props.id)
+          fetch(
+            "https://oriolebird.pythonanywhere.com/friar-pitcher-data/" +
+              props.id
+          )
             .then((res) => res.json())
             .then((data) => {
               setPlayerData(data.data);
               //console.log("PDATA", data.data);
             });
-          fetch("https://oriolebird.pythonanywhere.com/friar-pitcher-pitches/" + props.id)
+          fetch(
+            "https://oriolebird.pythonanywhere.com/friar-pitcher-pitches/" +
+              props.id
+          )
             .then((res) => res.json())
             .then((data) => {
               setPitchData(data.data);
               //console.log("PITCHDATA", data);
             });
-        }
-        else if (data.type === "batter") {
-          fetch("https://oriolebird.pythonanywhere.com/friar-batter-data/" + props.id)
+        } else if (data.type === "batter") {
+          fetch(
+            "https://oriolebird.pythonanywhere.com/friar-batter-data/" +
+              props.id
+          )
             .then((res) => res.json())
             .then((data) => {
               setPlayerData(data.data);
               //console.log("DATA", data.data);
             });
-          fetch("https://oriolebird.pythonanywhere.com/friar-batter-swing/" + props.id)
+          fetch(
+            "https://oriolebird.pythonanywhere.com/friar-batter-swing/" +
+              props.id
+          )
             .then((res) => res.json())
             .then((data) => {
               setSwingData(data);
               //console.log("SWINGDATA", data);
             });
-        }
-        else {
-          console.log("NO SUCH PLAYER")
+          fetch(
+            "https://oriolebird.pythonanywhere.com/friar-batter-spray/" +
+              props.id
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              setSprayData(data.data);
+              console.log("SPRAYDATA", data.data);
+            });
+        } else {
+          console.log("NO SUCH PLAYER");
         }
       });
   }, [props.id]);
@@ -219,15 +302,15 @@ export default function FriarPlayerPage(props: any) {
   }
 
   function getRowIdBatter(row: any) {
-    return row.batter_name_first + row.batter_name_last + row.pitch_type
+    return row.batter_name_first + row.batter_name_last + row.pitch_type;
   }
 
-  function getRowIdPitcher(row:any ){
-    return row.pitcher_name_first + row.pitcher_name_last + row.pitch_type
+  function getRowIdPitcher(row: any) {
+    return row.pitcher_name_first + row.pitcher_name_last + row.pitch_type;
   }
 
   function replaceLastHyphen(input: any): any {
-    const lastIndex = input.lastIndexOf('-');
+    const lastIndex = input.lastIndexOf("-");
     if (lastIndex === -1) {
       return input; // No '-' found, return the string as-is
     }
@@ -236,7 +319,15 @@ export default function FriarPlayerPage(props: any) {
 
   return (
     <div>
-      <Grid container justifyContent="center" spacing={2} maxWidth="100%" alignContent="center" alignItems="center" padding="10px">
+      <Grid
+        container
+        justifyContent="center"
+        spacing={2}
+        maxWidth="100%"
+        alignContent="center"
+        alignItems="center"
+        padding="10px"
+      >
         <Grid item maxWidth="90vw">
           <Box
             sx={{
@@ -244,16 +335,27 @@ export default function FriarPlayerPage(props: any) {
               width: "1200px",
               border: "#293241 solid 2px",
               backgroundColor: "#FFFFFF",
-              boxShadow: "1px 1px 1px black,2px 2px 1px white,3px 3px 1px black,4px 4px 3px"
+              boxShadow:
+                "1px 1px 1px black,2px 2px 1px white,3px 3px 1px black,4px 4px 3px",
             }}
             justifyContent="center"
             alignItems="center"
             display="flex"
             flexDirection="column"
           >
-            <Typography variant="h2" style={{ margin: "5px", marginTop: "20px" }}>{replaceLastHyphen(props.id)}</Typography>
+            <Typography
+              variant="h2"
+              style={{ margin: "5px", marginTop: "20px" }}
+            >
+              {replaceLastHyphen(props.id)}
+            </Typography>
             <Divider variant="middle" flexItem />
-            <Typography variant="h4" style={{ margin: "5px", marginTop: "20px" }}>Pitch Type Performance</Typography>
+            <Typography
+              variant="h4"
+              style={{ margin: "5px", marginTop: "20px" }}
+            >
+              Pitch Type Performance
+            </Typography>
             <StripedDataGrid
               sx={{
                 width: props.isDesktop.isDesktop ? "90%" : "95%",
@@ -265,9 +367,13 @@ export default function FriarPlayerPage(props: any) {
                   backgroundColor: "white",
                 },
               }}
-              getRowId={playerType === "batter" ? getRowIdBatter : getRowIdPitcher}
+              getRowId={
+                playerType === "batter" ? getRowIdBatter : getRowIdPitcher
+              }
               rows={playerData}
-              columns={playerType === "batter" ? batter_columns : pitcher_columns}
+              columns={
+                playerType === "batter" ? batter_columns : pitcher_columns
+              }
               getRowClassName={(params) =>
                 params.indexRelativeToCurrentPage % 2 === 0 ? "even" : "odd"
               }
@@ -286,124 +392,301 @@ export default function FriarPlayerPage(props: any) {
               }}
             />
             <Divider variant="middle" flexItem />
-            {playerType === "batter" && <div>
-              <Typography variant="h4" style={{ marginTop: "20px" }} textAlign="center">Swing Speed Distribution</Typography>
-              <BarChart
-                data={swingData}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 50,
-                }}
-                width={700} height={400}
-                style={{ maxWidth: "95vw" }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="bin">
-                  <Label
-                    value="Swing Speed"
-                    offset={-10}
-                    position="insideBottom"
-                    style={{ fontSize: "14px", fontWeight: "bold" }}
-                  />
-                </XAxis>
-                <YAxis>
-                  <Label
-                    value="Swings"
-                    angle={-90}
-                    position="insideLeft"
-                    style={{ fontSize: "14px", fontWeight: "bold" }}
-                  />
-                </YAxis>
-                <Tooltip />
-                <Bar dataKey="count" fill="#3c302c" name="Swings" />
-              </BarChart>
-            </div>}
-            {playerType === "pitcher"&& <div>
-              <Typography variant="h4" style={{ marginTop: "20px" }} textAlign="center">Pitch Movement Chart</Typography>
-              <ScatterChart
-                width={props.isDesktop.isDesktop ? 700: 400}
-                height={props.isDesktop.isDesktop ? 600: 400}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  bottom: 20,
-                  left: 20
-                }}
-              >
-                <CartesianGrid />
-                <XAxis type="number" dataKey="horz_break" name="Horizontal Break" unit="in" />
-                <YAxis type="number" dataKey="induced_vert_break" name="Vertical Break" unit="in" />
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                <Scatter name="Pitch Movement" data={pitchData} fill="#8884d8">
-                  {pitchData.map((p: any, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[p.pitch_type]} />
-                  ))}
-                </Scatter>
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} labelFormatter={labelFormatter} />
-                <ReferenceLine y={0} stroke="#000000" />
-                <ReferenceLine x={0} stroke="#000000" />
-                <ReferenceLine
-                  segment={[
-                    {
-                      x: 0,
-                      y: 0
-                    },
-                    {
-                      x: 0,
-                      y: 0
-                    }
-                  ]}
-                  label={{
-                    value: "(0 ,0)",
-                    position: "bottom"
+            {playerType === "batter" && (
+              <div>
+                <Typography
+                  variant="h4"
+                  style={{ marginTop: "20px" }}
+                  textAlign="center"
+                >
+                  Swing Speed Distribution
+                </Typography>
+                <BarChart
+                  data={swingData}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 50,
                   }}
-                />
-              </ScatterChart>
-              <CustomLegend colors={legendColors} />
-              <Typography variant="h4" style={{ marginTop: "20px" }} textAlign="center">Release Point Chart</Typography>
-              <ScatterChart
-                width={props.isDesktop.isDesktop ? 700: 400}
-                height={props.isDesktop.isDesktop ? 600: 400}
-                margin={{
-                  top: 20,
-                  right: 20,
-                  bottom: 20,
-                  left: 20
-                }}
-              >
-                <CartesianGrid />
-                <XAxis type="number" dataKey="rel_side" name="Release Side" unit="ft" />
-                <YAxis type="number" dataKey="rel_height" name="Release Height" unit="ft" />
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                <Scatter name="Pitch Movement" data={pitchData} fill="#8884d8">
-                  {pitchData.map((p: any, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[p.pitch_type]} />
-                  ))}
-                </Scatter>
-                <Tooltip cursor={{ strokeDasharray: "3 3" }} labelFormatter={labelFormatter} />
-                <ReferenceLine y={0} stroke="#000000" />
-                <ReferenceLine x={0} stroke="#000000" />
-                <ReferenceLine
-                  segment={[
-                    {
-                      x: 0,
-                      y: 0
-                    },
-                    {
-                      x: 0,
-                      y: 0
-                    }
-                  ]}
-                  label={{
-                    value: "(0 ,0)",
-                    position: "bottom"
+                  width={700}
+                  height={400}
+                  style={{ maxWidth: "95vw" }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="bin">
+                    <Label
+                      value="Swing Speed"
+                      offset={-10}
+                      position="insideBottom"
+                      style={{ fontSize: "14px", fontWeight: "bold" }}
+                    />
+                  </XAxis>
+                  <YAxis>
+                    <Label
+                      value="Swings"
+                      angle={-90}
+                      position="insideLeft"
+                      style={{ fontSize: "14px", fontWeight: "bold" }}
+                    />
+                  </YAxis>
+                  <Tooltip />
+                  <Bar dataKey="count" fill="#3c302c" name="Swings" />
+                </BarChart>
+                <Divider variant="middle" flexItem />
+                <Typography
+                  variant="h4"
+                  style={{ marginTop: "20px" }}
+                  textAlign="center"
+                >
+                  Spray Chart (Results)
+                </Typography>
+                <ScatterChart
+                  width={props.isDesktop.isDesktop ? 700 : 400}
+                  height={props.isDesktop.isDesktop ? 550 : 300}
+                  margin={{
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20,
                   }}
-                />
-              </ScatterChart>
-              <CustomLegend colors={legendColors} />
-            </div>}
+                >
+                  <CartesianGrid />
+                  <XAxis type="number" dataKey="x" name="x" unit="ft" />
+                  <YAxis
+                    type="number"
+                    dataKey="y"
+                    name="y"
+                    unit="ft"
+                    domain={[0, 450]}
+                  />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter name="Spray Chart" data={sprayData} fill="#8884d8">
+                    {sprayData.map((p: any, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={EVENT_COLORS[p.event_type]}
+                      />
+                    ))}
+                  </Scatter>
+                  <Tooltip
+                    cursor={{ strokeDasharray: "3 3" }}
+                    labelFormatter={labelFormatter}
+                  />
+                  <ReferenceLine y={0} stroke="#000000" />
+                  <ReferenceLine x={0} stroke="#000000" />
+                  <ReferenceLine
+                    segment={[
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                    ]}
+                    label={{
+                      value: "(0 ,0)",
+                      position: "bottom",
+                    }}
+                  />
+                </ScatterChart>
+                <CustomLegend colors={legendEventColors} />
+                <Divider variant="middle" flexItem />
+                <Typography
+                  variant="h4"
+                  style={{ marginTop: "20px" }}
+                  textAlign="center"
+                >
+                  Spray Chart (Trajectory)
+                </Typography>
+                <ScatterChart
+                  width={props.isDesktop.isDesktop ? 700 : 400}
+                  height={props.isDesktop.isDesktop ? 550 : 300}
+                  margin={{
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20,
+                  }}
+                >
+                  <CartesianGrid />
+                  <XAxis type="number" dataKey="x" name="x" unit="ft" />
+                  <YAxis
+                    type="number"
+                    dataKey="y"
+                    name="y"
+                    unit="ft"
+                    domain={[0, 450]}
+                  />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter name="Spray Chart" data={sprayData} fill="#8884d8">
+                    {sprayData.map((p: any, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={TRAJ_COLORS[p.hit_trajectory]}
+                      />
+                    ))}
+                  </Scatter>
+                  <Tooltip
+                    cursor={{ strokeDasharray: "3 3" }}
+                    labelFormatter={labelFormatter}
+                  />
+                  <ReferenceLine y={0} stroke="#000000" />
+                  <ReferenceLine x={0} stroke="#000000" />
+                  <ReferenceLine
+                    segment={[
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                    ]}
+                    label={{
+                      value: "(0 ,0)",
+                      position: "bottom",
+                    }}
+                  />
+                </ScatterChart>
+                <CustomLegend colors={legendTrajColors} />
+              </div>
+            )}
+            {playerType === "pitcher" && (
+              <div>
+                <Typography
+                  variant="h4"
+                  style={{ marginTop: "20px" }}
+                  textAlign="center"
+                >
+                  Pitch Movement Chart
+                </Typography>
+                <ScatterChart
+                  width={props.isDesktop.isDesktop ? 700 : 400}
+                  height={props.isDesktop.isDesktop ? 600 : 400}
+                  margin={{
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20,
+                  }}
+                >
+                  <CartesianGrid />
+                  <XAxis
+                    type="number"
+                    dataKey="horz_break"
+                    name="Horizontal Break"
+                    unit="in"
+                  />
+                  <YAxis
+                    type="number"
+                    dataKey="induced_vert_break"
+                    name="Vertical Break"
+                    unit="in"
+                  />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter
+                    name="Pitch Movement"
+                    data={pitchData}
+                    fill="#8884d8"
+                  >
+                    {pitchData.map((p: any, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[p.pitch_type]} />
+                    ))}
+                  </Scatter>
+                  <Tooltip
+                    cursor={{ strokeDasharray: "3 3" }}
+                    labelFormatter={labelFormatter}
+                  />
+                  <ReferenceLine y={0} stroke="#000000" />
+                  <ReferenceLine x={0} stroke="#000000" />
+                  <ReferenceLine
+                    segment={[
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                    ]}
+                    label={{
+                      value: "(0 ,0)",
+                      position: "bottom",
+                    }}
+                  />
+                </ScatterChart>
+                <CustomLegend colors={legendColors} />
+                <Typography
+                  variant="h4"
+                  style={{ marginTop: "20px" }}
+                  textAlign="center"
+                >
+                  Release Point Chart
+                </Typography>
+                <ScatterChart
+                  width={props.isDesktop.isDesktop ? 700 : 400}
+                  height={props.isDesktop.isDesktop ? 600 : 400}
+                  margin={{
+                    top: 20,
+                    right: 20,
+                    bottom: 20,
+                    left: 20,
+                  }}
+                >
+                  <CartesianGrid />
+                  <XAxis
+                    type="number"
+                    dataKey="rel_side"
+                    name="Release Side"
+                    unit="ft"
+                  />
+                  <YAxis
+                    type="number"
+                    dataKey="rel_height"
+                    name="Release Height"
+                    unit="ft"
+                  />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter
+                    name="Pitch Movement"
+                    data={pitchData}
+                    fill="#8884d8"
+                  >
+                    {pitchData.map((p: any, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[p.pitch_type]} />
+                    ))}
+                  </Scatter>
+                  <Tooltip
+                    cursor={{ strokeDasharray: "3 3" }}
+                    labelFormatter={labelFormatter}
+                  />
+                  <ReferenceLine y={0} stroke="#000000" />
+                  <ReferenceLine x={0} stroke="#000000" />
+                  <ReferenceLine
+                    segment={[
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                      {
+                        x: 0,
+                        y: 0,
+                      },
+                    ]}
+                    label={{
+                      value: "(0 ,0)",
+                      position: "bottom",
+                    }}
+                  />
+                </ScatterChart>
+                <CustomLegend colors={legendColors} />
+              </div>
+            )}
           </Box>
         </Grid>
       </Grid>

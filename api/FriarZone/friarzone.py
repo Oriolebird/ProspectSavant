@@ -1,3 +1,4 @@
+import math
 from flask import Blueprint, jsonify, request
 import numpy as np
 import pandas as pd
@@ -312,6 +313,27 @@ def friar_batter_swing(id):
 
     return jsonify(histogram_data)
 
+@friar_blueprint.route("/friar-batter-spray/<id>")
+def friar_batter_spray(id):
+    df = pd.read_csv(current_file)
+    df = df.query('batter_team == \"San Diego Padres\" and in_play == True')
+    df["name"] = df["batter_name_first"]+"-"+df["batter_name_last"]
+    #print("NAMES", df["name"])
+    df = df.query(f'name == \"{id}\"')
+    #print("AAA", df)
+    
+    # cos(90+angle)*hit_distance
+    print(df[["hit_horizontal_angle", "hit_distance"]])
+    df["hit_horizontal_angle"] = df["hit_horizontal_angle"].round(2)
+    df["hit_horizontal_angle"].apply(print)
+    df["x"] = np.sin(np.deg2rad(df["hit_horizontal_angle"]))*df["hit_distance"]
+    df["y"] = np.cos(np.deg2rad(df["hit_horizontal_angle"]))*df["hit_distance"]
+    df = df[["x", "y", "event_type", "hit_trajectory"]].fillna(0)
+
+    print("SPRAY", df)
+
+    return {"data": df.to_dict(orient="records")}
+
 @friar_blueprint.route("/friar-batter-data/<id>")
 def friar_batter_data(id):
     df = pd.read_csv(current_file).fillna(0)
@@ -539,3 +561,4 @@ def friar_pitcher_pitches(id):
 
     return {"data": df.to_dict(orient="records")}
 
+# cos(90+angle)*hit_distance
