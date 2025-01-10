@@ -56,8 +56,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          theme.palette.action.selectedOpacity +
+          theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -86,8 +86,8 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
         backgroundColor: alpha(
           theme.palette.primary.main,
           ODD_OPACITY +
-            theme.palette.action.selectedOpacity +
-            theme.palette.action.hoverOpacity
+          theme.palette.action.selectedOpacity +
+          theme.palette.action.hoverOpacity
         ),
         // Reset on touch devices, it doesn't add specificity
         "@media (hover: none)": {
@@ -241,7 +241,7 @@ export default function FriarPlayerPage(props: any) {
         if (data.type === "pitcher") {
           fetch(
             "https://oriolebird.pythonanywhere.com/friar-pitcher-data/" +
-              props.id
+            props.id
           )
             .then((res) => res.json())
             .then((data) => {
@@ -250,7 +250,7 @@ export default function FriarPlayerPage(props: any) {
             });
           fetch(
             "https://oriolebird.pythonanywhere.com/friar-pitcher-pitches/" +
-              props.id
+            props.id
           )
             .then((res) => res.json())
             .then((data) => {
@@ -260,7 +260,7 @@ export default function FriarPlayerPage(props: any) {
         } else if (data.type === "batter") {
           fetch(
             "https://oriolebird.pythonanywhere.com/friar-batter-data/" +
-              props.id
+            props.id
           )
             .then((res) => res.json())
             .then((data) => {
@@ -269,7 +269,7 @@ export default function FriarPlayerPage(props: any) {
             });
           fetch(
             "https://oriolebird.pythonanywhere.com/friar-batter-swing/" +
-              props.id
+            props.id
           )
             .then((res) => res.json())
             .then((data) => {
@@ -278,7 +278,7 @@ export default function FriarPlayerPage(props: any) {
             });
           fetch(
             "https://oriolebird.pythonanywhere.com/friar-batter-spray/" +
-              props.id
+            props.id
           )
             .then((res) => res.json())
             .then((data) => {
@@ -442,8 +442,8 @@ export default function FriarPlayerPage(props: any) {
                   Spray Chart (Results)
                 </Typography>
                 <ScatterChart
-                  width={props.isDesktop.isDesktop ? 700 : 400}
-                  height={props.isDesktop.isDesktop ? 550 : 300}
+                  width={props.isDesktop.isDesktop ? 700 : 450}
+                  height={props.isDesktop.isDesktop ? 475 : 300}
                   margin={{
                     top: 20,
                     right: 20,
@@ -452,7 +452,7 @@ export default function FriarPlayerPage(props: any) {
                   }}
                 >
                   <CartesianGrid />
-                  <XAxis type="number" dataKey="x" name="x" unit="ft" />
+                  <XAxis type="number" dataKey="x" name="x" unit="ft" domain={[-230, 230]} />
                   <YAxis
                     type="number"
                     dataKey="y"
@@ -469,27 +469,35 @@ export default function FriarPlayerPage(props: any) {
                       />
                     ))}
                   </Scatter>
+                  {props.isDesktop.isDesktop && <svg>
+                    {/* Foul line at +45 degrees */}
+                    <line
+                      x1={380}
+                      y1={430}
+                      x2={675}
+                      y2={178}
+                      stroke="black"
+                      strokeWidth={2}
+                    />
+                    {/* Foul line at -45 degrees */}
+                    <line
+                      x1={380}
+                      y1={430}
+                      x2={85}
+                      y2={178}
+                      stroke="black"
+                      strokeWidth={2}
+                    />
+                    <path
+                      d="M85 178 Q 380 -50, 675 178"
+                      stroke="black"
+                      strokeWidth="2"
+                      fill="none"
+                    />
+                  </svg>}
                   <Tooltip
                     cursor={{ strokeDasharray: "3 3" }}
                     labelFormatter={labelFormatter}
-                  />
-                  <ReferenceLine y={0} stroke="#000000" />
-                  <ReferenceLine x={0} stroke="#000000" />
-                  <ReferenceLine
-                    segment={[
-                      {
-                        x: 0,
-                        y: 0,
-                      },
-                      {
-                        x: 0,
-                        y: 0,
-                      },
-                    ]}
-                    label={{
-                      value: "(0 ,0)",
-                      position: "bottom",
-                    }}
                   />
                 </ScatterChart>
                 <CustomLegend colors={legendEventColors} />
@@ -502,8 +510,8 @@ export default function FriarPlayerPage(props: any) {
                   Spray Chart (Trajectory)
                 </Typography>
                 <ScatterChart
-                  width={props.isDesktop.isDesktop ? 700 : 400}
-                  height={props.isDesktop.isDesktop ? 550 : 300}
+                  width={props.isDesktop.isDesktop ? 700 : 450}
+                  height={props.isDesktop.isDesktop ? 475 : 300}
                   margin={{
                     top: 20,
                     right: 20,
@@ -512,7 +520,7 @@ export default function FriarPlayerPage(props: any) {
                   }}
                 >
                   <CartesianGrid />
-                  <XAxis type="number" dataKey="x" name="x" unit="ft" />
+                  <XAxis type="number" dataKey="x" name="x" unit="ft" domain={[-230, 230]} />
                   <YAxis
                     type="number"
                     dataKey="y"
@@ -529,27 +537,35 @@ export default function FriarPlayerPage(props: any) {
                       />
                     ))}
                   </Scatter>
+                  {props.isDesktop.isDesktop && <svg>
+                    {/* Foul line at +45 degrees */}
+                    <line
+                      x1={380}
+                      y1={430}
+                      x2={675}
+                      y2={178}
+                      stroke="black"
+                      strokeWidth={2}
+                    />
+                    {/* Foul line at -45 degrees */}
+                    <line
+                      x1={380}
+                      y1={430}
+                      x2={85}
+                      y2={178}
+                      stroke="black"
+                      strokeWidth={2}
+                    />
+                    <path
+                      d="M85 178 Q 380 -50, 675 178"
+                      stroke="black"
+                      strokeWidth="2"
+                      fill="none"
+                    />
+                  </svg>}
                   <Tooltip
                     cursor={{ strokeDasharray: "3 3" }}
                     labelFormatter={labelFormatter}
-                  />
-                  <ReferenceLine y={0} stroke="#000000" />
-                  <ReferenceLine x={0} stroke="#000000" />
-                  <ReferenceLine
-                    segment={[
-                      {
-                        x: 0,
-                        y: 0,
-                      },
-                      {
-                        x: 0,
-                        y: 0,
-                      },
-                    ]}
-                    label={{
-                      value: "(0 ,0)",
-                      position: "bottom",
-                    }}
                   />
                 </ScatterChart>
                 <CustomLegend colors={legendTrajColors} />
