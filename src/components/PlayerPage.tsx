@@ -343,7 +343,8 @@ export default function PlayerPage(props: any) {
                   </Paper>
                 )}
             </Grid>
-            <Grid item maxWidth="90vw">
+            {false && 
+              <Grid item maxWidth="90vw">
               <Paper
                 sx={{
                   maxWidth: "90vw",
@@ -359,9 +360,9 @@ export default function PlayerPage(props: any) {
                   <ProspectCard playerInfoProp={playerInfo} isDesktop={props.isDesktop.isDesktop}/>
                 )}
               </Paper>
-            </Grid>
+            </Grid>}
           </Grid>
-          <Grid
+          {false && <Grid
             container
             justifyContent="center"
             spacing={2}
@@ -385,7 +386,7 @@ export default function PlayerPage(props: any) {
                 )}
               </Paper>
             </Grid>
-          </Grid>
+          </Grid>}
         </div>
       )}
     </div>

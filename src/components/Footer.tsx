@@ -3,7 +3,6 @@ import { Grid } from "@mui/system";
 import React from "react";
 import SIS from "./images/SIS.png";
 import MLB from "./images/MLB.png";
-import Fangraphs from "./images/fangraphs.png";
 
 export default function Footer() {
   return (
@@ -96,39 +95,6 @@ export default function Footer() {
             >
               Major League and Minor League Baseball data provided by Major
               League Baseball.
-            </Typography>
-          </Grid>
-          <Grid
-            container
-            justifyContent="center"
-            spacing={0}
-            maxWidth="80%"
-            alignContent="center"
-            width="400px"
-            height="200px"
-            paddingTop="10px"
-          >
-            <a href="https://www.fangraphs.com/">
-              <img
-                src={Fangraphs}
-                height="80px"
-                alt=""
-                style={{
-                  marginLeft: "10px",
-                  marginTop: "10px",
-                  marginBottom: "20px",
-                  boxShadow: "1px 1px 1px white",
-                  border: "5px solid white"
-                }}
-              />
-            </a>
-
-            <Typography
-              style={{ color: "#FFFFFF", textAlign: "center" }}
-              variant="body2"
-            >
-              Prospect Future Values and Summaries/Writeups provided by
-              FanGraphs API.
             </Typography>
           </Grid>
         </Grid>

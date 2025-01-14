@@ -47,7 +47,6 @@ export const hitter_columns: GridColDef<any>[] = [
       return value !== "0" && value !== 0 ? value : "FA";
     },
   },
-  { field: "fv", headerName: "FV", width: 80 },
   { field: "Position", headerName: "Pos", width: 80 },
   { field: "age", headerName: "Age", width: 60 },
   { field: "pa", headerName: "PA", width: 60 },
@@ -564,7 +563,6 @@ export const pitcher_columns: GridColDef<any>[] = [
       return value !== "0" && value !== 0 ? value : "FA";
     },
   },
-  { field: "fv", headerName: "FV", width: 80 },
   { field: "Position", headerName: "Pos", width: 60 },
   { field: "age", headerName: "Age", width: 60 },
   { field: "pa", headerName: "PA", width: 60 },
@@ -1008,7 +1006,6 @@ export const hitter_columns_mobile: GridColDef<any>[] = [
       return value !== "0" && value !== 0 ? value : "FA";
     },
   },
-  { field: "fv", headerName: "FV", width: 100 },
   { field: "Position", headerName: "Pos", width: 100 },
   { field: "age", headerName: "Age", width: 100 },
   { field: "pa", headerName: "PA", width: 100 },
@@ -1525,7 +1522,6 @@ export const pitcher_columns_mobile: GridColDef<any>[] = [
       return value !== "0" && value !== 0 ? value : "FA";
     },
   },
-  { field: "fv", headerName: "FV", width: 80 },
   { field: "Position", headerName: "Pos", width: 100 },
   { field: "age", headerName: "Age", width: 100 },
   { field: "pa", headerName: "PA", width: 100 },
