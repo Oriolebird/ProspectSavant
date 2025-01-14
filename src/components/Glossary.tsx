@@ -251,8 +251,8 @@ export default function Glossary({ isDesktop }: { isDesktop: boolean }) {
             justifyContent="flex-start"
             alignItems="center"
           >
-            <FVTableHitters />
-            <FVTablePitchers />
+            {false && <FVTableHitters />}
+            { false && <FVTablePitchers />}
           </Grid>
           <Paper
             sx={{
