@@ -105,7 +105,6 @@ export default function TopNav({
                 component="div"
                 sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
               ></Typography>
-              <Tab label="FriarZone" {...a11yProps(2)} href="/friar-zone" />
               <Tab label="Donate" {...a11yProps(1)} href="/donate" />
               <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
               <Grid
@@ -239,7 +238,6 @@ export default function TopNav({
                 alt=""
                 style={{ maxWidth: "100%", boxShadow: "0px 2px 0px black", marginTop: "10px", borderTop: "2px solid black"   }}
               />
-                <Tab label="FriarZone" {...a11yProps(2)} href="/friar-zone" />
                 <Tab label="Donate" {...a11yProps(1)} href="/donate" />
                 <Tab label="Leaderboard" {...a11yProps(0)} href="/leaders" />
                 <Grid container spacing={0} columns={1} direction="column" style={{marginBottom: "10px"}}>
